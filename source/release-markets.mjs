@@ -15,7 +15,9 @@ export async function releaseMarkets(target, { h, chain, current }) {
       catch { copied.textContent=' Copy unavailable. Select the mint above to copy it.'; }
     }}, 'Copy HLYS mint'),
     h('a', {class:'ely-btn',href:'https://solscan.io/token/'+mint,target:'_blank',rel:'noopener noreferrer','aria-label':'View HLYS mint on Solscan (opens in a new tab)'}, 'View on Solscan'), copied);
-  target.replaceChildren(marketIntro(h, mode),...(mode==='solana'||mode==='all'?[ecosystem]:[]),status,coverage,results);
+  const intro=marketIntro(h, mode);
+  if(mode==='elysium'){const heading=intro.querySelector('h1,h2');if(heading)heading.textContent='Explore Elysium tokens';}
+  target.replaceChildren(intro,...(mode==='solana'||mode==='all'?[h('p', {}, 'Hypeliysium is a Solana launchpad. Create a coin and discover markets. HLYS is its ecosystem token.'),ecosystem]:[]),status,coverage,results);
   const load = async () => {
     const response = await fetch('/api/discovery');
     if (!response.ok) throw Error('Discovery unavailable. Existing coverage cannot be confirmed.');
@@ -24,7 +26,7 @@ export async function releaseMarkets(target, { h, chain, current }) {
     if (current()) {
       status.textContent = mode==='elysium' ? 'Explore Hypeliysium launches and Elysium markets.' : mode==='all' ? 'Explore Hypeliysium launches and markets across chains.' : 'Explore Hypeliysium launches and Solana markets.';
       coverage.replaceChildren(h('summary', {}, 'Discovery coverage and provenance'), ...Object.entries(snapshot.sources).map(([name, source]) => h('p',{}, `${name}: ${source.status}${source.count == null ? ' · count unknown' : ` · ${source.count} verified/returned`}${source.error ? ` · ${source.error}` : ''}${source.coverage ? ` · ${source.coverage}` : ''}${source.retainedStale ? ` · ${source.retainedStale} cached rows retained as stale` : ''}${source.warnings?.length ? ` · ${source.warnings.join(' ')}` : ''}`)));
-      coverage.append(h('p', {}, 'Platform launch provenance is verified separately from ecosystem identity. HLYS is an ecosystem token, not a verified platform launch. Elysium prices use confirmed pool state; FDV uses total supply, not circulating supply. Discovery and history coverage are bounded. Missing artwork is not fabricated.'));
+      coverage.append(h('p', {}, 'Platform launch provenance is verified separately from ecosystem identity. HLYS is an ecosystem token, not a verified platform launch. Elysium is an early-live network; its official public-mainnet status has not been verified. Elysium prices use confirmed pool state; FDV uses total supply, not circulating supply. Discovery and history coverage are bounded. Missing artwork is not fabricated.'));
       if (!rows.length) status.textContent = snapshot.refreshing ? 'Discovery is still scanning. No verified rows available yet; this is not a confirmed zero.' : 'No rows available for this chain. Check source coverage before interpreting this as zero launches.';
     }
     return { rows, checkedAt:snapshot.checkedAt, partial:true, coverageNote:mode==='elysium'?'Pool records · see discovery coverage':'See discovery coverage' };

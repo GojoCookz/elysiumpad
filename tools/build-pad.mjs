@@ -4,6 +4,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import {exposeEvmRewards} from '../source/release-launch-overlay.mjs';
+import {updatePublicCopy} from './public-copy.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const workspace = path.dirname(root);
 const source = path.join(workspace, 'getrektdonhype/source/elysium');
@@ -22,6 +23,7 @@ await build({
       let contents=await readFile(file,'utf8');
       contents=`import {releaseMarkets} from ${JSON.stringify(path.join(root,'source/release-markets.mjs'))};\n`+contents;
       contents=contents.replace("let remembered = 'elysium'", "let remembered = 'solana'").replace("getItem('purrlysium.active-chain') || remembered", "getItem('purrlysium.active-chain') || remembered");
+      contents=contents.replace('Elysium ${m.chainId} · unverified network','Elysium · ${m.chainId}');
       contents=contents.replace("const hasMc3 = (await rpc", "let initialChain='solana'; try { initialChain=resolveRoute(location.href,sessionStorage.getItem('purrlysium.active-chain')||'solana').chain; } catch {}\n  const hasMc3 = initialChain === 'elysium' && (await rpc");
       const marker="  if (__PURRLYSIUM__ && wallets.active === 'solana') {";
       if(!contents.includes(marker))throw Error('Market render insertion point changed');
@@ -62,3 +64,4 @@ await build({
     });
   }}]
 });
+await updatePublicCopy(new URL('../',import.meta.url));
