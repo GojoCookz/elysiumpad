@@ -1,6 +1,6 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {mergeMarkets,platformProof,sourceFailure,rank} from '../source/discovery-core.mjs';
+import {mergeMarkets,platformProof,sourceFailure,rank,retainPartialRows} from '../source/discovery-core.mjs';
 const row=(address,kind,verified,volume=0,chain='solana')=>({address,chain,symbol:address,volume,provenance:{kind,verified}});
 test('verified platform launches precede ecosystem and high-volume wider markets',()=>{
  const rows=mergeMarkets([row('market','market',true,1e9),row('ecosystem','ecosystem',true,20),row('own','platform',true,0)]);
@@ -27,4 +27,21 @@ test('source outages preserve known rows and distinguish unknown from confirmed 
  assert.equal(known.status,'stale');assert.equal(known.count,4);assert.equal(known.complete,false);
  const unknown=sourceFailure({count:null},'registry unavailable');assert.equal(unknown.status,'unavailable');assert.equal(unknown.count,null);
  const confirmed=sourceFailure({count:0,checkedAt:'2026-11-07T00:00:00Z',complete:true},'RPC limited');assert.equal(confirmed.count,0);assert.equal(confirmed.complete,false);
+});
+test('conflicting external pools cannot inherit verified platform routing or metrics',()=>{
+ const platform={...row('0xabc','platform',true,2,'elysium'),poolId:'platform-pool',pair:'own-pair',key:{hooks:'own-hook'}};
+ const external={...row('0xabc','market',true,999,'elysium'),poolId:'external-pool',pair:'other-pair',key:{hooks:'other-hook'}};
+ for(const groups of [[platform,external],[external,platform]]){const result=mergeMarkets(groups)[0];assert.equal(result.poolId,'platform-pool');assert.equal(result.pair,'own-pair');assert.equal(result.key.hooks,'own-hook');assert.equal(result.volume,2);}
+});
+test('partial successful scans retain missing cached rows with stale labels',()=>{
+ const previous=[row('a','market',false,3),row('b','market',false,2)];
+ const result=retainPartialRows(previous,[row('a','market',false,4)],['A quote-asset pool source is unavailable.']);
+ assert.equal(result.retained,1);assert.equal(result.rows.find(r=>r.address==='b').stale,true);assert.equal(result.sourceFailed,true);
+ assert.equal(retainPartialRows(previous,[],['Some token artwork is unavailable.']).rows.length,0);
+ assert.equal(retainPartialRows(previous,[],['Name search is unavailable.'],1).rows.length,1);
+});
+test('conflicting pool cannot supply absent routing fields to platform record',()=>{
+ const platform={...row('0xabc','platform',true,2,'elysium'),poolId:'platform-pool'};
+ const external={...row('0xabc','market',true,999,'elysium'),poolId:'external-pool',manager:'external',key:{hooks:'external'}};
+ for(const groups of [[platform,external],[external,platform]]){const result=mergeMarkets(groups)[0];assert.equal(result.manager,undefined);assert.equal(result.key,undefined);}
 });

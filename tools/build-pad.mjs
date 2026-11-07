@@ -36,6 +36,9 @@ await build({
       contents=`import {rank} from ${JSON.stringify(path.join(root,'source/discovery-core.mjs'))};\n`+contents;
       contents=contents.replace('    const x = metric(a[key]), y = metric(b[key]);','    if(rank(a)!==rank(b))return rank(a)-rank(b);\n    const x = metric(a[key]), y = metric(b[key]);');
       contents=contents.replace('`${chainName} adapter`',"row.provenance?.kind === 'platform' && row.provenance?.verified ? 'Verified platform launch' : row.provenance?.kind === 'ecosystem' ? 'Ecosystem · not proven platform-launched' : 'Wider market · no platform provenance'");
+      contents=contents.replace("'Observed market'), h('h2'", "featured.provenance?.kind === 'ecosystem' ? 'Ecosystem · not proven platform-launched' : featured.provenance?.kind === 'platform' && featured.provenance?.verified ? 'Verified platform launch' : 'Observed market'), h('h2'");
+      contents=contents.replace("h('small', { class: 'market-route' }, `${rowChain === 'solana' ? 'Solana' : 'Elysium'} adapter route`)","h('small', { class: 'market-route' }, row.provenance?.kind === 'ecosystem' ? 'Ecosystem · not proven platform-launched' : row.provenance?.kind === 'platform' && row.provenance?.verified ? 'Verified platform launch' : 'Wider market · no platform provenance')");
+      contents=contents.replace("h('small', { class: 'market-route' }, `${chainName} adapter route`)","h('small', { class: 'market-route' }, row.stale ? 'Cached market · stale source' : `${chainName} adapter route`)");
       return{contents,loader:'js',resolveDir:path.dirname(file)};
     });
     build.onLoad({filter:/[/\\]elysium[/\\]routes\.mjs$/},async({path:file})=>({contents:routePolicy,loader:'js',resolveDir:path.dirname(file)}));

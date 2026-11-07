@@ -49196,7 +49196,7 @@ function loadConfig(product, env = {}) {
   return Object.freeze({ product, name, publicBrand, pumpCreationOnly, port, host: env.HOST || "127.0.0.1", origin, rpcUrl, jupiterKey: env.JUPITER_API_KEY || "", programId, revenueProgramId, launchlabPlatformId, revenueEnabled: env.PAD_REVENUE_ENABLED === "true", wallets: Object.freeze(wallets), quoteAssets: Object.freeze(quoteAssets), preferredQuote: PRODUCTS[product].preferredQuote, tradingEnabled: env.PAD_TRADING_ENABLED === "true", launchEnabled: env.PAD_LAUNCH_ENABLED === "true", feesEnabled: env.PAD_FEES_ENABLED === "true", metadataEnabled: env.PAD_METADATA_ENABLED === "true", pinataJwt: env.PINATA_JWT || "", storageDirectory: env.PAD_DATA_DIR || `./data/${product}` });
 }
 function publicConfig(config) {
-  return { product: config.product, name: config.name, execution: "monerochan-direct", network: "solana-mainnet", programId: config.programId, wallets: config.wallets, quoteAssets: config.quoteAssets, preferredQuote: config.preferredQuote, tradingConfigured: Boolean(config.tradingEnabled && config.rpcUrl && config.jupiterKey), pumpCreationConfigured: Boolean(config.pumpCreationOnly && config.launchEnabled && config.metadataEnabled && config.rpcUrl && config.pinataJwt), missing: [...!config.rpcUrl ? ["SOLANA_RPC_URL"] : [], ...!config.jupiterKey ? ["JUPITER_API_KEY"] : [], ...!config.programId ? ["PAD_PROGRAM_ID"] : [], ...ROLES.filter((role) => !config.wallets[role]).map((role) => `PAD_${role.toUpperCase()}_WALLET`)], contractVerified: false, launchEnabled: false, platformSwapFeeBps: 0 };
+  return { product: config.product, name: config.name, execution: "monerochan-direct", network: "solana-mainnet", programId: config.programId, wallets: config.wallets, quoteAssets: config.quoteAssets, preferredQuote: config.preferredQuote, tradingConfigured: Boolean(config.tradingEnabled && config.rpcUrl && config.jupiterKey), pumpCreationConfigured: Boolean(config.launchEnabled && config.metadataEnabled && config.rpcUrl && config.pinataJwt), missing: [...!config.rpcUrl ? ["SOLANA_RPC_URL"] : [], ...!config.jupiterKey ? ["JUPITER_API_KEY"] : [], ...!config.programId ? ["PAD_PROGRAM_ID"] : [], ...ROLES.filter((role) => !config.wallets[role]).map((role) => `PAD_${role.toUpperCase()}_WALLET`)], contractVerified: false, launchEnabled: false, platformSwapFeeBps: 0 };
 }
 
 // backend/swaps.mjs
@@ -96537,7 +96537,7 @@ async function createElysiumHandler({ root: root2, env = process.env, fetcher = 
     }
   }
   const purrApp = purrManifest ? app2 : null;
-  const discovery = purrManifest ? await (await import('./discovery-runtime.mjs')).createMarketDiscovery({env,manifest:JSON.parse(purrManifest.body),seedPath:new URL('discovery-seed.json',root2)}) : null;
+  const discovery = purrManifest ? await (await import('./discovery-runtime.mjs')).createMarketDiscovery({env,manifest:JSON.parse(purrManifest.body),seedPath:new URL('discovery-seed.json',root2),getCachedArtwork:mint=>artworkByMint.get(mint),metadataAddress:mint=>import_web332.PublicKey.findProgramAddressSync([Buffer.from('metadata'),new import_web332.PublicKey('metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s').toBuffer(),new import_web332.PublicKey(mint).toBuffer()],new import_web332.PublicKey('metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s'))[0].toBase58(),decodeMessage:encoded=>Buffer.from(import_web332.VersionedTransaction.deserialize(Buffer.from(encoded,'base64')).message.serialize()).toString('base64')}) : null;
   const HTML = "text/html; charset=utf-8";
   const page = async (name, type = HTML) => ({ type, body: await readFile5(new URL(name, root2)) });
   const gate = (await readFile5(new URL("elysium/purrlysium/gate.html", root2))).toString("utf8");
@@ -96723,6 +96723,8 @@ ${portal}</section>`)) });
   return async function handle(req, res, url) {
     if (!hosts.has(requestHost(req))) return app2 ? app2(req, res, url) : false;
     const p2 = url.pathname;
+    const artworkRoute=/^\/api\/discovery\/art\/solana\/([1-9A-HJ-NP-Za-km-z]{32,44})$/.exec(p2);
+    if(artworkRoute && req.method==='GET' && discovery){const asset=await discovery.artwork.get(artworkRoute[1]);return asset?serve(req,res,200,{...asset,cache:'public, max-age=21600'}):jsonOut(res,404,{error:'Verified mint artwork unavailable'});}
     if (p2 === '/api/discovery' && req.method === 'GET' && discovery) return jsonOut(res, 200, discovery.snapshot());
     if (p2 === '/healthz' && ['GET', 'HEAD'].includes(req.method)) return jsonOut(res, heavenOn && purrApp ? 200 : 503, { service: 'hypeliysium', ui: heavenOn ? 'standalone' : 'legacy', chainId: 99901 });
     if (WORLD_DIR && p2 === "/world/api/travel/issue") return jsonOut(res, 503, { error: "World travel is unavailable while destinations are verified. Stay in Atlantis." });
@@ -96935,7 +96937,7 @@ var fields = {
   DATA_DIR: "PAD_DATA_DIR"
 };
 function purrSolanaEnvironment(env) {
-  const own = { PAD_PRODUCT: "leveragepad", PAD_BRAND_NAME: "Hypeliysium", PAD_DATA_DIR: "./data/purrlysium-solana", PORT: "3109" };
+  const own = { PAD_PRODUCT: "leveragepad", PAD_BRAND_NAME: "Hypeliysium", PAD_DATA_DIR: "./data/purrlysium-solana", PAD_DISCOVERY_DATA_DIR: path3.join(env.PAD_DATA_DIR || './data', 'discovery'), PORT: "3109" };
   for (const [suffix, key2] of Object.entries(fields)) if (env[`PURRLYSIUM_SOLANA_${suffix}`]) own[key2] = env[`PURRLYSIUM_SOLANA_${suffix}`];
   if (env.PURRLYSIUM_REUSE_AUTHORIZED === "true") {
     const reuse = { RPC_URL: "SOLANA_RPC_URL", JUPITER_API_KEY: "JUPITER_API_KEY", PUBLIC_ORIGIN: "PUBLIC_ORIGIN", PINATA_JWT: "PINATA_JWT" };
@@ -99645,6 +99647,7 @@ async function createPadServer({ product, env = process.env, root: root2, infras
         }
         if (url.pathname === "/api/pump/build") {
           const built = await launches.buildDirect(await body(req));
+          if (env.PAD_DISCOVERY_DATA_DIR) await (await import('./discovery-runtime.mjs')).recordPumpBuild({directory:env.PAD_DISCOVERY_DATA_DIR,built,message:Buffer.from(import_web332.VersionedTransaction.deserialize(Buffer.from(built.transaction,'base64')).message.serialize()).toString('base64')});
           if (config.pumpCreationOnly) pumpSubmissions.remember(built);
           send(req, res, 200, built);
           return;

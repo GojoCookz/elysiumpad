@@ -2997,8 +2997,8 @@ var init_decodeFunctionResult = __esm({
 });
 
 // source/discovery.mjs
-import { mkdir, readFile, writeFile, rename } from "node:fs/promises";
-import path from "node:path";
+import { mkdir as mkdir3, readFile as readFile3, writeFile as writeFile3, rename as rename2 } from "node:fs/promises";
+import path3 from "node:path";
 
 // ../hoodstonk/app/node_modules/viem/_esm/index.js
 init_exports();
@@ -3170,11 +3170,26 @@ function mergeMarkets(...groups) {
     const key = identity(row), old = rows.get(key);
     if (!old) rows.set(key, row);
     else {
-      const preferred = rank(row) < rank(old) ? row : old;
-      rows.set(key, { ...old, ...Object.fromEntries(Object.entries(row).filter(([, v]) => v !== null && v !== void 0 && v !== "")), provenance: preferred.provenance });
+      const preferred = rank(row) <= rank(old) ? row : old;
+      const other = preferred === row ? old : row;
+      const poolA = preferred.poolId || preferred.original?.pairAddress;
+      const poolB = other.poolId || other.original?.pairAddress;
+      const conflict = poolA && poolB && poolA !== poolB;
+      const merged = conflict ? { ...preferred } : { ...other, ...preferred };
+      if (!conflict) {
+        for (const field of ["price", "volume", "cap", "change", "image"]) if (row[field] !== null && row[field] !== void 0) merged[field] = row[field];
+      }
+      rows.set(key, merged);
     }
   }
   return [...rows.values()].sort((a, b) => rank(a) - rank(b) || (b.volume ?? -1) - (a.volume ?? -1) || a.address.localeCompare(b.address));
+}
+function retainPartialRows(previous, incoming, warnings = [], limit = 100) {
+  const failed = warnings.some((w) => /(?:source|Name search).*is unavailable/i.test(w));
+  if (!failed) return { rows: incoming, retained: 0, sourceFailed: false };
+  const present = new Set(incoming.map(identity));
+  const stale = previous.filter((row) => !present.has(identity(row))).slice(0, Math.max(0, limit - incoming.length)).map((row) => ({ ...row, stale: true }));
+  return { rows: mergeMarkets(incoming, stale), retained: stale.length, sourceFailed: true };
 }
 function sourceFailure(previous, error, now = (/* @__PURE__ */ new Date()).toISOString()) {
   return { ...previous, status: previous?.checkedAt ? "stale" : "unavailable", complete: false, error: String(error).slice(0, 180), attemptedAt: now };
@@ -3184,6 +3199,416 @@ function platformProof(log, launcher, topic, from, to) {
 }
 function sourceNote(sources) {
   return Object.entries(sources).map(([name, s]) => `${name}: ${s.status}${s.count === null || s.count === void 0 ? "" : ` (${s.count})`}${s.error ? ` \u2014 ${s.error}` : ""}`).join(" \xB7 ");
+}
+
+// source/pump-provenance.mjs
+import { createHash } from "node:crypto";
+import { mkdir, readFile, writeFile, rename } from "node:fs/promises";
+import path from "node:path";
+var messageHash = (message) => createHash("sha256").update(Buffer.from(message, "base64")).digest("hex");
+var writes = Promise.resolve();
+function recordPumpBuild({ directory, built, message }) {
+  const write = async () => {
+    await mkdir(directory, { recursive: true });
+    const file = path.join(directory, "pump-builds.json");
+    let rows = [];
+    try {
+      rows = JSON.parse(await readFile(file, "utf8"));
+    } catch (e) {
+      if (e.code !== "ENOENT") throw e;
+    }
+    const hash2 = messageHash(message);
+    rows = rows.filter((row) => row.messageHash !== hash2);
+    rows.push({ mint: built.mint, wallet: built.wallet, quoteMint: built.quote.mint, messageHash: hash2, createdAt: (/* @__PURE__ */ new Date()).toISOString() });
+    await writeFile(file + ".tmp", JSON.stringify(rows.slice(-500)));
+    await rename(file + ".tmp", file);
+  };
+  const pending = writes.then(write, write);
+  writes = pending.catch(() => {
+  });
+  return pending;
+}
+function matchesPumpReceipt(candidate, transaction, message, curve) {
+  return transaction?.meta?.err === null && messageHash(message) === candidate.messageHash && curve?.creator === candidate.wallet && curve?.quoteMint === candidate.quoteMint && curve?.creatorFeeBps === 300 && !!curve?.curve;
+}
+
+// source/artwork.mjs
+import { mkdir as mkdir2, readFile as readFile2, writeFile as writeFile2 } from "node:fs/promises";
+import path2 from "node:path";
+
+// source/token-metadata.mjs
+import { lookup } from "node:dns/promises";
+import { isIP } from "node:net";
+var MINT = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/;
+var CID = /^(Qm[1-9A-HJ-NP-Za-km-z]{44}|b[a-z2-7]{50,})$/;
+var DEFAULT_IPFS_GATEWAYS = Object.freeze(["https://ipfs.filebase.io/ipfs/", "https://pump.mypinata.cloud/ipfs/"]);
+var METAPLEX = "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s";
+var PRIVATE_IP = [/^0\./, /^10\./, /^127\./, /^169\.254\./, /^172\.(1[6-9]|2\d|3[01])\./, /^192\.168\./, /^100\.(6[4-9]|[7-9]\d|1[01]\d|12[0-7])\./, /^(22[4-9]|2[3-5]\d)\./, /^::1?$/, /^f[c-d]/i, /^fe[89ab]/i, /^::ffff:/i, /^64:ff9b:/i];
+async function isPublicHttps(value, resolveHost = (host) => lookup(host, { all: true })) {
+  try {
+    const u = new URL(value);
+    if (u.protocol !== "https:" || u.username || u.password || u.port || isIP(u.hostname.replace(/^\[|\]$/g, "")) || !u.hostname.includes(".") || /(^|\.)(localhost|local|internal|lan|home|arpa|corp)$/i.test(u.hostname)) return false;
+    const addrs = await resolveHost(u.hostname);
+    return Array.isArray(addrs) && addrs.length > 0 && addrs.every((a) => !PRIVATE_IP.some((r) => r.test(a.address)));
+  } catch {
+    return false;
+  }
+}
+var ART_TTL = 6 * 36e5;
+var MISS_TTL = 12e4;
+var EMPTY_TTL = 18e5;
+var CAP_TTL = 6e4;
+var MAX_ENTRIES = 2e3;
+function parseMetaplexUri(data) {
+  let o = 65;
+  const str = () => {
+    const n = data.readUInt32LE(o);
+    o += 4;
+    if (n > 1e3 || o + n > data.length) throw new Error("metadata");
+    const s = data.subarray(o, o + n).toString("utf8").replace(/\0+$/, "").trim();
+    o += n;
+    return s;
+  };
+  str();
+  str();
+  return str();
+}
+function ipfsParts(value) {
+  try {
+    if (typeof value !== "string") return null;
+    if (value.startsWith("ipfs://")) {
+      const [cid, ...rest] = value.slice(7).replace(/^ipfs\//, "").split("/");
+      return CID.test(cid) ? { cid, path: rest.length ? `/${rest.join("/")}` : "" } : null;
+    }
+    const u = new URL(value);
+    const sub = u.hostname.match(/^([a-z0-9]+)\.ipfs\./i);
+    if (sub && CID.test(sub[1])) return { cid: sub[1], path: u.pathname === "/" ? "" : u.pathname };
+    const m = u.pathname.match(/^\/ipfs\/([^/]+)(\/.*)?$/);
+    if (m && CID.test(m[1])) return { cid: m[1], path: m[2] || "" };
+  } catch {
+  }
+  return null;
+}
+function artworkCandidates(value, gateways = DEFAULT_IPFS_GATEWAYS) {
+  const ipfs = ipfsParts(value), out = ipfs ? gateways.map((g) => `${g}${ipfs.cid}${ipfs.path}`) : [];
+  try {
+    const u = new URL(value);
+    if (u.protocol === "https:") out.push(u.href);
+  } catch {
+  }
+  return [...new Set(out)];
+}
+function createTokenMetadata({ fetcher = fetch, env = {}, now = Date.now, infrastructure = null, resolveHost, metadataAddress, allowedMetadata = isPublicHttps, log = () => {
+}, sleep: sleep2 = (ms) => new Promise((r) => setTimeout(r, ms)) } = {}) {
+  const jupKey = env.JUP_API_KEY || env.JUPITER_API_KEY || "";
+  const gateways = (env.IPFS_GATEWAYS || "").split(",").map((s) => s.trim()).filter((s) => /^https:\/\/[^/]+\/(ipfs\/)?$/.test(s)).map((s) => s.endsWith("ipfs/") ? s : `${s}ipfs/`);
+  const gw = gateways.length ? gateways : DEFAULT_IPFS_GATEWAYS;
+  const art = /* @__PURE__ */ new Map();
+  const breaker = { jupiter: { until: 0, fails: 0 }, pump: { until: 0, fails: 0 } };
+  const trip = (name, why) => {
+    const b = breaker[name];
+    if (now() < b.until) return;
+    b.fails++;
+    const wait = Math.min(6e5, 15e3 * 2 ** (b.fails - 1));
+    b.until = now() + wait;
+    log(`${name} unavailable (${why}); backing off ${Math.round(wait / 1e3)}s`);
+  };
+  const ok = (name) => {
+    breaker[name].fails = 0;
+    breaker[name].until = 0;
+  };
+  const open = (name) => now() < breaker[name].until;
+  const entry = (mint) => art.get(mint) || {};
+  function put(mint, patch) {
+    const prev = entry(mint);
+    art.delete(mint);
+    art.set(mint, { ...prev, ...patch });
+    if (art.size > MAX_ENTRIES) art.delete(art.keys().next().value);
+  }
+  async function getJson(url, { headers = {}, timeout = 8e3, limit = 0, follow = null } = {}) {
+    let r;
+    for (let hop = 0; ; hop++) {
+      try {
+        r = await fetcher(url, { headers: { accept: "application/json", ...headers }, redirect: "manual", signal: AbortSignal.timeout(timeout) });
+      } catch (e) {
+        throw Object.assign(new Error(`${e.name}: ${e.message}${e.cause?.code ? ` (${e.cause.code})` : ""}`), { transport: true });
+      }
+      const next = r.status >= 300 && r.status < 400 && r.headers.get("location");
+      if (!next || !follow || hop >= 2) break;
+      const target = new URL(next, url).href;
+      if (!await follow(target)) break;
+      url = target;
+    }
+    if (!r.ok) {
+      let body = "";
+      try {
+        body = (await r.text()).replace(/\s+/g, " ").slice(0, 160);
+      } catch {
+      }
+      throw Object.assign(new Error(`HTTP ${r.status}${body ? ` ${body}` : ""}`), { status: r.status });
+    }
+    const reader = r.body.getReader(), chunks = [];
+    let size2 = 0;
+    const cap = limit || 5e5;
+    for (; ; ) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      size2 += value.length;
+      if (size2 > cap) {
+        await reader.cancel();
+        throw new Error("response too large");
+      }
+      chunks.push(value);
+    }
+    return JSON.parse(Buffer.concat(chunks).toString("utf8"));
+  }
+  async function jupiter(mints) {
+    const hosts = jupKey ? ["https://api.jup.ag"] : ["https://api.jup.ag", "https://lite-api.jup.ag"];
+    for (let start = 0; start < mints.length; start += 20) {
+      if (open("jupiter")) return;
+      const group = mints.slice(start, start + 20), q = new URLSearchParams({ query: group.join(",") });
+      let records = null, errors = [];
+      for (const host of hosts) {
+        for (let attempt = 0; attempt < 2 && !records; attempt++) {
+          try {
+            const data = await getJson(`${host}/tokens/v2/search?${q}`, { headers: jupKey ? { "x-api-key": jupKey } : {} });
+            if (!Array.isArray(data)) throw new Error("unexpected response shape");
+            records = { host, data };
+          } catch (e) {
+            errors.push(`${host.replace("https://", "")}: ${e.message}`);
+            if (e.status === 429 && attempt === 0) await sleep2(750);
+            else break;
+          }
+        }
+        if (records) break;
+      }
+      if (!records) {
+        trip("jupiter", errors.join(" | "));
+        return;
+      }
+      ok("jupiter");
+      const wanted = new Set(group);
+      for (const r of records.data) {
+        if (!wanted.has(r?.id)) continue;
+        const images = artworkCandidates(r.icon, gw), cap = Number.isFinite(Number(r.mcap)) && Number(r.mcap) >= 0 ? Number(r.mcap) : null;
+        const sourceUrl = `${records.host}/tokens/v2/search?query=${r.id}`;
+        put(r.id, { answeredAt: now(), capAt: now(), marketCapUsd: cap, capSourceUrl: sourceUrl, ...images.length ? { images, artAt: now(), source: "jupiter", sourceUrl } : {} });
+      }
+    }
+  }
+  async function pump(mint) {
+    if (open("pump")) return false;
+    try {
+      const c = await getJson(`https://frontend-api-v3.pump.fun/coins/${mint}`, { timeout: 6e3, limit: 2e5 });
+      ok("pump");
+      if (c?.mint !== mint) return false;
+      const images = artworkCandidates(c.image_uri, gw), cap = Number.isFinite(Number(c.usd_market_cap)) && Number(c.usd_market_cap) > 0 ? Number(c.usd_market_cap) : null;
+      const sourceUrl = `https://pump.fun/coin/${mint}`;
+      put(mint, { answeredAt: now(), ...cap != null && !(entry(mint).capAt > now() - CAP_TTL) ? { marketCapUsd: cap, capAt: now(), capSourceUrl: sourceUrl } : {}, ...images.length ? { images, artAt: now(), source: "pump.fun", sourceUrl } : {} });
+      return images.length > 0;
+    } catch (e) {
+      if (e.status === 403 || e.status === 429 || e.status >= 500 || e.transport) trip("pump", e.message);
+      return false;
+    }
+  }
+  async function metadataJson(uri) {
+    const allowed = async (u) => await allowedMetadata(u) && await isPublicHttps(u, resolveHost);
+    const ipfs = ipfsParts(uri), urls = ipfs ? gw.map((g) => `${g}${ipfs.cid}${ipfs.path}`) : await allowed(uri) ? [uri] : [];
+    for (const url of urls) {
+      try {
+        if (!await allowed(url)) continue;
+        return await getJson(url, { timeout: 5e3, limit: 64e3, follow: allowed });
+      } catch (e) {
+        log(`metadata JSON ${new URL(url).hostname}: ${e.message}`);
+      }
+    }
+    return null;
+  }
+  async function onChain(mints) {
+    if (!infrastructure?.getAccounts || !mints.length) return;
+    const uris = /* @__PURE__ */ new Map();
+    try {
+      const mintAccounts = await infrastructure.getAccounts(mints, "jsonParsed");
+      mintAccounts.forEach((a, i) => {
+        if (!["TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA", "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb"].includes(a?.owner)) return;
+        const ext = a?.data?.parsed?.info?.extensions?.find?.((x) => x?.extension === "tokenMetadata");
+        if (typeof ext?.state?.uri === "string" && ext.state.uri) uris.set(mints[i], ext.state.uri);
+      });
+    } catch (e) {
+      log(`token-2022 metadata read failed: ${e.message}`);
+    }
+    const rest = mints.filter((m) => !uris.has(m));
+    if (rest.length) {
+      try {
+        const pdas = rest.map(metadataAddress), accounts = await infrastructure.getAccounts(pdas, "base64");
+        accounts.forEach((a, i) => {
+          if (a?.owner !== METAPLEX || !Array.isArray(a.data)) return;
+          try {
+            const uri = parseMetaplexUri(Buffer.from(a.data[0], "base64"));
+            if (uri) uris.set(rest[i], uri);
+          } catch {
+          }
+        });
+      } catch (e) {
+        log(`metaplex metadata read failed: ${e.message}`);
+      }
+    }
+    await pool([...uris], 4, async ([mint, uri]) => {
+      const json = await metadataJson(uri);
+      if (!json) return;
+      const images = artworkCandidates(typeof json.image === "string" ? json.image : "", gw);
+      put(mint, { answeredAt: now(), ...images.length ? { images, artAt: now(), source: "on-chain metadata", sourceUrl: `https://solscan.io/token/${mint}` } : {} });
+    });
+  }
+  async function pool(items, size2, fn) {
+    let i = 0;
+    await Promise.all(Array.from({ length: Math.min(size2, items.length) }, async () => {
+      while (i < items.length) await fn(items[i++]);
+    }));
+  }
+  return {
+    gateways: gw,
+    candidates: (value) => artworkCandidates(value, gw),
+    // tokens: [{mint,image}] where image is the DexScreener artwork (may be null). Returns the cache view.
+    async resolve(tokens, { fallbackLimit = 60 } = {}) {
+      const t = now(), mints = [...new Set(tokens.map((x) => x.mint).filter((m) => MINT.test(m)))];
+      const capStale = mints.filter((m) => !(entry(m).capAt > t - CAP_TTL));
+      const artStale = (m) => {
+        const e = entry(m);
+        if (e.images?.length) return !(e.artAt > t - ART_TTL);
+        return !(e.answeredAt > t - EMPTY_TTL) && !(e.missAt > t - MISS_TTL);
+      };
+      if (capStale.length) await jupiter(capStale);
+      const dexImage = new Map(tokens.map((x) => [x.mint, x.image]));
+      const need = mints.filter(artStale).slice(0, fallbackLimit);
+      const pumpMints = need.filter((m) => m.endsWith("pump"));
+      await pool(pumpMints, 4, pump);
+      await onChain(need.filter((m) => !(entry(m).images?.length && entry(m).artAt >= t)));
+      for (const m of need) if (!(entry(m).answeredAt >= t) && !dexImage.get(m)) put(m, { missAt: now() });
+      return new Map(mints.map((m) => [m, entry(m)]));
+    },
+    status() {
+      return { jupiterKeyConfigured: Boolean(jupKey), jupiterBackoffUntil: breaker.jupiter.until || null, pumpBackoffUntil: breaker.pump.until || null, cachedArtwork: [...art.values()].filter((e) => e.images?.length).length };
+    }
+  };
+}
+
+// source/artwork.mjs
+var HOSTS = /* @__PURE__ */ new Set(["cdn.dexscreener.com", "dd.dexscreener.com", "ipfs.io", "ipfs.filebase.io", "pump.mypinata.cloud", "gateway.pinata.cloud", "cloudflare-ipfs.com", "arweave.net", "static.jup.ag", "raw.githubusercontent.com", "assets.coingecko.com", "coin-images.coingecko.com", "metadata.jup.ag"]);
+function allowedArtworkURL(value, extraHosts = /* @__PURE__ */ new Set()) {
+  try {
+    const u = new URL(value);
+    return u.protocol === "https:" && !u.username && !u.password && !u.port && (HOSTS.has(u.hostname) || extraHosts.has(u.hostname));
+  } catch {
+    return false;
+  }
+}
+function imageType(bytes) {
+  if (bytes.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))) return "image/png";
+  if (bytes[0] === 255 && bytes[1] === 216 && bytes[2] === 255) return "image/jpeg";
+  if (/^GIF8[79]a$/.test(bytes.subarray(0, 6).toString())) return "image/gif";
+  if (bytes.subarray(0, 4).toString() === "RIFF" && bytes.subarray(8, 12).toString() === "WEBP") return "image/webp";
+  return null;
+}
+var imageRoute = (row) => row.chain === "solana" ? `/api/discovery/art/solana/${row.address}` : row.image || "";
+function createArtwork({ env, directory, getRows, getCachedArtwork = () => null, getAccounts, metadataAddress, fetcher = fetch, resolveHost }) {
+  const extraHosts = /* @__PURE__ */ new Set();
+  for (const row of getRows()) for (const url of getCachedArtwork(row.address)?.urls || []) try {
+    extraHosts.add(new URL(url).hostname);
+  } catch {
+  }
+  const allowed = (u) => allowedArtworkURL(u, extraHosts);
+  const metadata = createTokenMetadata({ fetcher, env, infrastructure: { getAccounts }, metadataAddress, allowedMetadata: allowed, resolveHost });
+  const cache = /* @__PURE__ */ new Map(), pending = /* @__PURE__ */ new Map();
+  const metadataBatch = (mint) => metadata.resolve([{ mint, image: getRows().find((r) => r.address === mint)?.image }], { fallbackLimit: 1 });
+  let active = 0;
+  const waiters = [];
+  const acquire = async () => {
+    if (active >= 4) await new Promise((r) => waiters.push(r));
+    active++;
+  };
+  const release = () => {
+    active--;
+    waiters.shift()?.();
+  };
+  async function download(input) {
+    let url = input;
+    for (let hop = 0; hop < 3; hop++) {
+      if (!allowed(url) || !await isPublicHttps(url, resolveHost)) throw Error("Artwork host disallowed");
+      const r = await fetcher(url, { redirect: "manual", signal: AbortSignal.timeout(8e3), headers: { accept: "image/png,image/jpeg,image/webp,image/gif" } });
+      if (r.status >= 300 && r.status < 400 && r.headers.get("location")) {
+        url = new URL(r.headers.get("location"), url).href;
+        continue;
+      }
+      if (!r.ok || Number(r.headers.get("content-length")) > 2e6) throw Error("Artwork unavailable or oversized");
+      const reader = r.body.getReader(), chunks = [];
+      let length = 0;
+      for (; ; ) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        length += value.length;
+        if (length > 2e6) {
+          await reader.cancel();
+          throw Error("Oversized artwork");
+        }
+        chunks.push(value);
+      }
+      const body = Buffer.concat(chunks), type = imageType(body);
+      if (!type) throw Error("Unsupported artwork type");
+      return { body, type };
+    }
+    throw Error("Too many artwork redirects");
+  }
+  async function load(mint) {
+    const row = getRows().find((r) => r.chain === "solana" && r.address === mint);
+    if (!row) return null;
+    const file = path2.join(directory, mint + ".img");
+    try {
+      const body = await readFile2(file), type = imageType(body);
+      if (type && body.length <= 2e6) return { body, type };
+    } catch {
+    }
+    const direct = [row.image, ...row.imageCandidates || [], ...getCachedArtwork(mint)?.urls || []].filter((u) => typeof u === "string" && u.startsWith("https:"));
+    let candidates = [...new Set(direct.flatMap((u) => artworkCandidates(u)))].filter(allowed).slice(0, 4);
+    for (const url of candidates) try {
+      const out = await download(url);
+      await mkdir2(directory, { recursive: true });
+      await writeFile2(file, out.body);
+      return out;
+    } catch {
+    }
+    const resolved = (await metadataBatch(mint)).get(mint);
+    candidates = [...new Set(resolved?.images || [])].filter(allowed).slice(0, 4);
+    for (const url of candidates) try {
+      const out = await download(url);
+      await mkdir2(directory, { recursive: true });
+      await writeFile2(file, out.body);
+      return out;
+    } catch {
+    }
+    return null;
+  }
+  async function get(mint) {
+    if (!/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(mint) || !getRows().some((r) => r.chain === "solana" && r.address === mint)) return null;
+    const prior = cache.get(mint);
+    if (prior && Date.now() < prior.until) return prior.asset;
+    if (pending.has(mint)) return pending.get(mint);
+    const promise = (async () => {
+      await acquire();
+      try {
+        const asset = await load(mint);
+        cache.set(mint, { asset, until: Date.now() + (asset ? 216e5 : 12e4) });
+        if (cache.size > 100) cache.delete(cache.keys().next().value);
+        return asset;
+      } finally {
+        release();
+        pending.delete(mint);
+      }
+    })();
+    pending.set(mint, promise);
+    return promise;
+  }
+  return { get, status: () => ({ cached: cache.size, loaded: [...cache.values()].filter((x) => x.asset).length, ...metadata.status() }) };
 }
 
 // source/discovery.mjs
@@ -3197,12 +3622,12 @@ var ECOSYSTEM = "CsMF3EMEVm9ow925mtFVwnAvTYUgckcQJrFUWEFMpump";
 var sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 var clean2 = (s, n = 80) => String(s || "").replace(/[\u0000-\u001f\u007f\u202a-\u202e]/g, "").slice(0, n);
 var emptyRow = (chain, address) => ({ chain, address, name: address, symbol: address.slice(0, 8), price: null, volume: null, cap: null, change: null, holders: null, series: [], unit: chain === "solana" ? "USD" : "HYPE", pair: "" });
-async function createMarketDiscovery({ env = process.env, manifest, fetcher = fetch, apiBase = `http://127.0.0.1:${env.PORT || 3e3}`, seedPath = new URL("./discovery-seed.json", import.meta.url), autoStart = true }) {
-  const dir = path.join(env.PAD_DATA_DIR || "./data", "discovery"), file = path.join(dir, "verified-markets.json");
+async function createMarketDiscovery({ env = process.env, manifest, fetcher = fetch, apiBase = `http://127.0.0.1:${env.PORT || 3e3}`, seedPath = new URL("./discovery-seed.json", import.meta.url), autoStart = true, decodeMessage, getCachedArtwork, metadataAddress }) {
+  const dir = path3.join(env.PAD_DATA_DIR || "./data", "discovery"), file = path3.join(dir, "verified-markets.json");
   let state = { version: 1, chainId: manifest.chainId, launcher: manifest.carbon.launcher.toLowerCase(), launches: [], rows: [], sources: Object.fromEntries(["platformEvm", "platformSolana", "evmMarkets", "solanaMarkets", "ecosystem"].map((name) => [name, { status: "pending", complete: false, count: null }])), cursor: manifest.carbon.deployBlock - 1 };
   for (const location of [seedPath, file]) {
     try {
-      const saved = JSON.parse(await readFile(location, "utf8"));
+      const saved = JSON.parse(await readFile3(location, "utf8"));
       if (saved.version === 1 && saved.chainId === manifest.chainId && saved.launcher === state.launcher) state = saved;
     } catch {
     }
@@ -3233,9 +3658,9 @@ async function createMarketDiscovery({ env = process.env, manifest, fetcher = fe
     throw error;
   }
   async function persist() {
-    await mkdir(dir, { recursive: true });
-    await writeFile(file + ".tmp", JSON.stringify(state));
-    await rename(file + ".tmp", file);
+    await mkdir3(dir, { recursive: true });
+    await writeFile3(file + ".tmp", JSON.stringify(state));
+    await rename2(file + ".tmp", file);
   }
   async function metadata(address) {
     const old = state.rows.find((row) => row.chain === "elysium" && row.address.toLowerCase() === address.toLowerCase());
@@ -3321,12 +3746,45 @@ async function createMarketDiscovery({ env = process.env, manifest, fetcher = fe
     return { ...emptyRow("solana", mint), name: clean2(token.name), symbol: clean2(token.symbol, 24), image: pair.info?.imageUrl || "", pair: pair.quoteToken?.symbol || "", price: pair.priceUsd == null ? null : Number(pair.priceUsd), volume: pair.volume?.h24 ?? null, cap: pair.marketCap ?? null, change: pair.priceChange?.h24 ?? null, original: { mint, name: clean2(token.name), symbol: clean2(token.symbol), quoteSymbol: pair.quoteToken?.symbol, priceUsd: pair.priceUsd, marketCapUsd: pair.marketCap, volume24hUsd: pair.volume?.h24, change24h: pair.priceChange?.h24, pairAddress: pair.pairAddress }, provenance };
   }
   async function mintMarket(mint, provenance) {
-    const pairs = await json(`https://api.dexscreener.com/token-pairs/v1/solana/${mint}`);
+    let pairs;
+    try {
+      pairs = await json(`https://api.dexscreener.com/token-pairs/v1/solana/${mint}`);
+    } catch {
+      return { ...emptyRow("solana", mint), ...state.rows.find((r) => r.chain === "solana" && r.address === mint), original: state.rows.find((r) => r.chain === "solana" && r.address === mint)?.original || { mint }, provenance, metadataUnavailable: true };
+    }
     const pair = pairs.filter((p) => p.chainId === "solana" && p.baseToken?.address === mint).sort((a, b) => (b.liquidity?.usd || 0) - (a.liquidity?.usd || 0))[0];
     return pair ? dexRow(pair, mint, provenance) : { ...emptyRow("solana", mint), original: { mint }, provenance };
   }
   async function solana() {
     const now = () => (/* @__PURE__ */ new Date()).toISOString();
+    let directError = null;
+    try {
+      let candidates = [];
+      try {
+        candidates = JSON.parse(await readFile3(path3.join(dir, "pump-builds.json"), "utf8"));
+      } catch (e) {
+        if (e.code !== "ENOENT") throw e;
+      }
+      const pending = candidates.filter((c) => !state.rows.some((r) => r.chain === "solana" && r.address === c.mint && r.provenance?.kind === "platform") && Date.now() - Date.parse(c.createdAt) < 864e5).slice(-10);
+      if (pending.length && !decodeMessage) throw Error("Receipt decoder unavailable");
+      const endpoint = env.PURRLYSIUM_SOLANA_RPC_URL || "https://api.mainnet-beta.solana.com";
+      const solRpc = async (method, params) => (await json(endpoint, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ jsonrpc: "2.0", id: 1, method, params }) })).result;
+      for (const candidate of pending) {
+        const signatures = await solRpc("getSignaturesForAddress", [candidate.mint, { limit: 5, commitment: "confirmed" }]);
+        for (const entry of signatures || []) {
+          if (entry.err) continue;
+          const tx = await solRpc("getTransaction", [entry.signature, { encoding: "base64", commitment: "confirmed", maxSupportedTransactionVersion: 0 }]);
+          if (!tx?.transaction?.[0] || tx.meta?.err !== null) continue;
+          const curve = await json(apiBase + "/api/purrlysium/solana/launch/state?mint=" + candidate.mint);
+          if (!matchesPumpReceipt(candidate, tx, decodeMessage(tx.transaction[0]), curve)) continue;
+          const row = await mintMarket(candidate.mint, { kind: "platform", verified: true, source: "Confirmed Pump creation matching the persisted server-built transaction message", transactionHash: entry.signature, messageHash: candidate.messageHash });
+          state.rows = mergeMarkets(state.rows, [row]);
+          break;
+        }
+      }
+    } catch (e) {
+      directError = "Direct Pump receipt verification is incomplete; retained prior verified records.";
+    }
     try {
       const registry = await json(apiBase + "/api/purrlysium/solana/launches");
       if (!registry.available) throw Error("Platform registry is not configured; historical launch provenance unavailable");
@@ -3336,12 +3794,18 @@ async function createMarketDiscovery({ env = process.env, manifest, fetcher = fe
         if (!check.registeredHere) continue;
         verified.push(await mintMarket(record.mint, { kind: "platform", verified: true, source: "Verified platform program record and matching Pump curve", programId: registry.programId, record: record.address }));
       }
-      state.rows = mergeMarkets(state.rows.filter((r) => r.chain !== "solana" || r.provenance?.kind !== "platform"), verified);
+      const incomplete = registry.truncated || registry.records.length > 50;
+      const missing = incomplete ? state.rows.filter((r) => r.chain === "solana" && r.provenance?.kind === "platform" && r.provenance?.programId && !verified.some((v) => v.address === r.address)).map((r) => ({ ...r, stale: true })) : [];
+      state.rows = mergeMarkets(state.rows.filter((r) => r.chain !== "solana" || r.provenance?.kind !== "platform" || !r.provenance?.programId), missing, verified);
       state.sources.platformSolana = { status: registry.truncated || registry.records.length > 50 ? "partial" : "complete", complete: !registry.truncated && registry.records.length <= 50, count: verified.length, checkedAt: now() };
     } catch (e) {
-      state.sources.platformSolana = sourceFailure(state.sources.platformSolana, e.message);
+      state.sources.platformSolana = sourceFailure(state.sources.platformSolana, "Legacy program registry is unavailable; pre-migration direct Pump launch provenance is unknown. New server-built messages are persisted and verified against confirmed receipts.");
       state.sources.platformSolana.count = state.rows.filter((r) => r.chain === "solana" && r.provenance?.kind === "platform").length || null;
     }
+    const known = state.rows.filter((r) => r.chain === "solana" && r.provenance?.kind === "platform").length;
+    if (state.sources.platformSolana.complete) state.sources.platformSolana.count = known;
+    if (known && state.sources.platformSolana.status === "unavailable") state.sources.platformSolana = { ...state.sources.platformSolana, status: "partial", count: known, complete: false, checkedAt: now() };
+    if (directError) state.sources.platformSolana = { ...state.sources.platformSolana, status: known ? "stale" : "unavailable", complete: false, error: directError };
     try {
       const endpoint = env.PURRLYSIUM_SOLANA_RPC_URL || "https://api.mainnet-beta.solana.com";
       const account = await json(endpoint, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "getAccountInfo", params: [ECOSYSTEM, { encoding: "jsonParsed", commitment: "confirmed" }] }) });
@@ -3354,9 +3818,10 @@ async function createMarketDiscovery({ env = process.env, manifest, fetcher = fe
     }
     try {
       const scan = await json(apiBase + "/api/purrlysium/solana/scan");
-      const rows = (scan.tokens || []).map((t) => ({ ...emptyRow("solana", t.mint), name: t.name, symbol: t.symbol, image: t.image, pair: t.quoteSymbol || "", price: t.priceUsd ?? null, volume: t.volume24hUsd ?? null, cap: t.marketCapUsd ?? null, change: t.change24h ?? null, original: t, provenance: { kind: "market", verified: false, source: "Dexscreener bounded market scan; no platform-launch claim" } }));
-      state.rows = mergeMarkets(state.rows.filter((r) => r.chain !== "solana" || r.provenance?.kind !== "market"), rows);
-      state.sources.solanaMarkets = { status: "partial", complete: false, count: rows.length, checkedAt: scan.checkedAt, coverage: scan.coverage, warnings: scan.warnings || [] };
+      const rows = (scan.tokens || []).map((t) => ({ ...emptyRow("solana", t.mint), name: t.name, symbol: t.symbol, image: t.image, imageCandidates: t.imageCandidates || [], pair: t.quoteSymbol || "", price: t.priceUsd ?? null, volume: t.volume24hUsd ?? null, cap: t.marketCapUsd ?? null, change: t.change24h ?? null, original: t, provenance: { kind: "market", verified: false, source: "Dexscreener bounded market scan; no platform-launch claim" } }));
+      const retained = retainPartialRows(state.rows.filter((r) => r.chain === "solana" && r.provenance?.kind === "market"), rows, scan.warnings || []);
+      state.rows = mergeMarkets(state.rows.filter((r) => r.chain !== "solana" || r.provenance?.kind !== "market"), retained.rows);
+      state.sources.solanaMarkets = { status: retained.sourceFailed ? "partial-error" : "partial", complete: false, count: retained.rows.length, returned: rows.length, retainedStale: retained.retained, checkedAt: scan.checkedAt, coverage: scan.coverage, warnings: scan.warnings || [] };
     } catch (e) {
       state.sources.solanaMarkets = sourceFailure(state.sources.solanaMarkets, "Solana market provider unavailable");
     }
@@ -3376,9 +3841,13 @@ async function createMarketDiscovery({ env = process.env, manifest, fetcher = fe
       nextAttempt = Date.now() + 6e4 * 2 ** failures;
     }
   }
+  const artwork = createArtwork({ env, directory: path3.join(dir, "artwork"), getRows: () => state.rows, getCachedArtwork, metadataAddress, fetcher, getAccounts: async (addresses, encoding) => {
+    const data = await json(env.PURRLYSIUM_SOLANA_RPC_URL || "https://api.mainnet-beta.solana.com", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "getMultipleAccounts", params: [addresses, { encoding, commitment: "confirmed" }] }) });
+    return data.result.value;
+  } });
   const snapshot = () => {
     const sources = Object.fromEntries(Object.entries(state.sources).map(([name, s]) => [name, s.checkedAt && Date.now() - Date.parse(s.checkedAt) > 6e5 ? { ...s, status: "stale", complete: false } : s]));
-    return { version: 1, rows: mergeMarkets(state.rows), sources, launches: state.launches, checkedAt: state.checkedAt || null, partial: true, complete: false, refreshing: busy, coverageNote: "Platform provenance first, then ecosystem and bounded wider markets. " + sourceNote(sources) };
+    return { version: 1, rows: mergeMarkets(state.rows).map((row) => ({ ...row, image: imageRoute(row) })), artwork: artwork.status(), sources, launches: state.launches, checkedAt: state.checkedAt || null, partial: true, complete: false, refreshing: busy, coverageNote: "Platform provenance first, then ecosystem and bounded wider markets. " + sourceNote(sources) };
   };
   let timer;
   if (autoStart) {
@@ -3392,10 +3861,11 @@ async function createMarketDiscovery({ env = process.env, manifest, fetcher = fe
     }, 2e3);
     timer.unref?.();
   }
-  return { snapshot, refresh, exportState: () => state, close: () => clearInterval(timer) };
+  return { snapshot, refresh, exportState: () => state, artwork, close: () => clearInterval(timer) };
 }
 export {
-  createMarketDiscovery
+  createMarketDiscovery,
+  recordPumpBuild
 };
 /*! Bundled license information:
 
