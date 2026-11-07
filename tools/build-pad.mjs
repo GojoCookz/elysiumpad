@@ -3,6 +3,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import {exposeEvmRewards} from '../source/release-launch-overlay.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const workspace = path.dirname(root);
 const source = path.join(workspace, 'getrektdonhype/source/elysium');
@@ -46,6 +47,7 @@ await build({
       return{contents,loader:'js',resolveDir:path.dirname(file)};
     });
     build.onLoad({filter:/[/\\]elysium[/\\]routes\.mjs$/},async({path:file})=>({contents:routePolicy,loader:'js',resolveDir:path.dirname(file)}));
+    build.onLoad({filter:/[/\\]elysium[/\\]launch\.mjs$/},async({path:file})=>({contents:exposeEvmRewards(await readFile(file,'utf8')),loader:'js',resolveDir:path.dirname(file)}));
     build.onLoad({ filter: /[/\\]elysium[/\\]terminal\.mjs$/ }, async ({ path: file }) => {
       let contents = await readFile(file, 'utf8');
       const replacements = [

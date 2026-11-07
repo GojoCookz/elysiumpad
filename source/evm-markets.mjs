@@ -14,6 +14,7 @@ export async function priceEvmMarkets({rpc,manifest,pools,previous,block,manager
  for(const manager of Object.keys(MANAGERS))try{if(managerVerifier(manager,await rpc('eth_getCode',[manager,at])))supported.push(manager);else warnings.push('A supported manager runtime did not match its pinned deployment.');}catch{warnings.push('A supported manager bytecode check was unavailable.');}
  if(!supported.length)throw Error('No authenticated pool managers available');
  const admitted=p=>supported.includes(p.manager.toLowerCase());
+ const unauthenticatedPlatform=previous.filter(p=>p.manager&&!admitted(p)&&p.provenance?.kind==='platform').map(p=>({...p,stale:true,price:null,fdv:null,activeDepth:null,observedVolume:null,volume:null,cap:null,change:null,series:[]}));
  const excludedPools=pools.filter(p=>!admitted(p)).length;
  pools=pools.filter(admitted);previous=previous.filter(p=>p.manager&&admitted(p));
  let calls=0;const read=async(to,functionName,args=[],tag=at)=>{if(++calls>440)throw Error('Read budget reached');const data=await rpc('eth_call',[{to,data:encodeFunctionData({abi:ABI,functionName,args})},tag]);return decodeFunctionResult({abi:ABI,functionName,data});};
@@ -68,7 +69,7 @@ export async function priceEvmMarkets({rpc,manifest,pools,previous,block,manager
    if(!metrics.price)throw Error('Invalid live state');
    const a=activity.get(poolIdentity(p));const observedVolume=window.complete?Number(a?(tokenIs0?a.amount1:a.amount0):0n)/10**quoteDecimals:null;
    const old=previous.find(r=>r.address.toLowerCase()===p.address.toLowerCase());
-   result.push({...p,...m,...metrics,stale:false,chain:'elysium',unit:quoteSymbol,pair:`${m.symbol} / ${quoteSymbol}`,quoteAddress:quote,quoteDecimals,cap:null,volume:null,change:null,holders:null,series:[],observedVolume,volumeWindow:window,activeLiquidity:liquidity.toString(),sqrtPriceX96:sqrtPriceX96.toString(),stateBlock:block,checkedAt:new Date().toISOString(),image:old?.image||'',imageCandidates:old?.imageCandidates||[],provenance:p.provenance?.kind==='platform'?p.provenance:{kind:'market',verified:true,source:'Pinned canonical manager runtime; pool key matched to Initialize; current extsload state at confirmed block',transactionHash:p.transactionHash,block:p.block}});
+   result.push({...p,...m,...metrics,stale:false,chain:'elysium',unit:quoteSymbol,pair:`${m.symbol} / ${quoteSymbol}`,quoteAddress:quote,quoteDecimals,cap:null,volume:null,change:null,holders:null,series:[],observedVolume,volumeWindow:window,activeLiquidity:liquidity.toString(),sqrtPriceX96:sqrtPriceX96.toString(),stateBlock:block,checkedAt:new Date().toISOString(),image:old?.image||'',imageCandidates:old?.imageCandidates||[],metadataUri:old?.metadataUri,metadataCheckedAt:old?.metadataCheckedAt,provenance:p.provenance?.kind==='platform'?p.provenance:{kind:'market',verified:true,source:'Pinned canonical manager runtime; pool key matched to Initialize; current extsload state at confirmed block',transactionHash:p.transactionHash,block:p.block}});
   }catch{failed++;failedIdentities.add(p.address.toLowerCase());}
   await new Promise(r=>setTimeout(r,100));
  }
@@ -81,11 +82,13 @@ export async function priceEvmMarkets({rpc,manifest,pools,previous,block,manager
   if(old?.metadataCheckedAt&&Date.now()-Date.parse(old.metadataCheckedAt)<21600000){row.metadataUri=old.metadataUri;row.metadataCheckedAt=old.metadataCheckedAt;continue;}
   if(row.imageCandidates?.length||row.price==null)continue;
   if(metadataProbes>=24||calls>436)break;metadataProbes++;
-  for(const getter of ['tokenURI','metadataURI'])try{const uri=await read(row.address,getter);if(/^https:\/\//.test(uri)||uri.startsWith('ipfs://')){row.metadataUri=uri;break;}}catch{}
-  row.metadataCheckedAt=new Date().toISOString();
+  let resolved=false;
+  for(const getter of ['tokenURI','metadataURI'])try{const uri=await read(row.address,getter);if(/^https:\/\//.test(uri)||uri.startsWith('ipfs://')){row.metadataUri=uri;resolved=true;break;}}catch{}
+  if(resolved||!old?.metadataUri)row.metadataCheckedAt=new Date().toISOString();
  }
  if(failed)warnings.push(`${failed} candidate pool reads failed or had unsupported state; prior priced records retained as stale.`);
  const grouped=groupPools(result);
+ grouped.push(...unauthenticatedPlatform);
  if(failed)for(const old of previous.filter(r=>r.price>0&&failedIdentities.has(r.address.toLowerCase())&&!grouped.some(x=>x.address.toLowerCase()===r.address.toLowerCase())))grouped.push({...old,stale:true});
  return {rows:grouped,source:{status:warnings.length?'partial-error':'partial',complete:false,count:grouped.length,priced:grouped.filter(r=>r.price>0).length,authenticatedManagers:supported.length,excludedPools,observedCandidates:known.size,examinedPools:chosen.size,liquidPools:result.filter(r=>r.price>0).length,emptyPools:empty,failedPools:failed,readCalls:calls,limit:60,checkedAt:new Date().toISOString(),history:window,warnings,coverage:'Up to 60 active/recent pools from four runtime-authenticated managers, ranked by observed trading activity; one token row with the deepest observed active pool selected. Price and FDV use confirmed pool state and token supply. Active depth is virtual quote liquidity, not TVL. Window volume is selected-pool volume only; no 24h change claimed.'}};
 }
