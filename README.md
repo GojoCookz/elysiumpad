@@ -4,6 +4,13 @@ Standalone Hypeliysium web release for Elysium chain `99901` and Solana market
 discovery. This export contains only public runtime code, reviewed assets, and the
 authorized early-live `99901` manifests.
 
+Hypeliysium is a Solana launchpad; HLYS is its ecosystem token. Optional
+Hypurrheaven home and cloud fishing live at `/home/` and `/home/fishing.html`.
+
+Build with Node 24: `npm ci --ignore-scripts`, `npm run build`, `npm test`.
+See [BUILD-AND-DEPLOY.md](BUILD-AND-DEPLOY.md) for frozen inputs, deployment
+provenance, rollback and untested persistence limitations.
+
 ## Deployment
 
 Railway runs `Dockerfile` and starts `start.mjs`. Set provider credentials only in

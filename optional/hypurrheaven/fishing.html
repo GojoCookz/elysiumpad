@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#bff7ee"><title>Cloud fishing · Hypurrheaven</title><link rel="stylesheet" href="fishing.css"></head>
+<body>
+  <header><a id="home-link" href="./">← Cloud home</a><span class="wordmark">Hypurrheaven</span></header>
+  <main>
+    <div class="intro"><div><p class="eyebrow">A little ocean above the clouds</p><h1>Cloud fishing</h1></div><p id="save-note" role="status">Opening your local collection…</p></div>
+    <p id="visit-note" class="notice" hidden></p>
+    <nav class="tabs" aria-label="Cloud fishing places"><button id="pond-tab" aria-pressed="true">Floating pond</button><button id="aquarium-tab" aria-pressed="false">My aquarium</button></nav>
+    <div class="play-layout">
+      <section class="scene-wrap" aria-label="Cloud waters"><canvas id="waters" width="384" height="288" role="img" aria-label="A floating pearl pond with an angel on its cloud bank"></canvas><p id="scene-caption">Pearl tide · an original six-fish collection</p></section>
+      <div class="controls">
+        <section id="pond-controls" aria-labelledby="pond-title"><h2 id="pond-title">A quiet place to cast</h2><p id="fishing-status" role="status" aria-live="polite">Cast your line. Watch for a bite, then hook and reel.</p>
+          <div id="timing" hidden><div class="meter" aria-hidden="true"><span id="target-zone"></span><span id="needle"></span></div><p id="timing-copy">Reel when the pearl is inside the marked window.</p></div>
+          <button id="fish-action" class="primary">Cast a line</button>
+          <button id="pause" hidden>Pause fishing</button>
+          <label class="check"><input id="relaxed" type="checkbox">Relaxed timing · no deadlines</label>
+          <p class="small">Tap the action button, or focus it and use Enter / Space. No cost to cast. Misses never remove fish.</p>
+          <p id="catch-summary" class="catch-summary">Your first catch unlocks the Dew halo.</p><a href="#cosmetics">See earned cosmetics ↓</a>
+        </section>
+        <section id="aquarium-controls" hidden aria-labelledby="aquarium-title"><h2 id="aquarium-title">Your pearl aquarium</h2><p id="tank-note">Each catch fills an empty spot. Choose a spot to rearrange your fish.</p>
+          <div id="slots" class="slots" aria-label="Aquarium spots"></div>
+          <label>Fish for selected spot<select id="slot-fish"></select></label><button id="place-fish">Place in selected spot</button>
+          <label>Postcard frame<select id="postcard-frame"><option value="pearl">Pearl</option><option value="rose">Rose</option><option value="teal">Teal</option></select></label>
+          <button id="export" class="primary">Make aquarium postcard</button><p id="export-status" role="status"></p>
+          <figure id="postcard-result" hidden><img id="postcard-image" alt="Your framed Hypurrheaven aquarium postcard"><figcaption><a id="download" download="hypurrheaven-aquarium.png">Save aquarium PNG</a></figcaption></figure>
+          <button id="snapshot">Make aquarium visit link</button><label id="snapshot-result" hidden>Read-only snapshot link<input id="snapshot-link" readonly></label><p id="snapshot-status" role="status"></p>
+        </section>
+      </div>
+    </div>
+    <section class="collection" aria-labelledby="collection-title"><div class="section-heading"><div><p class="eyebrow">Keep every little discovery</p><h2 id="collection-title">Pearl tide collection</h2></div><label>Season collection<select id="season"></select></label></div><p id="season-note"></p><p id="collection-progress"></p><div id="fish-list" class="fish-list"></div><p class="small">No random rarity: catches follow the six-fish order shown. Duplicate catches fill extra aquarium spots and count toward cosmetics. Old fish stay yours when more seasons are added.</p></section>
+    <section id="cosmetics" aria-labelledby="cosmetics-title"><h2 id="cosmetics-title">Little rewards for a little patience</h2><p>Earned through catches, including duplicates. Nothing to buy or trade.</p><div id="unlock-list" class="unlock-list"></div><div class="reset-style"><button id="no-halo">Remove earned halo</button><button id="no-pond">Remove pond decoration</button></div><p id="cosmetic-status" role="status"></p></section>
+    <details><summary>Local progress & privacy</summary><p>Fish, cosmetics and four activity counters live only in this browser. No account, cloud sync or external tracking. Snapshot visits are read-only copies, not live multiplayer.</p><p id="counters"></p><p>Keep a visit link as a viewable keepsake. It does not import or restore another person's progress into your save.</p></details>
+  </main><footer>Hypurrheaven · play for the keepsakes. No minted items or money rewards.</footer>
+  <script type="module" src="fishing.js"></script>
+</body></html>

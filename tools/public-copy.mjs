@@ -1,5 +1,5 @@
-// Literal-only release overlay: preserve the already-approved compiled Solana
-// transaction implementation while correcting its consumer-facing copy.
+// Literal-only copy normalization for generated and frozen legacy render paths.
+// Transaction logic is outside this overlay.
 import {readFile,writeFile} from 'node:fs/promises';
 const replacements=[
  ['Mainnet test: read before you trade','Network details'],

@@ -1,21 +1,19 @@
-// Rebuild the approved sibling source without modifying the shared application.
+// Rebuild the approved, repository-local source inputs.
 // This release-only overlay corrects empty/error copy found by independent review.
 import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
+import { fileURLToPath } from 'node:url';
 import {exposeEvmRewards} from '../source/release-launch-overlay.mjs';
 import {updatePublicCopy} from './public-copy.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const workspace = path.dirname(root);
-const source = path.join(workspace, 'getrektdonhype/source/elysium');
-const { build } = await import(pathToFileURL(path.join(workspace, 'monerochanpad-v2/node_modules/esbuild/lib/main.js')));
+const source = path.join(root, 'source/approved/elysium');
+const { build } = await import('esbuild');
 const routePolicy=(await readFile(path.join(source,'routes.mjs'),'utf8')).replace("remembered = 'elysium'","remembered = 'solana'");
 await writeFile(path.join(root,'route-policy.mjs'),routePolicy);
-await build({entryPoints:[path.join(root,'source/discovery.mjs')],bundle:true,format:'esm',platform:'node',target:'node24',nodePaths:[path.join(workspace,'hoodstonk/app/node_modules')],outfile:path.join(root,'discovery-runtime.mjs'),legalComments:'eof'});
+await build({entryPoints:[path.join(root,'source/discovery.mjs')],bundle:true,format:'esm',platform:'node',target:'node24',outfile:path.join(root,'discovery-runtime.mjs'),legalComments:'eof'});
 await build({
   entryPoints: [path.join(source, 'app.mjs')],
   bundle: true, format: 'esm', platform: 'browser', target: 'es2022', minify: true,
-  nodePaths: [path.join(workspace, 'hoodstonk/app/node_modules')],
   outfile: path.join(root, 'elysium/purrlysium/app.js'), legalComments: 'eof',
   define: { __PURRLYSIUM__: 'true' },
   plugins: [{ name: 'release-empty-state', setup(build) {
@@ -64,4 +62,5 @@ await build({
     });
   }}]
 });
+await build({entryPoints:[path.join(source,'solana.mjs')],bundle:true,format:'esm',platform:'browser',target:'es2022',minify:true,inject:[path.join(root,'source/browser-buffer.mjs')],define:{'process.env.NODE_ENV':'"production"'},outfile:path.join(root,'elysium/purrlysium/solana.js'),legalComments:'eof'});
 await updatePublicCopy(new URL('../',import.meta.url));

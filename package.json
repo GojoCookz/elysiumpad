@@ -4,5 +4,6 @@
   "private": true,
   "type": "module",
   "engines": { "node": ">=24" },
-  "scripts": { "start": "node start.mjs", "test": "node --test test/*.test.mjs" }
+  "scripts": { "start": "node start.mjs", "build": "node tools/build-pad.mjs", "test": "node --test test/*.test.mjs" },
+  "devDependencies": { "esbuild": "0.25.12", "viem": "2.56.0", "buffer": "6.0.3", "bs58": "6.0.0", "@solana/web3.js": "1.99.0", "@solana/spl-token": "0.4.15", "@pump-fun/pump-sdk": "2.0.0" }
 }

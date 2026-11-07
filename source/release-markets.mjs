@@ -1,4 +1,4 @@
-import { marketDirectory, marketIntro, marketHref } from '../../getrektdonhype/source/elysium/market-directory.mjs';
+import { marketDirectory, marketIntro, marketHref } from './approved/elysium/market-directory.mjs';
 import {evmDirectory} from './evm-directory.mjs';
 export async function releaseMarkets(target, { h, chain, current }) {
   const mode = new URLSearchParams(location.search).get('market') === 'all' ? 'all' : chain;

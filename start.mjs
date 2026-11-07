@@ -12,6 +12,7 @@ Object.assign(process.env, {
   PAD_DATA_DIR: process.env.PAD_DATA_DIR || '/app/data/hypeliysium',
   PAD_ELYSIUM_ENABLED: 'true',
   HYPURRHEAVEN_PREVIEW: 'on',
+  HYPURRHEAVEN_HOME_DIR: process.env.HYPURRHEAVEN_HOME_DIR || `${root}/optional/hypurrheaven`,
   ELYSIUM_CHAIN_ID: '99901',
   ELYSIUM_RPC_URL: process.env.ELYSIUM_RPC_URL || 'https://rpc-live.elysp.com,https://rpc.stockium.fun',
   ELYSIUM_MANIFEST: pathToFileURL(`${root}/elysium/manifest-99901.json`).href,

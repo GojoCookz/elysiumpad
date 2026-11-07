@@ -1,4 +1,5 @@
 import {createRequire as __padCreateRequire} from 'node:module';import {fileURLToPath as __padFilePath} from 'node:url';import {dirname as __padDirname} from 'node:path';const require=__padCreateRequire(import.meta.url);const __filename=__padFilePath(import.meta.url);const __dirname=__padDirname(__filename);
+import {publicSolanaResponse} from './source/solana-public-api.mjs';
 var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -96975,6 +96976,13 @@ function purrSolanaHandler({ env, service }) {
     const missing = route === "swap/build" ? readiness.trade : ["pump/build", "metadata"].includes(route) ? readiness.launch : ["portfolio", "wallet/history", "rpc", "scan", "pump/quotes"].includes(route) ? readiness.balances : [];
     if (missing.length) return json(res, 503, { error: `Configure ${missing.join(", ")} for Hypeliysium Solana.`, missing });
     req.url = `/api/${route}${url.search}`;
+    if (req.method === 'GET' && ['capabilities','deployment','products'].includes(route)) {
+      const end=res.end;
+      res.end=function(body,...args){
+        if(res.statusCode===200&&body){body=JSON.stringify(publicSolanaResponse(route,JSON.parse(body.toString()),readiness));}
+        return end.call(this,body,...args);
+      };
+    }
     service.server.emit("request", req, res);
     return true;
   };

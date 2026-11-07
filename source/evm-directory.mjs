@@ -1,5 +1,5 @@
 import {rank} from './discovery-core.mjs';
-import {locale} from '../../getrektdonhype/source/elysium/i18n.mjs';
+import {locale} from './approved/elysium/i18n.mjs';
 const short=s=>s?`${s.slice(0,8)}…${s.slice(-6)}`:'';
 const amount=(v,unit)=>Number.isFinite(v)?`${v.toLocaleString(locale(),{maximumSignificantDigits:6})} ${unit}`:'Not yet available';
 export function evmDirectory(target,{h,rows,checkedAt}){

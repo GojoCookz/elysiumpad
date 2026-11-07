@@ -1,8 +1,8 @@
 import {test} from 'node:test';import assert from 'node:assert/strict';import{readFile}from'node:fs/promises';import{runInNewContext}from'node:vm';
-import{parseAbi,encodeFunctionData,decodeFunctionData,toHex,zeroAddress}from'../../hoodstonk/app/node_modules/viem/_esm/index.js';
+import{parseAbi,encodeFunctionData,decodeFunctionData,toHex,zeroAddress}from'viem';
 import{exposeEvmRewards}from'../source/release-launch-overlay.mjs';
-const original=await readFile(new URL('../../getrektdonhype/source/elysium/launch.mjs',import.meta.url),'utf8'),source=exposeEvmRewards(original);
-const abiSource=await readFile(new URL('../../getrektdonhype/source/elysium/abi.mjs',import.meta.url),'utf8');
+const original=await readFile(new URL('../source/approved/elysium/launch.mjs',import.meta.url),'utf8'),source=exposeEvmRewards(original);
+const abiSource=await readFile(new URL('../source/approved/elysium/abi.mjs',import.meta.url),'utf8');
 const ABI=runInNewContext(abiSource.replace("import { parseAbi } from 'viem';",'').replaceAll('export const','const')+';ABI',{parseAbi});
 test('reward controls become visible before Create without modifying launch builder or defaults',()=>{
  assert.match(source,/buy: 3, sell: 3, you: 100, holders: 0, burn: 0/);

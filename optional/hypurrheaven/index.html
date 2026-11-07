@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#bff7ee"><title>Hypurrheaven · Your cloud home</title>
+  <link rel="stylesheet" href="heaven.css">
+</head>
+<body>
+<!-- THESIS: A playable cloud dollhouse, not a landing page. OWN-WORLD: pearl rooms, liquid teal pools, pink upholstery, crisp angel pixels, soft tool panels. STORY: choose your angel, make a home, send a postcard invitation. FIRST VIEWPORT: room fills the stage; home name above, places below, four editing tools at thumb level. FORM: owner-pinned cozy world overrides seed 882c7d1a; code-led, zero paid generation. FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance. -->
+  <header><a class="wordmark" href="./">Hypurrheaven<span>Your little cloud home</span></a><a id="pad-return" class="return" href="/">Back to pad</a></header>
+  <main>
+    <section class="world" aria-label="Your playable cloud home">
+      <div class="place-heading"><div><h1 id="place-name">Your cloud home</h1><p id="place-note">A little place above the everyday.</p></div><span id="save-status" role="status">Loading your home…</span></div>
+      <div id="stage"><canvas id="world" width="384" height="288" tabindex="0" aria-label="Cloud home. Tap the floor to float, or use arrow keys. Furniture placement also has arrow controls."></canvas><div id="bubble" role="status" hidden></div><p id="load-error" role="alert" hidden>Angel art could not load. <button id="retry">Try again</button></p></div>
+      <div class="world-caption"><span id="walk-hint">Tap the floor to float · arrow keys also work</span><span id="presence">Solo preview</span></div>
+      <nav class="places" aria-label="Places"><button data-room="home" aria-pressed="true">Cloud home</button><button data-room="garden" aria-pressed="false">Cloud garden</button><button data-room="cafe" aria-pressed="false">Pearl café</button><a id="fishing-link" href="fishing.html">Cloud fishing</a></nav>
+    </section>
+    <aside aria-label="Home tools">
+      <nav class="tools" aria-label="Choose a tool"><button data-tool="cat" aria-expanded="false">My angel</button><button data-tool="decorate" aria-expanded="false">Decorate</button><button data-tool="photo" aria-expanded="false">Photo</button><button data-tool="friends" aria-expanded="false">Friends</button><button id="close-tool" aria-label="Close tools" hidden>Close</button></nav>
+      <section id="panel-cat" class="panel"><h2>Make yourself at home</h2><p>Pick a little companion. Everything here is cosmetic.</p>
+        <label>Your name<input id="name" maxlength="20" placeholder="Cloud guest" autocomplete="nickname"></label>
+        <fieldset><legend>Outfit & accessory</legend><div id="outfits" class="outfits"></div></fieldset>
+        <div class="pair"><label>Fur<select id="fur"><option value="teal">Cloud teal</option><option value="pearl">Pearl</option><option value="lilac">Lilac</option></select></label><label>Eyes<select id="eyes"><option value="blue">Ocean blue</option><option value="rose">Rose</option><option value="green">Jade</option></select></label></div>
+        <p class="small">Angel art preview: front-facing sprites float; walking animations are not available yet.</p>
+      </section>
+      <section id="panel-decorate" class="panel" hidden><h2>A room of your own</h2><p id="decorate-note">Pick a piece, then tap a floor tile. Select a placed piece to move or remove it.</p>
+        <label>Room palette<select id="palette"><option value="teal">Liquid teal</option><option value="rose">Rose cloud</option><option value="lavender">Lavender dusk</option></select></label>
+        <div id="furniture" class="choices"></div><p id="placement" role="status">Choose a piece to place.</p><button id="place-center" disabled>Place in center</button><button id="select-next">Select next piece</button><select id="placed-piece" aria-label="Placed furniture" hidden><option value="">Choose a placed piece</option></select>
+        <div class="move-controls" aria-label="Move selected furniture"><button data-move="0,-1" aria-label="Move furniture up">Up</button><button data-move="-1,0" aria-label="Move furniture left">Left</button><button data-move="1,0" aria-label="Move furniture right">Right</button><button data-move="0,1" aria-label="Move furniture down">Down</button></div>
+        <div class="actions"><button id="remove">Remove selected</button><button id="undo-remove" disabled>Undo removal</button><button id="cancel-placement">Done placing</button></div><p class="small">Changes save on this browser. Visiting homes are read-only.</p>
+      </section>
+      <section id="panel-photo" class="panel" hidden><h2>Wish you were here</h2><p>Your room, your angel, a little keepsake.</p>
+        <label>Frame<select id="frame"><option value="pearl">Pearl postcard</option><option value="teal">Teal border</option><option value="none">No frame</option></select></label>
+        <label>Sticker<select id="sticker"><option value="star">Little stars</option><option value="heart">Sweet hearts</option><option value="none">No sticker</option></select></label>
+        <button id="take-photo" class="primary">Take a photo</button><figure id="photo-result" hidden><img id="photo-preview" alt="Your Hypurrheaven photo"><figcaption><a id="download-photo" download="hypurrheaven-postcard.png">Save PNG</a></figcaption></figure><p class="small">Photos contain the room only. Chat and controls stay out of the picture.</p>
+      </section>
+      <section id="panel-friends" class="panel" hidden><h2>Leave the door open</h2><p id="visit-note">Send a snapshot of your home. Friends can explore it without changing your save.</p>
+        <button id="invite" class="primary">Make a home link</button><label id="link-wrap" hidden>Home snapshot link<input id="invite-link" readonly></label><p id="invite-status" role="status"></p><button id="return-home" hidden>Return to my home</button>
+         <hr><h3>A little hello</h3><p class="small">Chat and emotes are shared between tabs on this browser only. Cross-device live homes are not connected yet.</p>
+        <div id="chat-log" role="log" aria-label="Local chat" aria-live="polite"><p class="empty">No messages yet. Open this home in another tab to try local chat.</p></div>
+        <form id="chat-form"><label>Message<input id="message" maxlength="120" placeholder="Say something kind" required></label><button type="submit">Say</button></form>
+        <div class="emotes" aria-label="Emotes"><button data-emote="Hello!">Wave</button><button data-emote="Lovely home!">Love</button><button data-emote="Tea time?">Tea time</button></div>
+      </section>
+    </aside>
+  </main>
+  <footer><span>Preview · saved on this browser, not an account</span><span>No wallet needed. No minted items.</span></footer>
+  <script type="module" src="heaven.js"></script>
+</body></html>

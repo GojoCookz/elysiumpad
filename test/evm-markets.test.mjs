@@ -1,7 +1,7 @@
 import {test} from 'node:test';import assert from 'node:assert/strict';
 import {priceEvmMarkets,matchesManager} from '../discovery-runtime.mjs';
 import {mergeMarkets} from '../source/discovery-core.mjs';
-import {parseAbi,decodeFunctionData,encodeFunctionResult,keccak256,encodeAbiParameters} from '../../hoodstonk/app/node_modules/viem/_esm/index.js';
+import {parseAbi,decodeFunctionData,encodeFunctionResult,keccak256,encodeAbiParameters} from 'viem';
 const ABI=parseAbi(['function extsload(bytes32 startSlot,uint256 nSlots) view returns (bytes32[])','function name() view returns (string)','function symbol() view returns (string)','function decimals() view returns (uint8)','function totalSupply() view returns (uint256)','function tokenURI() view returns (string)']);
 const zero='0x'+'0'.repeat(40),token='0x'+'1'.repeat(40),manager='0x06c63714fbf1f5753017123e2fcfdede4540b2c4',whype='0x'+'3'.repeat(40);
 const key={currency0:zero,currency1:token,fee:0,tickSpacing:60,hooks:zero};
