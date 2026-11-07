@@ -1,5 +1,7 @@
 # Solana revenue allocation: verified boundary and required decision
 
+> **Correction (2026-11-07): the decision framing below is superseded by `SOLANA-CONTAINER-RECOVERY.md`.** It examined ordinary direct-Pump claims without first recovering dmno's existing per-token containers. Shared-recipient aggregation remains a valid boundary for that path, but it is not evidence that the existing container architecture lacks per-token isolation. Do not treat the wallet-budget choice below as an owner-approved architecture decision. The recovered deployment and quote-intake boundaries are documented separately.
+
 ## Outcome
 
 **Creator-signed transfers are supported. Exact per-token creator-revenue allocation is not available from the current shared-recipient claim balance alone.** The requested controls and claim/distribute workflow are not implemented or deployed by this investigation. This is a concrete accounting/signing decision, not a claim that SPL payouts are impossible.
