@@ -1,5 +1,23 @@
 # Build and deployment record
 
+## Verified USD and shared market spacing — 2026-11-07
+
+Primary Elysium metrics now use verified quote/USD conversion, with native values, exact pool/manager/currency identity, timestamps and cached ages retained. The shared toolbar, header chain-status group, hero padding and card rhythm were revised against the owner's 1494×1002 spacing screenshot. Desktop cards use content-sized subgrid tracks; mobile Elysium details and contract links share an action row.
+
+Pre-deployment evidence:
+- 57 tests passed, including USD arithmetic, unsupported quote/chain identity, stale/expired rates, actual WHYPE cross-rate fixtures and pool-key retention through pricing or manager-code failures.
+- A clean `npm ci --ignore-scripts` copy passed all tests and produced byte-identical app, Solana, discovery and route-policy bundles.
+- 36 spacing combinations passed: 390/1494 widths, Solana/Elysium, light/dark/blossom, 3/6/9 density preferences. Desktop control tops and metric row baselines aligned within 2 px; no horizontal overflow or browser exceptions.
+- USD browser checks covered details, Elysium/combined tables and all six languages. Clock-controlled browser tests passed minute refresh, preservation of search/view/expanded details, and conversion expiry during refresh failure for both directories.
+- Independent code and eight-screenshot visual review both returned PASS after correction rounds. Evidence is in the external temporary directory under `elysium-final-review.out` and `spacing-approved-*`.
+- The settled reduced-motion automated accessibility scan returned no violations. The first immediate scan caught an inappropriate article/listitem role, now corrected, and animation-time contrast findings that disappeared when scanning the settled page.
+
+Provider limitations remain visible. Two local chain runs took 667,939 ms and 722,159 ms. The second recovered 59 prices, with no failed pool reads and complete selected-window history, but was still slow enough for cached status. RPC responses included explicit rate-limit/server-busy errors. The precise transient cause of the owner's original all-cached screenshot cannot be reconstructed. Populated UI snapshots previously never refreshed; that reproducible client issue is fixed. Server work now bounds history, parallelizes reads and metadata probes, retains discovered keys independently of priced rows, and rechecks USD after a slow scan.
+
+Measured example at Elysium block 2,003,770: KNTQ/HYPE price `0.006193709001840695 HYPE × 77.65 USD/HYPE = 0.48094150399292995 USD`; USD FDV `789993.8986622035`. That historical sample was correctly cached. No authenticated, liquid WHYPE conversion venue was returned in these runs, so WHYPE USD remains unavailable rather than assuming parity. Virtual active depth is not TVL.
+
+Deployment and public verification are recorded below after release.
+
 ## Aquatic and creator-wallet refinement — deployed, 2026-11-07
 
 Release commit: `b9ccf9e`. Dedicated Railway deployment:

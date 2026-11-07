@@ -5,6 +5,8 @@ import { mergeMarkets, platformProof, sourceFailure, sourceNote, retainPartialRo
 import {matchesPumpReceipt} from './pump-provenance.mjs';
 import {createArtwork,imageRoute} from './artwork.mjs';
 import {priceEvmMarkets} from './evm-markets.mjs';
+import {fetchHypeUsd,quoteUsdRates,convertEvmRow,NATIVE} from './evm-usd.mjs';
+import {MANAGERS} from './evm-managers.mjs';
 export {priceEvmMarkets} from './evm-markets.mjs';
 export {matchesManager} from './evm-managers.mjs';
 export {recordPumpBuild} from './pump-provenance.mjs';
@@ -86,10 +88,12 @@ export async function createMarketDiscovery({ env = process.env, manifest, fetch
     state.sources.platformEvm = { status: 'complete', complete: true, count: state.launches.length, fromBlock: manifest.carbon.deployBlock, throughBlock: to, head, confirmations: 64, checkedAt: new Date().toISOString() };
     if (state.sources.evmMarkets?.authenticatedManagers>0 && state.sources.evmMarkets?.checkedAt && Date.now() - Date.parse(state.sources.evmMarkets.checkedAt) < 300000) return;
     // Wider discovery is explicitly bounded. No claim to index every Elysium market.
-    const marketFrom = Math.max(0, to - 200000), pools = new Map();
+    const marketFrom = Math.max(0,to-50000,(state.sources.evmMarkets?.throughBlock??to-50000)-64);
+    const retainedPools=[...(state.evmPoolKeys||[]),...state.rows.filter(r=>r.chain==='elysium').flatMap(r=>r.pools?.length?r.pools:[r])].filter(r=>r.manager&&r.poolId&&r.key);
+    const pools = new Map(retainedPools.map(p=>[p.manager.toLowerCase()+':'+p.poolId,p]));
     try {
       for (let block = marketFrom; block <= to; block += 50000) {
-        const logs = await rpc('eth_getLogs', [{ topics: [initTopic], fromBlock: `0x${block.toString(16)}`, toBlock: `0x${Math.min(block + 49999, to).toString(16)}` }]);
+        const logs = await rpc('eth_getLogs', [{ address:Object.keys(MANAGERS),topics: [initTopic], fromBlock: `0x${block.toString(16)}`, toBlock: `0x${Math.min(block + 49999, to).toString(16)}` }]);
         for (const log of logs) {
           if (log.removed) continue;
           const { args: a } = decodeEventLog({ abi: initAbi, data: log.data, topics: log.topics });
@@ -99,12 +103,15 @@ export async function createMarketDiscovery({ env = process.env, manifest, fetch
         }
         await sleep(150);
       }
-      const enriched=await priceEvmMarkets({rpc,manifest,pools:[...pools.values()],previous:state.rows.filter(r=>r.chain==='elysium'),block:to,fetcher});
+      state.evmPoolKeys=[...pools.values()].map(({address,poolId,manager,block,transactionHash,key})=>({address,poolId,manager,block,transactionHash,key}));
+      const enriched=await priceEvmMarkets({rpc,manifest,pools:state.evmPoolKeys,previous:state.rows.filter(r=>r.chain==='elysium'),block:to,fetcher});
       const rows=enriched.rows;
+      state.evmPoolKeys=enriched.poolKeys;
       try{const coins=await json(apiBase+'/api/purrlysium/coins');for(const row of rows)if(coins.coins?.[row.address.toLowerCase()]?.image)row.image='/purrlysium/img/'+row.address.toLowerCase();}catch{}
       state.rows = mergeMarkets(state.rows.filter(r => r.chain !== 'elysium' || r.provenance?.kind === 'platform'), rows);
       state.sources.evmMarkets = {...enriched.source,fromBlock:marketFrom,throughBlock:to};
-    } catch(e) { state.sources.evmMarkets = sourceFailure(state.sources.evmMarkets, 'Elysium wider discovery provider unavailable');state.rows=state.rows.map(r=>r.chain==='elysium'?{...r,stale:true}:r); }
+      state.nativeQuotes=enriched.nativeQuotes;
+    } catch(e) { state.sources.evmMarkets = sourceFailure(state.sources.evmMarkets, 'Elysium wider discovery provider unavailable: '+clean(e.message,160));state.rows=state.rows.map(r=>r.chain==='elysium'?{...r,stale:true}:r); }
   }
   function dexRow(pair, mint, provenance) {
     const token = pair.baseToken;
@@ -178,14 +185,25 @@ export async function createMarketDiscovery({ env = process.env, manifest, fetch
     if (busy || Date.now()<nextAttempt) return;
     busy=true;
     try {
-      await Promise.all([evm().catch(e=>{state.sources.platformEvm=sourceFailure(state.sources.platformEvm,'Platform launch scan incomplete: RPC unavailable');}),solana()]);
-      state.checkedAt=new Date().toISOString();await persist();
+      await Promise.all([evm().catch(e=>{state.sources.platformEvm=sourceFailure(state.sources.platformEvm,'Platform launch scan incomplete: RPC unavailable');}),solana(),(async()=>{
+        if(!state.usdAnchor?.receivedAt||Date.now()-Math.max(state.usdAnchor.receivedAt,state.usdAnchor.attemptedAt||0)>120000)state.usdAnchor=await fetchHypeUsd({fetcher,previous:state.usdAnchor});
+       })()]);
+      // A slow chain scan must not publish an anchor fetched minutes earlier.
+      if(Date.now()-Math.max(state.usdAnchor?.receivedAt||0,state.usdAnchor?.attemptedAt||0)>120000)state.usdAnchor=await fetchHypeUsd({fetcher,previous:state.usdAnchor});
+       state.checkedAt=new Date().toISOString();await persist();
       failures=['stale','unavailable'].includes(state.sources.platformEvm?.status)?Math.min(failures+1,3):0;
     }finally{busy=false;nextAttempt=Date.now()+60000*2**failures;}
   }
   const artwork=createArtwork({env,directory:path.join(dir,'artwork'),getRows:()=>state.rows,getCachedArtwork,metadataAddress,fetcher,getAccounts:async(addresses,encoding)=>{const data=await json(env.PURRLYSIUM_SOLANA_RPC_URL||'https://api.mainnet-beta.solana.com',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method:'getMultipleAccounts',params:[addresses,{encoding,commitment:'confirmed'}]})});return data.result.value;}});
   const evmArtwork=createArtwork({env,chain:'elysium',directory:path.join(dir,'evm-artwork'),getRows:()=>state.rows,fetcher});
-  const snapshot=()=>{ const sources=Object.fromEntries(Object.entries(state.sources).map(([name,s])=>[name,s.checkedAt && Date.now()-Date.parse(s.checkedAt)>600000?{...s,status:'stale',complete:false}:s]));return {version:1,rows:mergeMarkets(state.rows).map(row=>({...row,stale:row.stale||row.chain==='elysium'&&row.checkedAt&&Date.now()-Date.parse(row.checkedAt)>600000,image:imageRoute(row)})),artwork:artwork.status(),evmArtwork:evmArtwork.status(),sources,launches:state.launches,checkedAt:state.checkedAt||null,partial:true,complete:false,refreshing:busy,coverageNote:'Platform provenance first, then ecosystem and bounded wider markets. '+sourceNote(sources)};};
+  const snapshot=()=>{
+    const now=Date.now(),sources=Object.fromEntries(Object.entries(state.sources).map(([name,s])=>[name,s.checkedAt&&now-Date.parse(s.checkedAt)>600000?{...s,status:'stale',complete:false}:s]));
+    const nativeQuotes=state.nativeQuotes|| (manifest.chainId===99901&&manifest.bridge?.parentChainId===999?[{chainId:99901,address:NATIVE,symbol:'HYPE',nativePerQuote:1,verified:true}]:[]);
+    const rates=quoteUsdRates(state.usdAnchor,nativeQuotes,now);
+    sources.usdQuotes={status:!rates.length?'unavailable':rates.some(r=>r.stale)?'stale':'complete',source:state.usdAnchor?.source,observedAt:state.usdAnchor?.observedAt,error:state.usdAnchor?.error,count:rates.length};
+    const rows=mergeMarkets(state.rows).map(row=>{const item={...row,stale:Boolean(row.stale||row.chain==='elysium'&&now-(row.stateTime??Date.parse(row.checkedAt))>600000),image:imageRoute(row)};return row.chain==='elysium'?convertEvmRow(item,rates,now):item;});
+    return {version:1,rows,quoteUsdRates:rates,artwork:artwork.status(),evmArtwork:evmArtwork.status(),sources,launches:state.launches,checkedAt:state.checkedAt||null,partial:true,complete:false,refreshing:busy,coverageNote:'Platform provenance first, then ecosystem and bounded wider markets. '+sourceNote(sources)};
+  };
   let timer;
   if(autoStart){const run=()=>refresh().catch(()=>{state.sources.persistence={status:'unavailable',complete:false,error:'Discovery snapshot could not be saved'};});timer=setTimeout(()=>{void run();timer=setInterval(()=>void run(),60000);timer.unref?.();},2000);timer.unref?.();}
   return {snapshot,refresh,exportState:()=>state,artwork,evmArtwork,close:()=>clearInterval(timer)};

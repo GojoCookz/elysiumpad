@@ -1,13 +1,46 @@
 import {test} from 'node:test';import assert from 'node:assert/strict';
 import {priceEvmMarkets,matchesManager} from '../discovery-runtime.mjs';
 import {mergeMarkets} from '../source/discovery-core.mjs';
-import {parseAbi,decodeFunctionData,encodeFunctionResult,keccak256,encodeAbiParameters} from 'viem';
+import {parseAbi,decodeFunctionData,encodeFunctionResult,keccak256,encodeAbiParameters,encodeEventTopics} from 'viem';
 const ABI=parseAbi(['function extsload(bytes32 startSlot,uint256 nSlots) view returns (bytes32[])','function name() view returns (string)','function symbol() view returns (string)','function decimals() view returns (uint8)','function totalSupply() view returns (uint256)','function tokenURI() view returns (string)']);
 const zero='0x'+'0'.repeat(40),token='0x'+'1'.repeat(40),manager='0x06c63714fbf1f5753017123e2fcfdede4540b2c4',whype='0x'+'3'.repeat(40);
 const key={currency0:zero,currency1:token,fee:0,tickSpacing:60,hooks:zero};
 const poolId=keccak256(encodeAbiParameters([{type:'address'},{type:'address'},{type:'uint24'},{type:'int24'},{type:'address'}],Object.values(key)));
 const p={address:token,manager,poolId,key,block:90,transactionHash:'0x'+'4'.repeat(64)};
 const word=n=>'0x'+n.toString(16).padStart(64,'0');
+test('a temporary manager-code outage retains pool keys without admitting its price',async()=>{
+ const rpc=async(method,params)=>{if(method==='eth_getCode'){if(params[0]===manager)throw Error('Temporary outage');return '0x1234';}if(method==='eth_getLogs')return [];if(method==='eth_getBlockByNumber')return {timestamp:'0xc8'};throw Error('Unauthenticated pool must not be read');};
+ const result=await priceEvmMarkets({rpc,manifest:{whype},pools:[p],previous:[],block:100,managerVerifier:()=>true});
+ assert.equal(result.rows.length,0);assert.equal(result.poolKeys.length,1);assert.equal(result.poolKeys[0].poolId,poolId);assert.equal(result.source.excludedPools,1);
+});
+test('recovered historical pool keys survive failed pricing independently of displayed rows',async()=>{
+ const events=parseAbi(['event Swap(bytes32 indexed id,address indexed sender,int128 amount0,int128 amount1,uint160 sqrtPriceX96,uint128 liquidity,int24 tick,uint24 fee)','event Initialize(bytes32 indexed id,address indexed currency0,address indexed currency1,uint24 fee,int24 tickSpacing,address hooks,uint160 sqrtPriceX96,int24 tick)']);
+ const swapTopic=encodeEventTopics({abi:events,eventName:'Swap'})[0];
+ const log=(eventName,args,types,values)=>({address:manager,transactionHash:'0x'+'a'.repeat(64),logIndex:'0x0',blockNumber:'0x50',topics:encodeEventTopics({abi:events,eventName,args}),data:encodeAbiParameters(types.map(type=>({type})),values)});
+ const rpc=async(method,params)=>{
+  if(method==='eth_getCode')return '0x1234';if(method==='eth_getBlockByNumber')return {timestamp:'0xc8'};
+  if(method==='eth_getLogs')return params[0].topics[0]===swapTopic
+   ?[log('Swap',{id:poolId,sender:zero},['int128','int128','uint160','uint128','int24','uint24'],[1n,-1n,2n**96n,100n,0,0])]
+   :[log('Initialize',{id:poolId,currency0:zero,currency1:token},['uint24','int24','address','uint160','int24'],[0,60,zero,2n**96n,0])];
+  throw Error('State provider unavailable');
+ };
+ const result=await priceEvmMarkets({rpc,manifest:{whype},pools:[],previous:[],block:100,managerVerifier:address=>address===manager});
+ assert.equal(result.rows.length,0);assert.equal(result.poolKeys.length,1);assert.equal(result.poolKeys[0].poolId,poolId);assert.deepEqual(result.poolKeys[0].key,key);
+});
+test('WHYPE conversion reads the exact Elysium native pair instead of assuming parity',async()=>{
+ const conversionKey={currency0:zero,currency1:whype,fee:3000,tickSpacing:60,hooks:zero};
+ const id=keccak256(encodeAbiParameters([{type:'address'},{type:'address'},{type:'uint24'},{type:'int24'},{type:'address'}],Object.values(conversionKey)));
+ const slot=keccak256(encodeAbiParameters([{type:'bytes32'},{type:'uint256'}],[id,6n]));
+ const rpc=async(method,params)=>{
+  if(method==='eth_getCode')return '0x1234';if(method==='eth_getLogs')return [];if(method==='eth_getBlockByNumber')return {timestamp:'0xc8'};
+  const {functionName,args}=decodeFunctionData({abi:ABI,data:params[0].data});
+  assert.equal(params[1],'0x64');assert.equal(params[0].to.toLowerCase(),functionName==='extsload'?manager:whype);
+  if(functionName==='extsload'){assert.equal(args[0],slot);return encodeFunctionResult({abi:ABI,functionName,result:[word(2n*2n**96n),word(0n),word(0n),word(10n**20n)]});}
+  return encodeFunctionResult({abi:ABI,functionName,result:functionName==='decimals'?18:'WHYPE'});
+ };
+ const result=await priceEvmMarkets({rpc,manifest:{chainId:99901,bridge:{parentChainId:999},whype},pools:[],previous:[],block:100,managerVerifier:address=>address===manager});
+ const rate=result.nativeQuotes.find(r=>r.address===whype);assert.equal(rate.nativePerQuote,0.25);assert.equal(rate.poolId,id);assert.equal(rate.chainId,99901);assert.equal(rate.stateTime,200000);assert.equal(rate.verified,true);
+});
 test('confirmed pool pricing uses pinned state, correct quote, FDV and incomplete-history null',async()=>{
  const tags=[];
  const rpc=async(method,params)=>{

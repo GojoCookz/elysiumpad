@@ -40,7 +40,7 @@ export async function releaseMarkets(target, { h, chain, current }) {
     const response = await fetch('/api/discovery');
     if (!response.ok) throw Error('Discovery unavailable. Existing coverage cannot be confirmed.');
     const snapshot = await response.json();
-    const rows = snapshot.rows.filter(row => mode === 'all' || row.chain === mode);
+     const rows = snapshot.rows.filter(row => mode === 'all' || row.chain === mode).map(row=>mode==='all'&&row.chain==='elysium'?{...row,nativeMetrics:row,price:row.usd?.price??null,fdv:row.usd?.fdv??null,unit:'USD',pair:`${row.pair} · Elysium`}:row);
     if (current()) {
        status.textContent = '';
       coverage.replaceChildren(h('summary', {}, 'Discovery coverage and provenance'), ...Object.entries(snapshot.sources).map(([name, source]) => h('p',{}, `${name}: ${source.status}${source.count == null ? ' · count unknown' : ` · ${source.count} verified/returned`}${source.error ? ` · ${source.error}` : ''}${source.coverage ? ` · ${source.coverage}` : ''}${source.retainedStale ? ` · ${source.retainedStale} cached rows retained as stale` : ''}${source.warnings?.length ? ` · ${source.warnings.join(' ')}` : ''}`)));
@@ -49,10 +49,16 @@ export async function releaseMarkets(target, { h, chain, current }) {
     }
     return { rows, checkedAt:snapshot.checkedAt, partial:true, coverageNote:mode==='elysium'?'Pool records · see discovery coverage':'See discovery coverage' };
   };
-  async function draw() {
-    try { const data = await load(); if(current()){if(mode==='elysium')evmDirectory(results,{h,...data});else marketDirectory(results,{h,chain:mode,...data,current,searchRemote:load,open:row=>{location.href=marketHref(row.chain,'trade',row.address);}});} }
+   let directory,lastRefresh=0,refreshing=false;
+   async function draw() {
+     try { const data = await load();lastRefresh=Date.now();if(current()){if(mode==='elysium')directory=evmDirectory(results,{h,...data});else directory=marketDirectory(results,{h,chain:mode,...data,current,searchRemote:load,open:row=>{location.href=marketHref(row.chain,'trade',row.address);}});} }
     catch(e){if(current())status.replaceChildren(e.message,h('button',{class:'ely-btn',onclick:draw},'Retry discovery'));}
   }
   await draw();
-   const timer = setInterval(()=>{if(!current()||!target.isConnected){clearInterval(timer);water.destroy();}else if(!results.querySelector('.market-card'))void draw();},10000);
+    const timer = setInterval(async()=>{
+      if(!current()||!target.isConnected){clearInterval(timer);water.destroy();return;}
+      if(refreshing||document.hidden)return;
+      if(directory&&Date.now()-lastRefresh>=60000){refreshing=true;try{const data=await load();if(current())directory.update(data);lastRefresh=Date.now();}catch{directory.markStale();status.textContent='Market refresh unavailable. Displayed values may be stale.';}finally{refreshing=false;}}
+      else if(!directory&&!results.querySelector('.market-card,.market-table'))void draw();
+    },10000);
 }

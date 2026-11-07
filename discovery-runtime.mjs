@@ -3650,7 +3650,17 @@ function poolMetrics({ sqrtPriceX96, liquidity, tokenIs0, tokenDecimals, quoteDe
   return { price, fdv: price && total ? positive(price * total) : null, activeDepth };
 }
 var poolIdentity = (p) => `${p.manager.toLowerCase()}:${p.poolId.toLowerCase()}`;
-function groupPools(pools) {
+function groupPools(pools, nativeQuotes = []) {
+  const depth = (p) => {
+    const rate = nativeQuotes.find((q) => q.verified && q.chainId === 99901 && q.address.toLowerCase() === p.quoteAddress?.toLowerCase());
+    return rate ? (p.activeDepth || 0) * rate.nativePerQuote : null;
+  };
+  const compareDepth = (a, b) => {
+    const x = depth(a), y = depth(b);
+    if (x !== null || y !== null) return (y ?? -1) - (x ?? -1);
+    if (a.quoteAddress?.toLowerCase() === b.quoteAddress?.toLowerCase()) return (b.activeDepth || 0) - (a.activeDepth || 0);
+    return poolIdentity(a).localeCompare(poolIdentity(b));
+  };
   const groups = /* @__PURE__ */ new Map(), seen = /* @__PURE__ */ new Set();
   for (const p of pools) {
     const id = poolIdentity(p);
@@ -3661,10 +3671,10 @@ function groupPools(pools) {
   }
   return [...groups.values()].map((list) => {
     const platform = (p) => p.provenance?.kind === "platform" && p.provenance?.verified === true;
-    list.sort((a, b) => Number(platform(b)) - Number(platform(a)) || Number(b.price > 0) - Number(a.price > 0) || (b.activeDepth || 0) - (a.activeDepth || 0));
+    list.sort((a, b) => Number(platform(b)) - Number(platform(a)) || Number(b.price > 0) - Number(a.price > 0) || compareDepth(a, b));
     const best = list[0];
     return { ...best, pools: list.map(({ pools: pools2, ...p }) => p), poolCount: list.length };
-  }).sort((a, b) => Number(b.price > 0) - Number(a.price > 0) || (b.activeDepth || 0) - (a.activeDepth || 0));
+  }).sort((a, b) => Number(b.price > 0) - Number(a.price > 0) || compareDepth(a, b));
 }
 
 // source/evm-managers.mjs
@@ -3685,8 +3695,20 @@ var ABI = parseAbi(["function extsload(bytes32 startSlot,uint256 nSlots) view re
 var zero = "0x0000000000000000000000000000000000000000";
 var hex = (n) => "0x" + n.toString(16);
 var clean2 = (s) => String(s).replace(/[\u0000-\u001f\u007f\u202a-\u202e]/g, "").slice(0, 80);
+async function mapPoolReads(items, read, limit = 4) {
+  let next = 0;
+  const result = new Array(items.length);
+  await Promise.all(Array.from({ length: Math.min(limit, items.length) }, async () => {
+    while (next < items.length) {
+      const index = next++;
+      result[index] = await read(items[index]);
+    }
+  }));
+  return result;
+}
 async function priceEvmMarkets({ rpc, manifest, pools, previous, block, managerVerifier = matchesManager }) {
-  const at = hex(block), from = Math.max(0, block - 5e4), warnings = [];
+  const retainedKeys = new Map(pools.map((p) => [poolIdentity(p), p]));
+  const at = hex(block), from = Math.max(0, block - 5e3), warnings = [];
   const supported = [];
   for (const manager of Object.keys(MANAGERS)) try {
     if (managerVerifier(manager, await rpc("eth_getCode", [manager, at]))) supported.push(manager);
@@ -3710,8 +3732,8 @@ async function priceEvmMarkets({ rpc, manifest, pools, previous, block, managerV
   const window = { fromBlock: from, throughBlock: block, fromTime: Number(BigInt(start.timestamp)), throughTime: Number(BigInt(end.timestamp)), complete: false };
   const activity = /* @__PURE__ */ new Map(), seen = /* @__PURE__ */ new Set();
   try {
-    for (let n = from; n <= block; n += 1e4) {
-      const logs = await rpc("eth_getLogs", [{ address: supported, topics: encodeEventTopics({ abi: SWAP, eventName: "Swap" }), fromBlock: hex(n), toBlock: hex(Math.min(block, n + 9999)) }]);
+    for (let n = from; n <= block; n += 1e3) {
+      const logs = await rpc("eth_getLogs", [{ address: supported, topics: encodeEventTopics({ abi: SWAP, eventName: "Swap" }), fromBlock: hex(n), toBlock: hex(Math.min(block, n + 999)) }]);
       for (const log of logs) {
         if (log.removed || !supported.includes(log.address.toLowerCase())) continue;
         const unique = log.transactionHash + ":" + log.logIndex;
@@ -3772,17 +3794,24 @@ async function priceEvmMarkets({ rpc, manifest, pools, previous, block, managerV
     const id = address.toLowerCase();
     if (tokens.has(id)) return tokens.get(id);
     const old = previous.find((p) => p.address.toLowerCase() === id && p.metadataVerified);
-    const name = old?.name || await read(address, "name"), symbol = old?.symbol || await read(address, "symbol"), decimals = Number(await read(address, "decimals"));
-    let supply = null;
-    try {
-      supply = (await read(address, "totalSupply")).toString();
-    } catch {
-    }
+    const [name, symbol, decimals, supply] = await Promise.all([
+      old?.name || read(address, "name"),
+      old?.symbol || read(address, "symbol"),
+      read(address, "decimals").then(Number),
+      read(address, "totalSupply").then((value2) => value2.toString()).catch(() => null)
+    ]);
     const value = { name: clean2(name), symbol: clean2(symbol).slice(0, 24), decimals, totalSupply: supply, metadataVerified: true };
     tokens.set(id, value);
     return value;
   };
-  for (const p of chosen.values()) {
+  const quoteMetadata = /* @__PURE__ */ new Map();
+  const quoteMeta = (address) => {
+    const key = address.toLowerCase();
+    if (key === zero) return Promise.resolve({ decimals: 18, symbol: "HYPE" });
+    if (!quoteMetadata.has(key)) quoteMetadata.set(key, Promise.all([read(address, "decimals"), read(address, "symbol")]).then(([decimals, symbol]) => ({ decimals: Number(decimals), symbol: clean2(symbol) })));
+    return quoteMetadata.get(key);
+  };
+  await mapPoolReads([...chosen.values()], async (p) => {
     try {
       const expected = keccak256(encodeAbiParameters([{ type: "address" }, { type: "address" }, { type: "uint24" }, { type: "int24" }, { type: "address" }], [p.key.currency0, p.key.currency1, p.key.fee, p.key.tickSpacing, p.key.hooks]));
       if (expected.toLowerCase() !== p.poolId.toLowerCase()) throw Error("Pool key mismatch");
@@ -3791,34 +3820,50 @@ async function priceEvmMarkets({ rpc, manifest, pools, previous, block, managerV
       const sqrtPriceX96 = BigInt(words[0]) & (1n << 160n) - 1n, liquidity = BigInt(words[3]) & (1n << 128n) - 1n;
       if (!liquidity) {
         empty++;
-        if (p.provenance?.kind === "platform") result.push({ ...p, stale: false, price: null, fdv: null, activeDepth: null, activeLiquidity: "0", observedVolume: null, volume: null, cap: null, change: null, series: [], stateBlock: block, checkedAt: (/* @__PURE__ */ new Date()).toISOString() });
-        continue;
+        if (p.provenance?.kind === "platform") result.push({ ...p, stale: false, price: null, fdv: null, activeDepth: null, activeLiquidity: "0", observedVolume: null, volume: null, cap: null, change: null, series: [], stateBlock: block, stateTime: window.throughTime * 1e3, checkedAt: (/* @__PURE__ */ new Date()).toISOString() });
+        return;
       }
       const m = await meta(p.address), tokenIs0 = p.address.toLowerCase() === p.key.currency0.toLowerCase(), quote = tokenIs0 ? p.key.currency1 : p.key.currency0;
-      const quoteDecimals = quote.toLowerCase() === zero ? 18 : Number(await read(quote, "decimals"));
-      const quoteSymbol = quote.toLowerCase() === zero ? "HYPE" : quote.toLowerCase() === manifest.whype.toLowerCase() ? "WHYPE" : clean2(await read(quote, "symbol"));
+      const qm = await quoteMeta(quote), quoteDecimals = qm.decimals, quoteSymbol = qm.symbol;
       const metrics = poolMetrics({ sqrtPriceX96, liquidity, tokenIs0, tokenDecimals: m.decimals, quoteDecimals, supply: m.totalSupply });
       if (!metrics.price) throw Error("Invalid live state");
       const a = activity.get(poolIdentity(p));
       const observedVolume = window.complete ? Number(a ? tokenIs0 ? a.amount1 : a.amount0 : 0n) / 10 ** quoteDecimals : null;
       const old = previous.find((r) => r.address.toLowerCase() === p.address.toLowerCase());
-      result.push({ ...p, ...m, ...metrics, stale: false, chain: "elysium", unit: quoteSymbol, pair: `${m.symbol} / ${quoteSymbol}`, quoteAddress: quote, quoteDecimals, cap: null, volume: null, change: null, holders: null, series: [], observedVolume, volumeWindow: window, activeLiquidity: liquidity.toString(), sqrtPriceX96: sqrtPriceX96.toString(), stateBlock: block, checkedAt: (/* @__PURE__ */ new Date()).toISOString(), image: old?.image || "", imageCandidates: old?.imageCandidates || [], metadataUri: old?.metadataUri, metadataCheckedAt: old?.metadataCheckedAt, provenance: p.provenance?.kind === "platform" ? p.provenance : { kind: "market", verified: true, source: "Pinned canonical manager runtime; pool key matched to Initialize; current extsload state at confirmed block", transactionHash: p.transactionHash, block: p.block } });
-    } catch {
+      result.push({ ...p, ...m, ...metrics, stale: false, chain: "elysium", unit: quoteSymbol, pair: `${m.symbol} / ${quoteSymbol}`, quoteAddress: quote, quoteDecimals, cap: null, volume: null, change: null, holders: null, series: [], observedVolume, volumeWindow: window, activeLiquidity: liquidity.toString(), sqrtPriceX96: sqrtPriceX96.toString(), stateBlock: block, stateTime: window.throughTime * 1e3, checkedAt: (/* @__PURE__ */ new Date()).toISOString(), image: old?.image || "", imageCandidates: old?.imageCandidates || [], metadataUri: old?.metadataUri, metadataCheckedAt: old?.metadataCheckedAt, provenance: p.provenance?.kind === "platform" ? p.provenance : { kind: "market", verified: true, source: "Pinned canonical manager runtime; pool key matched to Initialize; current extsload state at confirmed block", transactionHash: p.transactionHash, block: p.block } });
+    } catch (error) {
       failed++;
       failedIdentities.add(p.address.toLowerCase());
+      if (failed <= 3) warnings.push(`Pool read ${p.poolId}: ${clean2(error.message)}`);
     }
-    await new Promise((r) => setTimeout(r, 100));
+  });
+  const nativeQuotes = [{ chainId: 99901, address: zero, symbol: "HYPE", nativePerQuote: 1, verified: true }];
+  if (manifest.chainId === 99901 && manifest.bridge?.parentChainId === 999) {
+    const candidates = await mapPoolReads(supported, async (manager) => {
+      try {
+        const key = { currency0: zero, currency1: manifest.whype, fee: 3e3, tickSpacing: 60, hooks: zero };
+        const poolId = keccak256(encodeAbiParameters([{ type: "address" }, { type: "address" }, { type: "uint24" }, { type: "int24" }, { type: "address" }], Object.values(key)));
+        const slot = keccak256(encodeAbiParameters([{ type: "bytes32" }, { type: "uint256" }], [poolId, 6n]));
+        const words = await read(manager, "extsload", [slot, 4n]), qm = await quoteMeta(manifest.whype);
+        const m = poolMetrics({ sqrtPriceX96: BigInt(words[0]) & (1n << 160n) - 1n, liquidity: BigInt(words[3]) & (1n << 128n) - 1n, tokenIs0: false, tokenDecimals: qm.decimals, quoteDecimals: 18 });
+        return m.price ? { chainId: 99901, address: manifest.whype.toLowerCase(), symbol: qm.symbol, nativePerQuote: m.price, activeNativeDepth: m.activeDepth, verified: true, manager, poolId, key, stateBlock: block, stateTime: window.throughTime * 1e3 } : null;
+      } catch {
+        return null;
+      }
+    });
+    const best = candidates.filter(Boolean).sort((a, b) => b.activeNativeDepth - a.activeNativeDepth)[0];
+    if (best) nativeQuotes.push(best);
   }
   let metadataProbes = 0;
-  for (const row of result) {
+  await mapPoolReads(result, async (row) => {
     const old = previous.find((r) => r.address.toLowerCase() === row.address.toLowerCase());
     if (old?.metadataCheckedAt && Date.now() - Date.parse(old.metadataCheckedAt) < 216e5) {
       row.metadataUri = old.metadataUri;
       row.metadataCheckedAt = old.metadataCheckedAt;
-      continue;
+      return;
     }
-    if (row.imageCandidates?.length || row.price == null) continue;
-    if (metadataProbes >= 24 || calls > 436) break;
+    if (row.imageCandidates?.length || row.price == null) return;
+    if (metadataProbes >= 24 || calls > 436) return;
     metadataProbes++;
     let resolved = false;
     for (const getter of ["tokenURI", "metadataURI"]) try {
@@ -3831,12 +3876,63 @@ async function priceEvmMarkets({ rpc, manifest, pools, previous, block, managerV
     } catch {
     }
     if (resolved || !old?.metadataUri) row.metadataCheckedAt = (/* @__PURE__ */ new Date()).toISOString();
-  }
+  });
   if (failed) warnings.push(`${failed} candidate pool reads failed or had unsupported state; prior priced records retained as stale.`);
-  const grouped = groupPools(result);
+  const grouped = groupPools(result, nativeQuotes);
   grouped.push(...unauthenticatedPlatform);
+  for (const [id, key] of known) retainedKeys.set(id, key);
+  const poolKeys = [...retainedKeys.values()].map(({ address, poolId, manager, block: block2, transactionHash, key }) => ({ address, poolId, manager, block: block2, transactionHash, key }));
   if (failed) for (const old of previous.filter((r) => r.price > 0 && failedIdentities.has(r.address.toLowerCase()) && !grouped.some((x) => x.address.toLowerCase() === r.address.toLowerCase()))) grouped.push({ ...old, stale: true });
-  return { rows: grouped, source: { status: warnings.length ? "partial-error" : "partial", complete: false, count: grouped.length, priced: grouped.filter((r) => r.price > 0).length, authenticatedManagers: supported.length, excludedPools, observedCandidates: known.size, examinedPools: chosen.size, liquidPools: result.filter((r) => r.price > 0).length, emptyPools: empty, failedPools: failed, readCalls: calls, limit: 60, checkedAt: (/* @__PURE__ */ new Date()).toISOString(), history: window, warnings, coverage: "Up to 60 active/recent pools from four runtime-authenticated managers, ranked by observed trading activity; one token row with the deepest observed active pool selected. Price and FDV use confirmed pool state and token supply. Active depth is virtual quote liquidity, not TVL. Window volume is selected-pool volume only; no 24h change claimed." } };
+  return { rows: grouped, nativeQuotes, poolKeys, source: { status: warnings.length ? "partial-error" : "partial", complete: false, count: grouped.length, priced: grouped.filter((r) => r.price > 0).length, authenticatedManagers: supported.length, excludedPools, observedCandidates: known.size, examinedPools: chosen.size, liquidPools: result.filter((r) => r.price > 0).length, emptyPools: empty, failedPools: failed, readCalls: calls, limit: 60, checkedAt: (/* @__PURE__ */ new Date()).toISOString(), history: window, warnings, coverage: "Up to 60 active/recent pools from four runtime-authenticated managers, ranked by observed trading activity. Verified platform pools retain priority; other pools use common-currency active depth where available. Price and FDV use confirmed pool state and token supply. Active depth is virtual quote liquidity, not TVL. Window volume is selected-pool volume only; no 24h change claimed." } };
+}
+
+// source/evm-usd.mjs
+var NATIVE = "0x0000000000000000000000000000000000000000";
+var HYPE_USD_URL = "https://api.coingecko.com/api/v3/simple/price?ids=hyperliquid&vs_currencies=usd&include_last_updated_at=true";
+var finite = (value) => typeof value === "number" && Number.isFinite(value) && value >= 0;
+var age = (time, now) => Number.isFinite(time) ? now - time : Infinity;
+async function fetchHypeUsd({ fetcher = fetch, previous, now = Date.now() }) {
+  try {
+    const response = await fetcher(HYPE_USD_URL, { signal: AbortSignal.timeout(1e4) });
+    if (!response.ok) throw Error(`USD provider HTTP ${response.status}`);
+    const data = (await response.json()).hyperliquid;
+    const observedAt = data?.last_updated_at * 1e3;
+    if (!finite(data?.usd) || data.usd <= 0 || !Number.isFinite(observedAt) || age(observedAt, now) < -6e4 || age(observedAt, now) > 36e5) throw Error("USD provider returned invalid or expired data");
+    return { usd: data.usd, observedAt, receivedAt: now, source: "CoinGecko hyperliquid / USD", sourceUrl: HYPE_USD_URL };
+  } catch (error) {
+    return previous ? { ...previous, error: error.message, attemptedAt: now } : { usd: null, error: error.message, attemptedAt: now };
+  }
+}
+function quoteUsdRates(anchor, nativeQuotes, now = Date.now()) {
+  if (!finite(anchor?.usd) || anchor.usd <= 0 || age(anchor.observedAt, now) < -6e4 || age(anchor.observedAt, now) > 36e5) return [];
+  return nativeQuotes.filter((q) => q.chainId === 99901 && finite(q.nativePerQuote) && q.nativePerQuote > 0 && q.verified === true).map((q) => ({
+    ...q,
+    usd: q.nativePerQuote * anchor.usd,
+    anchorUsd: anchor.usd,
+    observedAt: anchor.observedAt,
+    source: anchor.source,
+    sourceUrl: anchor.sourceUrl,
+    stale: Boolean(anchor.error) || age(anchor.observedAt, now) > 3e5 || q.address !== NATIVE && age(q.stateTime, now) > 3e5
+  }));
+}
+function convertEvmRow(row, rates, now = Date.now()) {
+  const quote = row.quoteAddress?.toLowerCase();
+  const rate = rates.find((r) => r.chainId === 99901 && r.address?.toLowerCase() === quote);
+  const unavailable = { status: "unavailable", price: null, fdv: null, volume: null, activeDepth: null, liquidity: null, rate: null };
+  if (row.chain !== "elysium" || !quote || !rate || !finite(rate.usd) || rate.usd <= 0 || age(rate.observedAt, now) > 36e5 || age(rate.observedAt, now) < -6e4 || quote !== NATIVE && age(rate.stateTime, now) > 36e5) return { ...row, usd: unavailable };
+  const multiply = (value) => finite(value) && Number.isFinite(value * rate.usd) ? value * rate.usd : null;
+  const stale = Boolean(row.stale || rate.stale) || age(rate.observedAt, now) > 3e5 || quote !== NATIVE && age(rate.stateTime, now) > 3e5 || age(row.stateTime ?? Date.parse(row.checkedAt), now) > 6e5;
+  return { ...row, usd: {
+    status: stale ? "stale" : "fresh",
+    price: multiply(row.price),
+    fdv: multiply(row.fdv),
+    volume: row.volumeWindow?.complete ? multiply(row.observedVolume) : null,
+    activeDepth: multiply(row.activeDepth),
+    // Only an explicitly quote-denominated TVL field can be converted. Active
+    // concentrated liquidity is virtual depth, never relabelled as TVL.
+    liquidity: multiply(row.liquidityQuote),
+    rate
+  } };
 }
 
 // source/discovery.mjs
@@ -3939,10 +4035,12 @@ async function createMarketDiscovery({ env = process.env, manifest, fetcher = fe
     }
     state.sources.platformEvm = { status: "complete", complete: true, count: state.launches.length, fromBlock: manifest.carbon.deployBlock, throughBlock: to, head, confirmations: 64, checkedAt: (/* @__PURE__ */ new Date()).toISOString() };
     if (state.sources.evmMarkets?.authenticatedManagers > 0 && state.sources.evmMarkets?.checkedAt && Date.now() - Date.parse(state.sources.evmMarkets.checkedAt) < 3e5) return;
-    const marketFrom = Math.max(0, to - 2e5), pools = /* @__PURE__ */ new Map();
+    const marketFrom = Math.max(0, to - 5e4, (state.sources.evmMarkets?.throughBlock ?? to - 5e4) - 64);
+    const retainedPools = [...state.evmPoolKeys || [], ...state.rows.filter((r) => r.chain === "elysium").flatMap((r) => r.pools?.length ? r.pools : [r])].filter((r) => r.manager && r.poolId && r.key);
+    const pools = new Map(retainedPools.map((p) => [p.manager.toLowerCase() + ":" + p.poolId, p]));
     try {
       for (let block = marketFrom; block <= to; block += 5e4) {
-        const logs = await rpc("eth_getLogs", [{ topics: [initTopic], fromBlock: `0x${block.toString(16)}`, toBlock: `0x${Math.min(block + 49999, to).toString(16)}` }]);
+        const logs = await rpc("eth_getLogs", [{ address: Object.keys(MANAGERS), topics: [initTopic], fromBlock: `0x${block.toString(16)}`, toBlock: `0x${Math.min(block + 49999, to).toString(16)}` }]);
         for (const log of logs) {
           if (log.removed) continue;
           const { args: a } = decodeEventLog({ abi: initAbi, data: log.data, topics: log.topics });
@@ -3952,8 +4050,10 @@ async function createMarketDiscovery({ env = process.env, manifest, fetcher = fe
         }
         await sleep(150);
       }
-      const enriched = await priceEvmMarkets({ rpc, manifest, pools: [...pools.values()], previous: state.rows.filter((r) => r.chain === "elysium"), block: to, fetcher });
+      state.evmPoolKeys = [...pools.values()].map(({ address, poolId, manager, block, transactionHash, key }) => ({ address, poolId, manager, block, transactionHash, key }));
+      const enriched = await priceEvmMarkets({ rpc, manifest, pools: state.evmPoolKeys, previous: state.rows.filter((r) => r.chain === "elysium"), block: to, fetcher });
       const rows = enriched.rows;
+      state.evmPoolKeys = enriched.poolKeys;
       try {
         const coins = await json(apiBase + "/api/purrlysium/coins");
         for (const row of rows) if (coins.coins?.[row.address.toLowerCase()]?.image) row.image = "/purrlysium/img/" + row.address.toLowerCase();
@@ -3961,8 +4061,9 @@ async function createMarketDiscovery({ env = process.env, manifest, fetcher = fe
       }
       state.rows = mergeMarkets(state.rows.filter((r) => r.chain !== "elysium" || r.provenance?.kind === "platform"), rows);
       state.sources.evmMarkets = { ...enriched.source, fromBlock: marketFrom, throughBlock: to };
+      state.nativeQuotes = enriched.nativeQuotes;
     } catch (e) {
-      state.sources.evmMarkets = sourceFailure(state.sources.evmMarkets, "Elysium wider discovery provider unavailable");
+      state.sources.evmMarkets = sourceFailure(state.sources.evmMarkets, "Elysium wider discovery provider unavailable: " + clean3(e.message, 160));
       state.rows = state.rows.map((r) => r.chain === "elysium" ? { ...r, stale: true } : r);
     }
   }
@@ -4058,7 +4159,10 @@ async function createMarketDiscovery({ env = process.env, manifest, fetcher = fe
     try {
       await Promise.all([evm().catch((e) => {
         state.sources.platformEvm = sourceFailure(state.sources.platformEvm, "Platform launch scan incomplete: RPC unavailable");
-      }), solana()]);
+      }), solana(), (async () => {
+        if (!state.usdAnchor?.receivedAt || Date.now() - Math.max(state.usdAnchor.receivedAt, state.usdAnchor.attemptedAt || 0) > 12e4) state.usdAnchor = await fetchHypeUsd({ fetcher, previous: state.usdAnchor });
+      })()]);
+      if (Date.now() - Math.max(state.usdAnchor?.receivedAt || 0, state.usdAnchor?.attemptedAt || 0) > 12e4) state.usdAnchor = await fetchHypeUsd({ fetcher, previous: state.usdAnchor });
       state.checkedAt = (/* @__PURE__ */ new Date()).toISOString();
       await persist();
       failures = ["stale", "unavailable"].includes(state.sources.platformEvm?.status) ? Math.min(failures + 1, 3) : 0;
@@ -4073,8 +4177,15 @@ async function createMarketDiscovery({ env = process.env, manifest, fetcher = fe
   } });
   const evmArtwork = createArtwork({ env, chain: "elysium", directory: path3.join(dir, "evm-artwork"), getRows: () => state.rows, fetcher });
   const snapshot = () => {
-    const sources = Object.fromEntries(Object.entries(state.sources).map(([name, s]) => [name, s.checkedAt && Date.now() - Date.parse(s.checkedAt) > 6e5 ? { ...s, status: "stale", complete: false } : s]));
-    return { version: 1, rows: mergeMarkets(state.rows).map((row) => ({ ...row, stale: row.stale || row.chain === "elysium" && row.checkedAt && Date.now() - Date.parse(row.checkedAt) > 6e5, image: imageRoute(row) })), artwork: artwork.status(), evmArtwork: evmArtwork.status(), sources, launches: state.launches, checkedAt: state.checkedAt || null, partial: true, complete: false, refreshing: busy, coverageNote: "Platform provenance first, then ecosystem and bounded wider markets. " + sourceNote(sources) };
+    const now = Date.now(), sources = Object.fromEntries(Object.entries(state.sources).map(([name, s]) => [name, s.checkedAt && now - Date.parse(s.checkedAt) > 6e5 ? { ...s, status: "stale", complete: false } : s]));
+    const nativeQuotes = state.nativeQuotes || (manifest.chainId === 99901 && manifest.bridge?.parentChainId === 999 ? [{ chainId: 99901, address: NATIVE, symbol: "HYPE", nativePerQuote: 1, verified: true }] : []);
+    const rates = quoteUsdRates(state.usdAnchor, nativeQuotes, now);
+    sources.usdQuotes = { status: !rates.length ? "unavailable" : rates.some((r) => r.stale) ? "stale" : "complete", source: state.usdAnchor?.source, observedAt: state.usdAnchor?.observedAt, error: state.usdAnchor?.error, count: rates.length };
+    const rows = mergeMarkets(state.rows).map((row) => {
+      const item = { ...row, stale: Boolean(row.stale || row.chain === "elysium" && now - (row.stateTime ?? Date.parse(row.checkedAt)) > 6e5), image: imageRoute(row) };
+      return row.chain === "elysium" ? convertEvmRow(item, rates, now) : item;
+    });
+    return { version: 1, rows, quoteUsdRates: rates, artwork: artwork.status(), evmArtwork: evmArtwork.status(), sources, launches: state.launches, checkedAt: state.checkedAt || null, partial: true, complete: false, refreshing: busy, coverageNote: "Platform provenance first, then ecosystem and bounded wider markets. " + sourceNote(sources) };
   };
   let timer;
   if (autoStart) {

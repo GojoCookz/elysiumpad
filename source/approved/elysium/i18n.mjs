@@ -2,6 +2,7 @@ import { TRANSLATIONS } from '../terminal-locales.mjs';
 import { LAUNCHPAD_TRANSLATIONS } from '../launchpad-locales.mjs';
 import { PAD_DICTIONARIES } from './locales.mjs';
 import { CREATOR_DICTIONARIES } from './creator-locales.mjs';
+import { USD_DICTIONARIES } from './market-usd-locales.mjs';
 import { PAD_LANGUAGES, preferredPadLanguage } from './preferences.mjs';
 const aliases = { 'pt-BR': 'pt', 'zh-CN': 'zh' };
 const dictionaries = Object.fromEntries(Object.keys(PAD_LANGUAGES).map(language => [language, {
@@ -9,6 +10,7 @@ const dictionaries = Object.fromEntries(Object.keys(PAD_LANGUAGES).map(language 
   ...(LAUNCHPAD_TRANSLATIONS[aliases[language] || language] || {}),
   ...PAD_DICTIONARIES[language],
   ...CREATOR_DICTIONARIES[language],
+  ...USD_DICTIONARIES[language],
 }]));
 let language = 'en';
 export const locale = () => typeof document !== 'undefined' && Object.hasOwn(PAD_LANGUAGES, document.documentElement.lang) ? document.documentElement.lang : language;
@@ -16,7 +18,7 @@ export function setLanguage(value) {
   language = preferredPadLanguage(value);
   if (typeof document !== 'undefined') { document.documentElement.lang = language; document.documentElement.dir = 'ltr'; }
 }
-const templates = Object.keys({...PAD_DICTIONARIES.en,...CREATOR_DICTIONARIES.en}).filter(key => key.includes('{')).map(key => {
+const templates = Object.keys({...PAD_DICTIONARIES.en,...CREATOR_DICTIONARIES.en,...USD_DICTIONARIES.en}).filter(key => key.includes('{')).map(key => {
   const parameters = [];
   const pattern = key.split(/(\{\w+\})/g).map(part => {
     if (/^\{\w+\}$/.test(part)) { parameters.push(part.slice(1, -1)); return '(.+?)'; }

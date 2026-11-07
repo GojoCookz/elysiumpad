@@ -1,6 +1,8 @@
 import { routeURL } from './routes.mjs';
 import { locale } from './i18n.mjs';
 import { marketLayoutControls } from './market-layout.mjs';
+import {evmMarketDetails,usdStatusLabel} from '../../evm-directory.mjs';
+import {convertEvmRow} from '../../evm-usd.mjs';
 
 export const metric = value => value !== null && value !== undefined && value !== '' && Number.isFinite(Number(value)) ? Number(value) : null;
 export const numberLabel = value => metric(value) === null ? 'Unavailable' : new Intl.NumberFormat(locale(), { maximumSignificantDigits: 5, notation: Math.abs(value) >= 100000 ? 'compact' : 'standard' }).format(value);
@@ -66,10 +68,11 @@ export function marketDirectory(target, { h, chain, rows, checkedAt, partial = f
   const view = h('div', { class: 'market-view-toggle', role: 'group', 'aria-label': 'Market display' });
   const chainFilter = h('select', { id: 'market-chain-filter', 'aria-label': 'Filter by chain' }, ...[['all', 'All chains'], ['solana', 'Solana'], ['elysium', 'Elysium']].map(([value, label]) => h('option', { value }, label)));
   const density = marketLayoutControls(h, target, () => { state.view = 'cards'; draw(); });
-  const form = h('form', { class: 'market-controls' }, h('label', {}, 'Search tokens', search), h('label', {}, 'Chain filter', chainFilter), h('label', {}, 'Sort by', sort), h('label', {}, 'Pair', pair), view, density, submit);
+  const form = h('form', { class: 'market-controls' }, h('label', {}, 'Search tokens', search), h('label', {}, 'Chain filter', chainFilter), h('label', {}, 'Sort by', sort), h('label', {}, 'Pair', pair), h('fieldset',{class:'market-control-group'},h('legend',{},'View'),view), density, submit?h('div',{class:'market-control-group'},h('span',{class:'market-control-label'},'Network'),submit):null);
   const status = h('p', { role: 'status', class: 'ely-muted' }), spotlight = h('section', { class: 'market-spotlight', 'aria-label': 'Featured observed market' }), pairRail = h('div', { class: 'market-pair-rail', role: 'group', 'aria-label': 'Observed quote pairs' }), list = h('div', { class: 'market-directory' });
   target.replaceChildren(spotlight, pairRail, form, status, list);
   function draw() {
+     const expanded=new Set([...list.querySelectorAll('.evm-market-details[open]')].map(el=>el.dataset.token));
      const filteredRows = state.chain === 'all' ? rows : rows.filter(row => row.chain === state.chain);
      const shown = selectMarkets(filteredRows, state);
      status.textContent = `${shown.length} / ${filteredRows.length} returned · ${partial ? coverageNote || 'Partial coverage' : 'Snapshot'}${checkedAt ? ` · ${new Date(checkedAt).toLocaleTimeString(locale())}` : ''}`;
@@ -80,7 +83,8 @@ export function marketDirectory(target, { h, chain, rows, checkedAt, partial = f
        const featuredChain = featured.chain || chain;
        spotlight.replaceChildren(h('div', { class: 'market-spotlight-copy' }, h('span', { class: 'market-eyebrow' }, 'Observed market'), h('h2', {}, `${featured.symbol} · ${featured.name}`), h('p', {}, `${featuredChain === 'solana' ? 'Solana' : 'Elysium'} · ${featured.pair || 'Pair unavailable'} · ${featured.unit || 'native'} adapter units`), h('div', { class: 'market-spotlight-metrics' }, ...[['Price', amount(featured.price, featured.unit)], ['24h', changeLabel(featured.change)], ['Volume 24h', amount(featured.volume, featured.unit)]].map(([name, value]) => h('span', {}, h('small', {}, name), h('b', {}, value))))), h('div', { class: 'market-spotlight-action' }, h('span', { class: 'market-chain' }, featuredChain === 'solana' ? 'SOL' : 'ELY'), h('button', { class: 'ely-btn primary', type: 'button', onclick: () => open(featured) }, 'Review market')));
      } else spotlight.replaceChildren(h('div', { class: 'market-spotlight-copy' }, h('span', { class: 'market-eyebrow' }, 'Observed market'), h('h2', {}, 'No matching market'), h('p', {}, 'Choose another chain, pair, or search term.')));
-     const pairs = [...new Set(filteredRows.map(row => row.pair).filter(Boolean))].sort();
+      const pairs = [...new Set(filteredRows.map(row => row.pair).filter(Boolean))].sort();
+      if(featured?.nativeMetrics)spotlight.querySelector('.market-spotlight-metrics')?.append(h('span',{},h('small',{},'USD'),h('b',{},usdStatusLabel(featured.nativeMetrics))));
      pairRail.replaceChildren(h('span', { class: 'market-pair-label' }, 'Quote'), h('button', { type: 'button', class: `market-pair-chip${state.pair ? '' : ' active'}`, onclick: () => { state.pair = ''; pair.value = ''; draw(); } }, 'All pairs'), ...pairs.map(value => h('button', { type: 'button', class: `market-pair-chip${state.pair === value ? ' active' : ''}`, onclick: () => { state.pair = value; pair.value = value; draw(); } }, value)));
      if (!shown.length) { list.replaceChildren(h('p', { class: 'market-empty' }, rows.length ? 'No tokens match these filters. Clear the search or choose another pair.' : 'No markets returned. Try another search or check again later.')); return; }
     const cell = (name, content, cls = '') => h('td', { class: cls, 'data-label': name }, content);
@@ -88,15 +92,29 @@ export function marketDirectory(target, { h, chain, rows, checkedAt, partial = f
        const rowChain = row.chain || chain;
        const chainName = rowChain === 'solana' ? 'Solana' : 'Elysium';
        const link = h('a', { class: 'market-token-link', href: marketHref(rowChain, 'trade', row.address), onclick: event => { if (event.ctrlKey || event.metaKey || event.shiftKey || event.button !== 0) return; event.preventDefault(); open(row); } }, icon(h, row), h('span', {}, h('b', {}, row.symbol), h('small', {}, row.name), h('small', { class: 'market-route' }, `${chainName} adapter route`)), h('span', { class: 'market-chain' }, `${rowChain === 'solana' ? 'SOL' : 'ELY'} · ${chainName}`));
-       return h('div', { class: 'market-card', role: 'listitem' }, h('div', { class: 'market-card-head' }, link, h('span', { class: `market-change ${metric(row.change) === null ? '' : row.change >= 0 ? 'purr-pos' : 'purr-neg'}` }, changeLabel(row.change))), h('dl', { class: 'market-card-metrics' }, ...[['Price', amount(row.price, row.unit)], ['Market cap', amount(row.cap, row.unit)], ['Volume 24h', amount(row.volume, row.unit)], ['Pair', row.pair || 'Unavailable']].map(([name, value]) => h('div', {}, h('dt', {}, name), h('dd', {}, value)))), h('div', { class: 'market-card-foot' }, h('span', { class: 'market-adapter-badge' }, `${chainName} adapter`), sparkline(row.series, h), h('button', { class: 'ely-btn', type: 'button', onclick: () => open(row) }, 'Review trade')));
+       return h('div', { class: 'market-card', role: 'listitem' }, h('div', { class: 'market-card-head' }, link, h('span', { class: `market-change ${metric(row.change) === null ? '' : row.change >= 0 ? 'purr-pos' : 'purr-neg'}` }, row.nativeMetrics?(row.usd?.status==='fresh'?'USD':row.usd?.status==='stale'?'Cached':'USD unavailable'):changeLabel(row.change))), h('dl', { class: 'market-card-metrics' }, ...[['Price', amount(row.price, row.unit)], [row.nativeMetrics?'FDV':'Market cap', amount(row.nativeMetrics?row.fdv:row.cap, row.unit)], [row.nativeMetrics?'Window volume':'Volume 24h', amount(row.nativeMetrics?row.usd?.volume:row.volume, row.unit)], ['Pair', row.pair || 'Unavailable']].map(([name, value]) => h('div', {}, h('dt', {}, name), h('dd', {}, value)))), row.nativeMetrics?evmMarketDetails(h,row.nativeMetrics):null,h('div', { class: 'market-card-foot' }, h('span', { class: 'market-adapter-badge' }, `${chainName} adapter`), sparkline(row.series, h), h('button', { class: 'ely-btn', type: 'button', onclick: () => open(row) }, 'Review trade')));
      }));
-     const table = h('table', { class: 'market-table' }, h('caption', { class: 'market-caption' }, `${chain === 'all' ? 'Combined' : chain === 'solana' ? 'Solana' : 'Elysium'} token markets`), h('thead', {}, h('tr', {}, ...['Token / chain', 'Pair', 'Price', '24h', 'Market cap', 'Volume 24h', 'Holders', 'History'].map(text => h('th', { scope: 'col' }, text)))), h('tbody', {}, ...shown.map(row => {
+      const table = h('table', { class: 'market-table' }, h('caption', { class: 'market-caption' }, `${chain === 'all' ? 'Combined' : chain === 'solana' ? 'Solana' : 'Elysium'} token markets`), h('thead', {}, h('tr', {}, ...['Token / chain', 'Pair', 'Price', '24h', chain==='all'?'Market cap / FDV':'Market cap', chain==='all'?'Volume · period shown':'Volume 24h', 'Holders', 'History'].map(text => h('th', { scope: 'col' }, text)))), h('tbody', {}, ...shown.map(row => {
        const rowChain = row.chain || chain;
        const link = h('a', { class: 'market-token-link', href: marketHref(rowChain, 'trade', row.address), onclick: event => { if (event.ctrlKey || event.metaKey || event.shiftKey || event.button !== 0) return; event.preventDefault(); open(row); } }, icon(h, row), h('span', {}, h('b', {}, row.symbol), h('small', {}, row.name), h('small', { class: 'market-route' }, `${rowChain === 'solana' ? 'Solana' : 'Elysium'} adapter route`)), h('span', { class: 'market-chain' }, `${rowChain === 'solana' ? 'SOL' : 'ELY'} · ${rowChain === 'solana' ? 'Solana' : 'Elysium'}`));
       const details = h('details', { class: 'market-mobile-details' }, h('summary', {}, 'More metrics'), h('dl', {}, ...[['Pair', row.pair || 'Unavailable'], ['Market cap', amount(row.cap, row.unit)], ['24h volume', amount(row.volume, row.unit)], ['Holders', numberLabel(row.holders)]].map(([key, value]) => h('div', {}, h('dt', {}, key), h('dd', {}, value)))));
-      return h('tr', {}, cell('Token', h('div', {}, link, details), 'market-identity'), cell('Pair', row.pair || 'Unavailable', 'market-secondary'), cell('Price', amount(row.price, row.unit), 'market-price'), cell('24h', changeLabel(row.change), `market-change ${metric(row.change) === null ? '' : row.change >= 0 ? 'purr-pos' : 'purr-neg'}`), cell('Market cap', amount(row.cap, row.unit), 'market-secondary'), cell('Volume 24h', amount(row.volume, row.unit), 'market-secondary'), cell('Holders', numberLabel(row.holders), 'market-secondary'), cell('History', sparkline(row.series, h), 'market-secondary'));
+      return h('tr', {}, cell('Token', h('div', {}, link, details,row.nativeMetrics?evmMarketDetails(h,row.nativeMetrics):null), 'market-identity'), cell('Pair', row.pair || 'Unavailable', 'market-secondary'), cell('Price', amount(row.price, row.unit), 'market-price'), cell('24h', changeLabel(row.change), `market-change ${metric(row.change) === null ? '' : row.change >= 0 ? 'purr-pos' : 'purr-neg'}`), cell('Market cap', amount(row.cap, row.unit), 'market-secondary'), cell('Volume 24h', amount(row.volume, row.unit), 'market-secondary'), cell('Holders', numberLabel(row.holders), 'market-secondary'), cell('History', sparkline(row.series, h), 'market-secondary'));
       })));
-     list.replaceChildren(state.view === 'cards' ? cards : table);
+      for(const [index,row] of shown.entries())if(row.nativeMetrics){
+        const cells=table.tBodies[0].rows[index].cells;
+        cells[2].append(h('small',{},usdStatusLabel(row.nativeMetrics)));
+        cells[4].replaceChildren(h('span',{},amount(row.fdv,'USD')),h('small',{},'FDV'));
+        cells[5].replaceChildren(h('span',{},amount(row.usd?.volume,'USD')),h('small',{},'Window volume'));
+        cells[4].dataset.label='FDV';cells[5].dataset.label='Window volume';
+        cells[0].querySelector('.market-mobile-details')?.remove();
+      }
+      for(const [index,row] of shown.entries()){
+        const card=cards.children[index],badge=card.querySelector('.market-token-link>.market-chain');
+        if(badge)badge.textContent=`Chain: ${(row.chain||chain)==='solana'?'Solana':'Elysium'}`;
+        if(row.nativeMetrics)card.querySelector('.market-change').textContent=usdStatusLabel(row.nativeMetrics);
+      }
+      list.replaceChildren(state.view === 'cards' ? cards : table);
+      for(const detail of list.querySelectorAll('.evm-market-details'))detail.open=expanded.has(detail.dataset.token);
   }
   search.addEventListener('input', () => { state.query = search.value; draw(); });
   chainFilter.addEventListener('change', () => { state.chain = chainFilter.value; draw(); });
@@ -104,4 +122,13 @@ export function marketDirectory(target, { h, chain, rows, checkedAt, partial = f
   pair.addEventListener('change', () => { state.pair = pair.value; draw(); });
   form.addEventListener('submit', async event => { event.preventDefault(); if (!searchRemote) return; submit.disabled = true; status.textContent = 'Searching the network…'; try { const data = await searchRemote(search.value); if (!current()) return; rows = data.rows; checkedAt = data.checkedAt; partial = data.partial; pair.replaceChildren(h('option', { value: '' }, 'All pairs'), ...[...new Set(rows.map(r => r.pair).filter(Boolean))].sort().map(value => h('option', { value }, value))); state.pair = ''; draw(); } catch (error) { if (current()) { list.replaceChildren(); status.textContent = `${error.message} Try Search network again.`; } } finally { submit.disabled = false; } });
   draw();
+  return {update(next){rows=next.rows;checkedAt=next.checkedAt;
+    const pairs=[...new Set(rows.map(row=>row.pair).filter(Boolean))].sort();
+    pair.replaceChildren(h('option',{value:''},'All pairs'),...pairs.map(value=>h('option',{value},value)));
+    if(!pairs.includes(state.pair))state.pair='';pair.value=state.pair;draw();
+  },markStale(){rows=rows.map(row=>{
+    if(!row.nativeMetrics)return row;
+    const native=convertEvmRow({...row.nativeMetrics,stale:true},row.usd?.rate?[row.usd.rate]:[]);
+    return {...row,nativeMetrics:native,usd:native.usd,price:native.usd.price,fdv:native.usd.fdv};
+  });draw();}};
 }

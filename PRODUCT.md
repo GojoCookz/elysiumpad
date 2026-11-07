@@ -1,4 +1,12 @@
 # Hypeliysium
+
+## Verified USD market display
+
+Elysium cards and tables show USD price, FDV and selected-pool window volume when a verified conversion exists. Details retain native amounts, exact quote address, chain ID 99901, pool ID, manager/currency explorer links and observation timestamps. V4 pool IDs are not presented as contract addresses. Virtual active quote depth is explicitly distinct from TVL.
+
+Native HYPE uses CoinGecko's `hyperliquid` USD quote and provider timestamp. Elysium WHYPE requires an observed, authenticated native/WHYPE conversion pool; neither its peg nor its identity with HyperEVM WHYPE is assumed. Unsupported or expired rates show USD unavailable. Either conversion leg older than five minutes is cached; conversion rates older than one hour cannot produce dollar values. Pool states older than ten minutes are cached independently.
+
+Market directories refresh every minute while retaining filters, view mode and expanded details. Refresh failures mark retained values as cached and expire old conversion rates. Pool discovery remains bounded; incomplete history does not produce a zero-volume claim.
 <!-- impeccable:product-schema 1 -->
 
 ## Platform

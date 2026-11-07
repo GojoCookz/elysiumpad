@@ -441,6 +441,9 @@ function render() {
       w.append(accountButton);
     }
     $('#ely-net').textContent = chain === 'solana' ? 'Solana mainnet' : m.local ? `Elysium ${m.chainId} · local fork` : `Elysium ${m.chainId} · unverified network`;
+    if(document.documentElement.dataset.host==='hypurrheaven'&&!$('.pad-network')){
+      const network=h('div',{class:'pad-network'});$('.ely-top').append(network);network.append($('#purr-chains'),$('#ely-net'));
+    }
     const risk = document.querySelector('.ely-risk');
     if (risk) { risk.open = false; risk.querySelector('summary').textContent = 'Risks and network details'; }
   }

@@ -8,8 +8,14 @@ const ABI=parseAbi(['function extsload(bytes32 startSlot,uint256 nSlots) view re
 const zero='0x0000000000000000000000000000000000000000';
 const hex=n=>'0x'+n.toString(16);
 const clean=s=>String(s).replace(/[\u0000-\u001f\u007f\u202a-\u202e]/g,'').slice(0,80);
+export async function mapPoolReads(items,read,limit=4){
+ let next=0;const result=new Array(items.length);
+ await Promise.all(Array.from({length:Math.min(limit,items.length)},async()=>{while(next<items.length){const index=next++;result[index]=await read(items[index]);}}));
+ return result;
+}
 export async function priceEvmMarkets({rpc,manifest,pools,previous,block,managerVerifier=matchesManager}){
- const at=hex(block),from=Math.max(0,block-50000),warnings=[];
+ const retainedKeys=new Map(pools.map(p=>[poolIdentity(p),p]));
+ const at=hex(block),from=Math.max(0,block-5000),warnings=[];
  const supported=[];
  for(const manager of Object.keys(MANAGERS))try{if(managerVerifier(manager,await rpc('eth_getCode',[manager,at])))supported.push(manager);else warnings.push('A supported manager runtime did not match its pinned deployment.');}catch{warnings.push('A supported manager bytecode check was unavailable.');}
  if(!supported.length)throw Error('No authenticated pool managers available');
@@ -22,8 +28,8 @@ export async function priceEvmMarkets({rpc,manifest,pools,previous,block,manager
  const window={fromBlock:from,throughBlock:block,fromTime:Number(BigInt(start.timestamp)),throughTime:Number(BigInt(end.timestamp)),complete:false};
  const activity=new Map(),seen=new Set();
  try{
-  for(let n=from;n<=block;n+=10000){
-   const logs=await rpc('eth_getLogs',[{address:supported,topics:encodeEventTopics({abi:SWAP,eventName:'Swap'}),fromBlock:hex(n),toBlock:hex(Math.min(block,n+9999))}]);
+   for(let n=from;n<=block;n+=1000){
+    const logs=await rpc('eth_getLogs',[{address:supported,topics:encodeEventTopics({abi:SWAP,eventName:'Swap'}),fromBlock:hex(n),toBlock:hex(Math.min(block,n+999))}]);
    for(const log of logs){if(log.removed||!supported.includes(log.address.toLowerCase()))continue;const unique=log.transactionHash+':'+log.logIndex;if(seen.has(unique))continue;seen.add(unique);
     try{const {args:a}=decodeEventLog({abi:SWAP,data:log.data,topics:log.topics});const key=poolIdentity({manager:log.address,poolId:a.id});const old=activity.get(key)||{manager:log.address,poolId:a.id,trades:0,amount0:0n,amount1:0n};old.trades++;old.amount0+=a.amount0<0n?-a.amount0:a.amount0;old.amount1+=a.amount1<0n?-a.amount1:a.amount1;activity.set(key,old);}catch{}
    }
@@ -47,48 +53,71 @@ export async function priceEvmMarkets({rpc,manifest,pools,previous,block,manager
  for(const p of previous.filter(p=>p.price>0).slice(0,10)){if(p.manager&&p.key)chosen.set(poolIdentity(p),p);}
  for(const p of ordered){if(chosen.size>=60)break;if(!chosen.has(poolIdentity(p)))chosen.set(poolIdentity(p),p);}
  const tokens=new Map(),result=[],failedIdentities=new Set();let empty=0,failed=0;
- const meta=async address=>{
+  const meta=async address=>{
   const id=address.toLowerCase();if(tokens.has(id))return tokens.get(id);
   const old=previous.find(p=>p.address.toLowerCase()===id&&p.metadataVerified);
-  const name=old?.name||await read(address,'name'),symbol=old?.symbol||await read(address,'symbol'),decimals=Number(await read(address,'decimals'));
-  let supply=null;try{supply=(await read(address,'totalSupply')).toString();}catch{}
+   const [name,symbol,decimals,supply]=await Promise.all([
+    old?.name||read(address,'name'),old?.symbol||read(address,'symbol'),
+    read(address,'decimals').then(Number),read(address,'totalSupply').then(value=>value.toString()).catch(()=>null),
+   ]);
   const value={name:clean(name),symbol:clean(symbol).slice(0,24),decimals,totalSupply:supply,metadataVerified:true};tokens.set(id,value);return value;
  };
- for(const p of chosen.values()){
+  const quoteMetadata=new Map();
+  const quoteMeta=address=>{
+   const key=address.toLowerCase();if(key===zero)return Promise.resolve({decimals:18,symbol:'HYPE'});
+   if(!quoteMetadata.has(key))quoteMetadata.set(key,Promise.all([read(address,'decimals'),read(address,'symbol')]).then(([decimals,symbol])=>({decimals:Number(decimals),symbol:clean(symbol)})));
+   return quoteMetadata.get(key);
+  };
+  await mapPoolReads([...chosen.values()],async p=>{
   try{
    const expected=keccak256(encodeAbiParameters([{type:'address'},{type:'address'},{type:'uint24'},{type:'int24'},{type:'address'}],[p.key.currency0,p.key.currency1,p.key.fee,p.key.tickSpacing,p.key.hooks]));
    if(expected.toLowerCase()!==p.poolId.toLowerCase())throw Error('Pool key mismatch');
    const slot=keccak256(encodeAbiParameters([{type:'bytes32'},{type:'uint256'}],[p.poolId,6n]));
    const words=await read(p.manager,'extsload',[slot,4n]);
    const sqrtPriceX96=BigInt(words[0])&((1n<<160n)-1n),liquidity=BigInt(words[3])&((1n<<128n)-1n);
-   if(!liquidity){empty++;if(p.provenance?.kind==='platform')result.push({...p,stale:false,price:null,fdv:null,activeDepth:null,activeLiquidity:'0',observedVolume:null,volume:null,cap:null,change:null,series:[],stateBlock:block,checkedAt:new Date().toISOString()});continue;}
+    if(!liquidity){empty++;if(p.provenance?.kind==='platform')result.push({...p,stale:false,price:null,fdv:null,activeDepth:null,activeLiquidity:'0',observedVolume:null,volume:null,cap:null,change:null,series:[],stateBlock:block,stateTime:window.throughTime*1000,checkedAt:new Date().toISOString()});return;}
    const m=await meta(p.address),tokenIs0=p.address.toLowerCase()===p.key.currency0.toLowerCase(),quote=tokenIs0?p.key.currency1:p.key.currency0;
-   const quoteDecimals=quote.toLowerCase()===zero?18:Number(await read(quote,'decimals'));
-   const quoteSymbol=quote.toLowerCase()===zero?'HYPE':quote.toLowerCase()===manifest.whype.toLowerCase()?'WHYPE':clean(await read(quote,'symbol'));
+    const qm=await quoteMeta(quote),quoteDecimals=qm.decimals,quoteSymbol=qm.symbol;
    const metrics=poolMetrics({sqrtPriceX96,liquidity,tokenIs0,tokenDecimals:m.decimals,quoteDecimals,supply:m.totalSupply});
    if(!metrics.price)throw Error('Invalid live state');
    const a=activity.get(poolIdentity(p));const observedVolume=window.complete?Number(a?(tokenIs0?a.amount1:a.amount0):0n)/10**quoteDecimals:null;
    const old=previous.find(r=>r.address.toLowerCase()===p.address.toLowerCase());
-   result.push({...p,...m,...metrics,stale:false,chain:'elysium',unit:quoteSymbol,pair:`${m.symbol} / ${quoteSymbol}`,quoteAddress:quote,quoteDecimals,cap:null,volume:null,change:null,holders:null,series:[],observedVolume,volumeWindow:window,activeLiquidity:liquidity.toString(),sqrtPriceX96:sqrtPriceX96.toString(),stateBlock:block,checkedAt:new Date().toISOString(),image:old?.image||'',imageCandidates:old?.imageCandidates||[],metadataUri:old?.metadataUri,metadataCheckedAt:old?.metadataCheckedAt,provenance:p.provenance?.kind==='platform'?p.provenance:{kind:'market',verified:true,source:'Pinned canonical manager runtime; pool key matched to Initialize; current extsload state at confirmed block',transactionHash:p.transactionHash,block:p.block}});
-  }catch{failed++;failedIdentities.add(p.address.toLowerCase());}
-  await new Promise(r=>setTimeout(r,100));
- }
+    result.push({...p,...m,...metrics,stale:false,chain:'elysium',unit:quoteSymbol,pair:`${m.symbol} / ${quoteSymbol}`,quoteAddress:quote,quoteDecimals,cap:null,volume:null,change:null,holders:null,series:[],observedVolume,volumeWindow:window,activeLiquidity:liquidity.toString(),sqrtPriceX96:sqrtPriceX96.toString(),stateBlock:block,stateTime:window.throughTime*1000,checkedAt:new Date().toISOString(),image:old?.image||'',imageCandidates:old?.imageCandidates||[],metadataUri:old?.metadataUri,metadataCheckedAt:old?.metadataCheckedAt,provenance:p.provenance?.kind==='platform'?p.provenance:{kind:'market',verified:true,source:'Pinned canonical manager runtime; pool key matched to Initialize; current extsload state at confirmed block',transactionHash:p.transactionHash,block:p.block}});
+   }catch(error){failed++;failedIdentities.add(p.address.toLowerCase());if(failed<=3)warnings.push(`Pool read ${p.poolId}: ${clean(error.message)}`);}
+  });
+  // The exact native/WHYPE venue already used by this launcher's zap adapter.
+  // Authenticate its manager, derive its key, and read its actual exchange rate;
+  // do not reuse HyperEVM's WHYPE address or assume bridged WHYPE trades at par.
+  const nativeQuotes=[{chainId:99901,address:zero,symbol:'HYPE',nativePerQuote:1,verified:true}];
+  if(manifest.chainId===99901&&manifest.bridge?.parentChainId===999){
+   const candidates=await mapPoolReads(supported,async manager=>{try{
+    const key={currency0:zero,currency1:manifest.whype,fee:3000,tickSpacing:60,hooks:zero};
+    const poolId=keccak256(encodeAbiParameters([{type:'address'},{type:'address'},{type:'uint24'},{type:'int24'},{type:'address'}],Object.values(key)));
+    const slot=keccak256(encodeAbiParameters([{type:'bytes32'},{type:'uint256'}],[poolId,6n]));
+    const words=await read(manager,'extsload',[slot,4n]),qm=await quoteMeta(manifest.whype);
+    const m=poolMetrics({sqrtPriceX96:BigInt(words[0])&((1n<<160n)-1n),liquidity:BigInt(words[3])&((1n<<128n)-1n),tokenIs0:false,tokenDecimals:qm.decimals,quoteDecimals:18});
+    return m.price?{chainId:99901,address:manifest.whype.toLowerCase(),symbol:qm.symbol,nativePerQuote:m.price,activeNativeDepth:m.activeDepth,verified:true,manager,poolId,key,stateBlock:block,stateTime:window.throughTime*1000}:null;
+   }catch{return null;}});
+   const best=candidates.filter(Boolean).sort((a,b)=>b.activeNativeDepth-a.activeNativeDepth)[0];if(best)nativeQuotes.push(best);
+  }
  // The legacy SHA-256 coin-image store remains the authority for platform artwork.
  // A tokenURI is only consulted on-chain; artwork retrieval is handled by the
  // existing bounded, allowlisted same-origin image service.
  let metadataProbes=0;
- for(const row of result){
+  await mapPoolReads(result,async row=>{
   const old=previous.find(r=>r.address.toLowerCase()===row.address.toLowerCase());
-  if(old?.metadataCheckedAt&&Date.now()-Date.parse(old.metadataCheckedAt)<21600000){row.metadataUri=old.metadataUri;row.metadataCheckedAt=old.metadataCheckedAt;continue;}
-  if(row.imageCandidates?.length||row.price==null)continue;
-  if(metadataProbes>=24||calls>436)break;metadataProbes++;
+   if(old?.metadataCheckedAt&&Date.now()-Date.parse(old.metadataCheckedAt)<21600000){row.metadataUri=old.metadataUri;row.metadataCheckedAt=old.metadataCheckedAt;return;}
+   if(row.imageCandidates?.length||row.price==null)return;
+   if(metadataProbes>=24||calls>436)return;metadataProbes++;
   let resolved=false;
   for(const getter of ['tokenURI','metadataURI'])try{const uri=await read(row.address,getter);if(/^https:\/\//.test(uri)||uri.startsWith('ipfs://')){row.metadataUri=uri;resolved=true;break;}}catch{}
   if(resolved||!old?.metadataUri)row.metadataCheckedAt=new Date().toISOString();
- }
+  });
  if(failed)warnings.push(`${failed} candidate pool reads failed or had unsupported state; prior priced records retained as stale.`);
- const grouped=groupPools(result);
- grouped.push(...unauthenticatedPlatform);
+  const grouped=groupPools(result,nativeQuotes);
+  grouped.push(...unauthenticatedPlatform);
+  for(const [id,key] of known)retainedKeys.set(id,key);
+  const poolKeys=[...retainedKeys.values()].map(({address,poolId,manager,block,transactionHash,key})=>({address,poolId,manager,block,transactionHash,key}));
  if(failed)for(const old of previous.filter(r=>r.price>0&&failedIdentities.has(r.address.toLowerCase())&&!grouped.some(x=>x.address.toLowerCase()===r.address.toLowerCase())))grouped.push({...old,stale:true});
- return {rows:grouped,source:{status:warnings.length?'partial-error':'partial',complete:false,count:grouped.length,priced:grouped.filter(r=>r.price>0).length,authenticatedManagers:supported.length,excludedPools,observedCandidates:known.size,examinedPools:chosen.size,liquidPools:result.filter(r=>r.price>0).length,emptyPools:empty,failedPools:failed,readCalls:calls,limit:60,checkedAt:new Date().toISOString(),history:window,warnings,coverage:'Up to 60 active/recent pools from four runtime-authenticated managers, ranked by observed trading activity; one token row with the deepest observed active pool selected. Price and FDV use confirmed pool state and token supply. Active depth is virtual quote liquidity, not TVL. Window volume is selected-pool volume only; no 24h change claimed.'}};
+   return {rows:grouped,nativeQuotes,poolKeys,source:{status:warnings.length?'partial-error':'partial',complete:false,count:grouped.length,priced:grouped.filter(r=>r.price>0).length,authenticatedManagers:supported.length,excludedPools,observedCandidates:known.size,examinedPools:chosen.size,liquidPools:result.filter(r=>r.price>0).length,emptyPools:empty,failedPools:failed,readCalls:calls,limit:60,checkedAt:new Date().toISOString(),history:window,warnings,coverage:'Up to 60 active/recent pools from four runtime-authenticated managers, ranked by observed trading activity. Verified platform pools retain priority; other pools use common-currency active depth where available. Price and FDV use confirmed pool state and token supply. Active depth is virtual quote liquidity, not TVL. Window volume is selected-pool volume only; no 24h change claimed.'}};
 }
