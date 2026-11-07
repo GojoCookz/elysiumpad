@@ -1,5 +1,31 @@
 # Build and deployment record
 
+## Stockium-inspired product redesign — 2026-11-07
+
+The financial shell now uses an editorial hero with an original geometric HLYS
+feature, a mobile route rail, three-column desktop market cards, a two-column
+Solana create form and live preview, the existing Elysium allocation preview,
+and an on-page documentation navigator. Themes remain preference-driven.
+Optional game files and backend transaction builders are unchanged.
+
+Local verification covered 20 chain/route/viewport combinations at 390 and
+1440 pixels using actual public read-only API responses, with no JavaScript
+errors or horizontal overflow. It also exercised name/symbol preview updates,
+supported and unsupported quote selections, market filtering, the More menu,
+four theme preferences and the presence of six language options. The financial
+and discovery test suite passed all 41 tests. An AccessLint scan of the market
+page ran 94 rules with zero violations after correcting the footer link name.
+These checks do not establish funded transaction success or WCAG conformance.
+
+Independent visual review passed after correcting mobile preview order and
+clarifying that the selected market quote is separate from SOL network fees.
+The final isolated clean install/build/test run reproduced all four outputs
+byte-for-byte. Reference, before and after screenshots are retained outside the
+repository in the local release evidence directory.
+
+Rollback baseline for this visual release is commit `7108672`, Railway deployment
+`4dfa6c2d-6d53-439d-8d14-e33885195cb6`. The older rollback below remains historical.
+
 ## Self-contained upgrade path
 
 Use Node 24 and `npm ci --ignore-scripts`, then `npm run build` and `npm test`.

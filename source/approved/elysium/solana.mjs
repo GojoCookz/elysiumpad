@@ -46,7 +46,7 @@ export async function mountSolana(target, { h, tab, account, getWallet, isCurren
       const result = await new Promise((resolve, reject) => { const reader = new FileReader(); reader.onload = () => resolve(reader.result); reader.onerror = () => reject(new Error('Artwork could not be read.')); reader.readAsDataURL(file); }).catch(() => '');
        if (isCurrent() && intent === artworkIntent) { artwork = result; updatePreview(); creator.update(); }
     });
-     form.prepend(h('label', { for: image.id }, 'Coin image'), image);
+      form.prepend(h('label', { for: image.id, class:'hlys-upload' },h('strong',{},'Give your coin a face'),h('span',{},'Choose PNG, JPG or WebP · up to 8 MB'),image));
       const quote = h('select', { id: 'sol-quote' }, ...products.deployment.quoteAssets.map(asset => h('option', { value: asset.mint }, asset.symbol)));
       let explicitQuote = false;
       quote.value = '';
@@ -59,14 +59,16 @@ export async function mountSolana(target, { h, tab, account, getWallet, isCurren
      const updatePreview = () => {
        previewName.textContent = fields.name.value.trim() || 'Your coin name';
        previewSymbol.textContent = fields.symbol.value.trim().toUpperCase() || 'TICKER';
-       previewQuote.textContent = `${quote.options[quote.selectedIndex]?.textContent || 'Quote asset'} · Solana`;
+        previewQuote.textContent = `${quote.options[quote.selectedIndex]?.textContent || 'Quote asset'} pair · Solana`;
        previewImage.replaceChildren(artwork ? h('img', { src: artwork, alt: '' }) : h('span', {}, 'Artwork preview'));
        preview.classList.remove('is-updating'); requestAnimationFrame(() => preview.classList.add('is-updating'));
      };
      const advanced = h('details', { class: 'purr-form-details' }, h('summary', {}, 'Advanced settings'), h('label', { for: quote.id }, 'Quote asset'), quote);
     const initial = h('input', { id: 'sol-initial-buy', value: '0', readonly: true, 'aria-describedby': 'sol-initial-note' });
-    form.append(h('label', { for: initial.id }, 'Initial buy (SOL)'), initial, h('small', { id: 'sol-initial-note' }, 'No initial buy in this integration.'));
-     const review = h('div'); panel.append(h('div', { class: 'solana-create-layout' }, form, preview), review, optional, advanced);
+    form.append(h('label', { for: initial.id }, 'Initial buy · not included'), initial, h('small', { id: 'sol-initial-note' }, 'No initial purchase. SOL covers network fees; the quote asset sets your market pair.'));
+      const review = h('div',{class:'hlys-launch-review'});
+      const workspace=h('div',{class:'hlys-create-form'},form,optional,advanced,review);
+      panel.append(h('p',{class:'hlys-create-intro'},'Make it yours. Add artwork, choose a name, then review every detail before your wallet opens.'),h('div', { class: 'solana-create-layout' },workspace,preview));
     // Account-scoped pending records survive switches, but unsent drafts do not.
      const creator = mountPumpCreator({ target: review, product: status.product, apiBase,
       getQuoteMint: () => quote.value,

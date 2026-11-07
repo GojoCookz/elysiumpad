@@ -6,7 +6,10 @@ export async function releaseMarkets(target, { h, chain, current }) {
   const status = h('p', {role:'status'}, 'Loading verified launch records and market sources…');
   const mint = 'CsMF3EMEVm9ow925mtFVwnAvTYUgckcQJrFUWEFMpump';
   const copied = h('span', {role:'status','aria-live':'polite'});
-  const ecosystem = h('section', {class:'market-data-note','aria-label':'HLYS Solana ecosystem token'},
+   const ecosystem = h('section', {class:'hlys-feature','aria-label':'HLYS Solana ecosystem token'},
+     h('div',{class:'hlys-feature-top'},h('span',{class:'market-eyebrow'},'THE ECOSYSTEM TOKEN'),h('span',{class:'hlys-network'},'Solana')),
+     h('img',{class:'hlys-emblem',src:'/purrlysium/mark.svg',alt:'',width:96,height:96}),
+     h('h2',{},'$HLYS'),
     h('strong', {}, '$HLYS — Hypeliysium’s Solana ecosystem token'),
     h('p', {}, 'Explore $HLYS and follow the Hypeliysium ecosystem.'),
     h('p', {class:'purr-address'}, h('code', {}, mint)),
@@ -14,10 +17,19 @@ export async function releaseMarkets(target, { h, chain, current }) {
       try { await navigator.clipboard.writeText(mint); copied.textContent=' Mint copied.'; }
       catch { copied.textContent=' Copy unavailable. Select the mint above to copy it.'; }
     }}, 'Copy HLYS mint'),
-    h('a', {class:'ely-btn',href:'https://solscan.io/token/'+mint,target:'_blank',rel:'noopener noreferrer','aria-label':'View HLYS mint on Solscan (opens in a new tab)'}, 'View on Solscan'), copied);
+     h('a', {class:'ely-btn',href:'https://solscan.io/token/'+mint,target:'_blank',rel:'noopener noreferrer','aria-label':'View HLYS mint on Solscan (opens in a new tab)'}, 'View on Solscan'), copied,
+     h('a',{class:'ely-btn primary hlys-explore',href:marketHref('solana','trade',mint)},'Explore HLYS →'));
   const intro=marketIntro(h, mode);
   if(mode==='elysium'){const heading=intro.querySelector('h1,h2');if(heading)heading.textContent='Explore Elysium tokens';}
-  target.replaceChildren(intro,...(mode==='solana'||mode==='all'?[h('p', {}, 'Hypeliysium is a Solana launchpad. Create a coin and discover markets. HLYS is its ecosystem token.'),ecosystem]:[]),status,coverage,results);
+   const hero=h('section',{class:'hlys-hero'},h('div',{class:'hlys-hero-copy'},
+     h('p',{class:'market-eyebrow'},mode==='elysium'?'ELYSIUM · 99901':'SOLANA LAUNCHPAD'),
+     h('h1',{},'An idea.',h('br'),h('span',{},'A new market.')),
+     h('p',{class:'hlys-hero-description'},mode==='elysium'?'Explore Elysium tokens. Create with creator, holder and burn allocations you control.':'Launch your coin. Find your community. Explore the Solana ecosystem with Hypeliysium.'),
+     h('div',{class:'market-actions'},h('a',{class:'ely-btn primary',href:marketHref(chain,'create')},'Launch a coin ↗'),h('button',{class:'ely-btn',type:'button',onclick:()=>target.querySelector('#hlys-markets')?.scrollIntoView()},'Explore markets ↓')),
+     h('p',{class:'hlys-identity'},'Hypeliysium is a Solana launchpad. HLYS is its ecosystem token.')),ecosystem);
+   const section=h('section',{id:'hlys-markets',class:'hlys-market-section'},intro,status,coverage,results);
+   const introHeading=intro.querySelector('h1');if(introHeading){const heading=h('h2',{},mode==='elysium'?'Explore Elysium tokens':'Explore markets');introHeading.replaceWith(heading);}
+   target.replaceChildren(hero,section);
   const load = async () => {
     const response = await fetch('/api/discovery');
     if (!response.ok) throw Error('Discovery unavailable. Existing coverage cannot be confirmed.');

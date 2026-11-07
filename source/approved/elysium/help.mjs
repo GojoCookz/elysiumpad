@@ -16,6 +16,13 @@ export async function helpPage(main, ctx) {
     if (sol) panel.append(h('a', { href: 'https://solscan.io', target: '_blank', rel: 'noopener noreferrer' }, 'Solana explorer'));
     else if (S.m.explorer) panel.append(h('a', { href: S.m.explorer, target: '_blank', rel: 'noopener noreferrer' }, 'Configured Elysium explorer'));
     else panel.append(p('No public explorer is configured for this local fork.'));
+    const topics=[...panel.querySelectorAll(':scope > section')];
+    const contents=h('nav',{class:'hlys-doc-nav','aria-label':'On this page'},h('strong',{},'On this page'),...topics.map((topic,index)=>{
+      topic.id=`help-topic-${index}`;topic.tabIndex=-1;
+      return h('button',{type:'button',onclick:()=>{topic.scrollIntoView();topic.focus({preventScroll:true});}},topic.querySelector('h2').textContent);
+    }));
+    const article=h('div',{class:'hlys-doc-article'},...topics);
+    panel.insertBefore(h('div',{class:'hlys-doc-layout'},contents,article),panel.querySelector(':scope > a'));
     return;
   }
   panel.append(p('Hypeliysium attribution and balances are separate for each chain and wallet. Connecting another wallet does not establish a cross-chain identity.'));

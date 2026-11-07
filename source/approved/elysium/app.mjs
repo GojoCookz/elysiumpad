@@ -455,7 +455,7 @@ function render() {
     nav.classList.add('purr-header-nav'); $('.ely-top').append(nav);
     const primary = ['markets', 'trade', 'create', 'portfolio'];
     const link = ([id, label]) => h('a', { class: 'ely-tab' + (S.tab === id ? ' on' : ''), href: hrefFor(id), role: 'tab', 'aria-selected': String(S.tab === id), onclick: event => { if (event.ctrlKey || event.metaKey || event.shiftKey || event.button !== 0) return; event.preventDefault(); goSection(id); } }, label);
-    const more = h('details', { class: 'purr-more' }, h('summary', {}, 'More'), h('div', { class: 'purr-more-panel' }, ...tabs.filter(([id]) => !primary.includes(id)).map(link)));
+    const more = h('details', { class: 'purr-more' }, h('summary', {}, 'More'), h('div', { class: 'purr-more-panel' }, ...tabs.filter(([id]) => !primary.includes(id)).map(link), h('a',{class:'ely-tab',href:'/home/'},'Hypurrheaven'),h('a',{class:'ely-tab',href:'/home/fishing.html'},'Cloud fishing')));
     more.addEventListener('keydown', event => { if (event.key === 'Escape') { more.open = false; more.querySelector('summary').focus(); } });
     more.addEventListener('focusout', event => { if (!more.contains(event.relatedTarget)) more.open = false; });
     nav.replaceChildren(...tabs.filter(([id]) => primary.includes(id)).map(link), more);
