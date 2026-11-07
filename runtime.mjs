@@ -96809,8 +96809,8 @@ async function createElysiumApp({ root: root2, env = process.env, fetcher = fetc
     }, 0n);
     const usable = urls.filter((u) => {
       const h2 = health.get(u) || {};
-      return !(h2.downUntil > Date.now()) && !(h2.head !== void 0 && best - h2.head > MAX_LAG);
-    });
+      return !(h2.head !== void 0 && best - h2.head > MAX_LAG);
+    }).sort((a, b) => Number(health.get(a)?.downUntil > Date.now()) - Number(health.get(b)?.downUntil > Date.now()));
     let last = null;
     for (const url of usable.length ? usable : urls) {
       try {

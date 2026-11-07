@@ -35,3 +35,15 @@ test('contract reverts remain errors, not failover successes', async () => {
   assert.equal(result.error.data, '0x1234');
   assert.equal(count, 1);
 });
+test('a failed health probe does not suppress the last recovery endpoint', async () => {
+  const forward = runInNewContext(code, { health: new Map(), AbortSignal, fetcher: async (url, request) => {
+    const { method } = JSON.parse(request.body);
+    if (method === 'eth_blockNumber') {
+      if (url === 'secondary') throw new Error('probe timeout');
+      return new Response(JSON.stringify({ result: '0x100' }));
+    }
+    if (url === 'primary') return new Response('Busy', { status: 429 });
+    return new Response(JSON.stringify({ result: '0x1863d' }));
+  }});
+  assert.equal((await forward(['primary', 'secondary'], { method: 'eth_chainId', params: [] })).result, '0x1863d');
+});
