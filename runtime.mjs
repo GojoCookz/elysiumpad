@@ -96537,6 +96537,7 @@ async function createElysiumHandler({ root: root2, env = process.env, fetcher = 
     }
   }
   const purrApp = purrManifest ? app2 : null;
+  const discovery = purrManifest ? await (await import('./discovery-runtime.mjs')).createMarketDiscovery({env,manifest:JSON.parse(purrManifest.body),seedPath:new URL('discovery-seed.json',root2)}) : null;
   const HTML = "text/html; charset=utf-8";
   const page = async (name, type = HTML) => ({ type, body: await readFile5(new URL(name, root2)) });
   const gate = (await readFile5(new URL("elysium/purrlysium/gate.html", root2))).toString("utf8");
@@ -96722,6 +96723,7 @@ ${portal}</section>`)) });
   return async function handle(req, res, url) {
     if (!hosts.has(requestHost(req))) return app2 ? app2(req, res, url) : false;
     const p2 = url.pathname;
+    if (p2 === '/api/discovery' && req.method === 'GET' && discovery) return jsonOut(res, 200, discovery.snapshot());
     if (p2 === '/healthz' && ['GET', 'HEAD'].includes(req.method)) return jsonOut(res, heavenOn && purrApp ? 200 : 503, { service: 'hypeliysium', ui: heavenOn ? 'standalone' : 'legacy', chainId: 99901 });
     if (WORLD_DIR && p2 === "/world/api/travel/issue") return jsonOut(res, 503, { error: "World travel is unavailable while destinations are verified. Stay in Atlantis." });
     if (purrApp && solana && p2.startsWith("/api/purrlysium/solana/")) return solana(req, res, url);
@@ -96729,6 +96731,7 @@ ${portal}</section>`)) });
     if (p2 === "/api/purrlysium/callouts") return calloutsApi(req, res, url);
     if (p2 === "/api/purrlysium/coins") return coinsApi(req, res);
     if (p2 === "/api/purrlysium/elysium-coins") {
+      if (discovery) { const data=discovery.snapshot(); return jsonOut(res,200,{coins:data.rows.filter(r=>r.chain==='elysium').map(r=>({token:r.address,name:r.name,symbol:r.symbol,price:r.price,change:r.change,mcap:r.cap,vol:r.volume,spark:r.series,padName:r.provenance?.kind==='platform'?'Hypeliysium':'External pool',url:`https://scan.elysp.com/token/${r.address}`})),ready:!!data.sources.evmMarkets?.checkedAt,partial:true,coverage:data.sources.evmMarkets,error:data.sources.evmMarkets?.error||null}); }
       if (!padIndex) return jsonOut(res, 404, { error: "Elysium index is off." });
       const body2 = Buffer.from(JSON.stringify(padIndex.snapshot()));
       const gz = /\bgzip\b/.test(req.headers["accept-encoding"] || "");
@@ -96960,7 +96963,7 @@ function purrSolanaHandler({ env, service }) {
     res.end(JSON.stringify(value));
     return true;
   };
-  const allowed = /* @__PURE__ */ new Set(["status", "products", "deployment", "capabilities", "scan", "portfolio", "wallet/history", "pump/quotes", "pump/build", "metadata", "rpc", "swap/build"]);
+  const allowed = /* @__PURE__ */ new Set(["status", "products", "deployment", "capabilities", "scan", "launches", "launch/state", "portfolio", "wallet/history", "pump/quotes", "pump/build", "metadata", "rpc", "swap/build"]);
   return (req, res, url) => {
     const route = url.pathname.slice(SOLANA_PREFIX.length + 1);
     if (!allowed.has(route)) return json(res, 404, { error: "Unknown Hypeliysium Solana endpoint." });

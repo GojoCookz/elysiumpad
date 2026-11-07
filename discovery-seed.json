@@ -1,0 +1,3362 @@
+{
+  "version": 1,
+  "chainId": 99901,
+  "launcher": "0x0347cf846effafa2c3ed020abafcc986d83fb99e",
+  "launches": [],
+  "rows": [
+    {
+      "chain": "solana",
+      "address": "CsMF3EMEVm9ow925mtFVwnAvTYUgckcQJrFUWEFMpump",
+      "name": " Hypeliysium",
+      "symbol": "HLYS",
+      "price": 0.00001435,
+      "volume": 198.31,
+      "cap": 14355,
+      "change": 270,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "SOL",
+      "image": "",
+      "original": {
+        "mint": "CsMF3EMEVm9ow925mtFVwnAvTYUgckcQJrFUWEFMpump",
+        "name": " Hypeliysium",
+        "symbol": "HLYS",
+        "quoteSymbol": "SOL",
+        "priceUsd": "0.00001435",
+        "marketCapUsd": 14355,
+        "volume24hUsd": 198.31,
+        "change24h": 270,
+        "pairAddress": "91JAroczoGdgVjbHjFS9PKuW2pbHJGaHpYs6mopjuYhd"
+      },
+      "provenance": {
+        "kind": "ecosystem",
+        "verified": true,
+        "source": "Owner-specified ecosystem mint; SPL mint verified; not proven platform-launched"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "So11111111111111111111111111111111111111112",
+      "name": "Solana",
+      "symbol": "SOL",
+      "price": 90.012,
+      "volume": 87488776.99,
+      "cap": 53052527868.51409,
+      "change": 0.78,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "USDC",
+      "image": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png",
+      "original": {
+        "mint": "So11111111111111111111111111111111111111112",
+        "name": "Solana",
+        "symbol": "SOL",
+        "image": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png",
+        "association": "selected-asset",
+        "assetClass": "spot",
+        "derivedPrice": false,
+        "priceUsd": 90.012,
+        "change24h": 0.78,
+        "liquidityUsd": 25789044.95,
+        "volume24hUsd": 87488776.99,
+        "marketCapUsd": 53052527868.51409,
+        "pair": "Czfq3xZZDmsdGdUyrNLtRhGc47cXcZtLG4crryfu44zE",
+        "quoteMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "quoteSymbol": "USDC",
+        "venue": "orca",
+        "sourceUrl": "https://dexscreener.com/solana/Czfq3xZZDmsdGdUyrNLtRhGc47cXcZtLG4crryfu44zE",
+        "imageCandidates": [
+          "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png",
+          "https://cdn.dexscreener.com/cms/images/fcfb87378d3198fe753ca08ba51a5552a84f34cf48cd09d83971aa195bdf00d2?width=96&height=96&quality=80&format=auto"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=So11111111111111111111111111111111111111112",
+        "marketCapSourceUrl": "https://api.jup.ag/tokens/v2/search?query=So11111111111111111111111111111111111111112",
+        "pairedLeveragedMints": [],
+        "ecosystems": [
+          "solana"
+        ],
+        "marketLane": "spot",
+        "verification": {
+          "mint": "So11111111111111111111111111111111111111112",
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "decimals": 9,
+          "mintAuthorityPresent": false,
+          "freezeAuthorityPresent": false
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "3NZ9JMVBmGAqocybic2c7LQCJScmgsAZ6vQqTDzcqmJh",
+      "name": "Wrapped BTC (Portal)",
+      "symbol": "WBTC",
+      "price": 75970.25,
+      "volume": 4015103.95,
+      "cap": 293191677,
+      "change": 0.7,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "SOL",
+      "image": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/3NZ9JMVBmGAqocybic2c7LQCJScmgsAZ6vQqTDzcqmJh/logo.png",
+      "original": {
+        "mint": "3NZ9JMVBmGAqocybic2c7LQCJScmgsAZ6vQqTDzcqmJh",
+        "name": "Wrapped BTC (Portal)",
+        "symbol": "WBTC",
+        "image": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/3NZ9JMVBmGAqocybic2c7LQCJScmgsAZ6vQqTDzcqmJh/logo.png",
+        "association": "selected-asset",
+        "assetClass": "spot",
+        "derivedPrice": false,
+        "priceUsd": 75970.25,
+        "change24h": 0.7,
+        "liquidityUsd": 1722656.59,
+        "volume24hUsd": 4015103.95,
+        "marketCapUsd": 293191677,
+        "pair": "B5EwJVDuAauzUEEdwvbuXzbFFgEYnUqqS37TUM1c4PQA",
+        "quoteMint": "So11111111111111111111111111111111111111112",
+        "quoteSymbol": "SOL",
+        "venue": "orca",
+        "sourceUrl": "https://dexscreener.com/solana/B5EwJVDuAauzUEEdwvbuXzbFFgEYnUqqS37TUM1c4PQA",
+        "imageCandidates": [
+          "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/3NZ9JMVBmGAqocybic2c7LQCJScmgsAZ6vQqTDzcqmJh/logo.png"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=3NZ9JMVBmGAqocybic2c7LQCJScmgsAZ6vQqTDzcqmJh",
+        "marketCapSourceUrl": "https://dexscreener.com/solana/B5EwJVDuAauzUEEdwvbuXzbFFgEYnUqqS37TUM1c4PQA",
+        "pairedLeveragedMints": [],
+        "ecosystems": [
+          "bitcoin",
+          "solana"
+        ],
+        "marketLane": "spot",
+        "verification": {
+          "mint": "3NZ9JMVBmGAqocybic2c7LQCJScmgsAZ6vQqTDzcqmJh",
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "decimals": 8,
+          "mintAuthorityPresent": true,
+          "freezeAuthorityPresent": false
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "cbbtcf3aa214zXHbiAZQwf4122FBYbraNdFqgw4iMij",
+      "name": "Coinbase Wrapped BTC",
+      "symbol": "cbBTC",
+      "price": 75725.43,
+      "volume": 2705898.31,
+      "cap": 209027927,
+      "change": 0.13,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "SOL",
+      "image": "https://ipfs.io/ipfs/QmZ7L8yd5j36oXXydUiYFiFsRHbi3EdgC4RuFwvM7dcqge",
+      "original": {
+        "mint": "cbbtcf3aa214zXHbiAZQwf4122FBYbraNdFqgw4iMij",
+        "name": "Coinbase Wrapped BTC",
+        "symbol": "cbBTC",
+        "image": "https://ipfs.io/ipfs/QmZ7L8yd5j36oXXydUiYFiFsRHbi3EdgC4RuFwvM7dcqge",
+        "association": "selected-asset",
+        "assetClass": "spot",
+        "derivedPrice": false,
+        "priceUsd": 75725.43,
+        "change24h": 0.13,
+        "liquidityUsd": 6428380.81,
+        "volume24hUsd": 2705898.31,
+        "marketCapUsd": 209027927,
+        "pair": "CeaZcxBNLpJWtxzt58qQmfMBtJY8pQLvursXTJYGQpbN",
+        "quoteMint": "So11111111111111111111111111111111111111112",
+        "quoteSymbol": "SOL",
+        "venue": "orca",
+        "sourceUrl": "https://dexscreener.com/solana/CeaZcxBNLpJWtxzt58qQmfMBtJY8pQLvursXTJYGQpbN",
+        "imageCandidates": [
+          "https://ipfs.io/ipfs/QmZ7L8yd5j36oXXydUiYFiFsRHbi3EdgC4RuFwvM7dcqge"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=cbbtcf3aa214zXHbiAZQwf4122FBYbraNdFqgw4iMij",
+        "marketCapSourceUrl": "https://dexscreener.com/solana/CeaZcxBNLpJWtxzt58qQmfMBtJY8pQLvursXTJYGQpbN",
+        "pairedLeveragedMints": [],
+        "ecosystems": [
+          "bitcoin",
+          "solana"
+        ],
+        "marketLane": "spot",
+        "verification": {
+          "mint": "cbbtcf3aa214zXHbiAZQwf4122FBYbraNdFqgw4iMij",
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "decimals": 8,
+          "mintAuthorityPresent": true,
+          "freezeAuthorityPresent": true
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "C5xph2yL6gMdxmuLGxJBkGpmuDFfyi5fqkBNhvL6pump",
+      "name": "Big Titty Coin",
+      "symbol": "BTC",
+      "price": 0.01298,
+      "volume": 1221307.13,
+      "cap": 12888667,
+      "change": -9.05,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "SOL",
+      "image": "https://axiomtrading-v2.axiom-cdn.io/FQtqFpHSnAUcXrtXpFHL9EpjoF6FAmrXwQpWd1FMpump.webp",
+      "original": {
+        "mint": "C5xph2yL6gMdxmuLGxJBkGpmuDFfyi5fqkBNhvL6pump",
+        "name": "Big Titty Coin",
+        "symbol": "BTC",
+        "image": "https://axiomtrading-v2.axiom-cdn.io/FQtqFpHSnAUcXrtXpFHL9EpjoF6FAmrXwQpWd1FMpump.webp",
+        "association": "quote-market",
+        "assetClass": "ecosystem",
+        "derivedPrice": false,
+        "priceUsd": 0.01298,
+        "change24h": -9.05,
+        "liquidityUsd": 403689.84,
+        "volume24hUsd": 1221307.13,
+        "marketCapUsd": 12888667,
+        "pair": "2tFYCTqYJ2pyrb7CeA824o2Ybq3jq7agvr3Qpv2uVDmL",
+        "quoteMint": "So11111111111111111111111111111111111111112",
+        "quoteSymbol": "SOL",
+        "venue": "meteora",
+        "sourceUrl": "https://dexscreener.com/solana/2tFYCTqYJ2pyrb7CeA824o2Ybq3jq7agvr3Qpv2uVDmL",
+        "imageCandidates": [
+          "https://axiomtrading-v2.axiom-cdn.io/FQtqFpHSnAUcXrtXpFHL9EpjoF6FAmrXwQpWd1FMpump.webp",
+          "https://cdn.dexscreener.com/cms/images/NISe7k6pm95eP1fB?width=96&height=96&quality=80&format=auto"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=C5xph2yL6gMdxmuLGxJBkGpmuDFfyi5fqkBNhvL6pump",
+        "marketCapSourceUrl": "https://dexscreener.com/solana/2tFYCTqYJ2pyrb7CeA824o2Ybq3jq7agvr3Qpv2uVDmL",
+        "pairedLeveragedMints": [],
+        "ecosystems": [
+          "bitcoin",
+          "solana"
+        ],
+        "marketLane": "exotic",
+        "verification": {
+          "mint": "C5xph2yL6gMdxmuLGxJBkGpmuDFfyi5fqkBNhvL6pump",
+          "program": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+          "decimals": 6,
+          "mintAuthorityPresent": false,
+          "freezeAuthorityPresent": false
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "98sMhvDwXj1RQi5c5Mndm3vPe9cBqPrbLaufMXFNMh5g",
+      "name": "HYPE (Solana token)",
+      "symbol": "HYPE",
+      "price": 78.94,
+      "volume": 1075843.51,
+      "cap": 56921022,
+      "change": 1.82,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "SOL",
+      "image": "https://arweave.net/QBRdRop8wI4PpScSRTKyibv-fQuYBua-WOvC7tuJyJo",
+      "original": {
+        "mint": "98sMhvDwXj1RQi5c5Mndm3vPe9cBqPrbLaufMXFNMh5g",
+        "name": "HYPE (Solana token)",
+        "symbol": "HYPE",
+        "image": "https://arweave.net/QBRdRop8wI4PpScSRTKyibv-fQuYBua-WOvC7tuJyJo",
+        "association": "selected-asset",
+        "assetClass": "spot",
+        "derivedPrice": false,
+        "priceUsd": 78.94,
+        "change24h": 1.82,
+        "liquidityUsd": 4104042.71,
+        "volume24hUsd": 1075843.51,
+        "marketCapUsd": 56921022,
+        "pair": "31KrYUDzgEQhEgr1JSNVfHAknWACcF97CtUaU8enKQsy",
+        "quoteMint": "So11111111111111111111111111111111111111112",
+        "quoteSymbol": "SOL",
+        "venue": "orca",
+        "sourceUrl": "https://dexscreener.com/solana/31KrYUDzgEQhEgr1JSNVfHAknWACcF97CtUaU8enKQsy",
+        "imageCandidates": [
+          "https://arweave.net/QBRdRop8wI4PpScSRTKyibv-fQuYBua-WOvC7tuJyJo"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=98sMhvDwXj1RQi5c5Mndm3vPe9cBqPrbLaufMXFNMh5g",
+        "marketCapSourceUrl": "https://dexscreener.com/solana/31KrYUDzgEQhEgr1JSNVfHAknWACcF97CtUaU8enKQsy",
+        "pairedLeveragedMints": [],
+        "ecosystems": [
+          "hyper",
+          "solana",
+          "bitcoin"
+        ],
+        "marketLane": "spot",
+        "verification": {
+          "mint": "98sMhvDwXj1RQi5c5Mndm3vPe9cBqPrbLaufMXFNMh5g",
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "decimals": 9,
+          "mintAuthorityPresent": true,
+          "freezeAuthorityPresent": false
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "USD1ttGY1N17NEEHLmELoaybftRBUSErhqYiQzvEmuB",
+      "name": "World Liberty Financial USD",
+      "symbol": "USD1",
+      "price": 0.9999977809879484,
+      "volume": 633499.96,
+      "cap": 1226686270.6653514,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "SOL",
+      "image": "https://raw.githubusercontent.com/worldliberty/usd1-metadata/refs/heads/main/logo.png",
+      "original": {
+        "mint": "USD1ttGY1N17NEEHLmELoaybftRBUSErhqYiQzvEmuB",
+        "name": "World Liberty Financial USD",
+        "symbol": "USD1",
+        "image": "https://raw.githubusercontent.com/worldliberty/usd1-metadata/refs/heads/main/logo.png",
+        "association": "quote-market",
+        "assetClass": "ecosystem",
+        "derivedPrice": true,
+        "priceUsd": 0.9999977809879484,
+        "change24h": null,
+        "liquidityUsd": 4396333.87,
+        "volume24hUsd": 633499.96,
+        "marketCapUsd": 1226686270.6653514,
+        "pair": "AQAGYQsdU853WAKhXM79CgNdoyhrRwXvYHX6qrDyC1FS",
+        "quoteMint": "So11111111111111111111111111111111111111112",
+        "quoteSymbol": "SOL",
+        "venue": "raydium",
+        "sourceUrl": "https://dexscreener.com/solana/AQAGYQsdU853WAKhXM79CgNdoyhrRwXvYHX6qrDyC1FS",
+        "imageCandidates": [
+          "https://raw.githubusercontent.com/worldliberty/usd1-metadata/refs/heads/main/logo.png"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=USD1ttGY1N17NEEHLmELoaybftRBUSErhqYiQzvEmuB",
+        "marketCapSourceUrl": "https://api.jup.ag/tokens/v2/search?query=USD1ttGY1N17NEEHLmELoaybftRBUSErhqYiQzvEmuB",
+        "pairedLeveragedMints": [],
+        "ecosystems": [
+          "solana"
+        ],
+        "marketLane": "solana-memes",
+        "verification": {
+          "mint": "USD1ttGY1N17NEEHLmELoaybftRBUSErhqYiQzvEmuB",
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "decimals": 6,
+          "mintAuthorityPresent": true,
+          "freezeAuthorityPresent": true
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
+      "name": "USDT",
+      "symbol": "USDT",
+      "price": 0.9999423536558868,
+      "volume": 159901.26,
+      "cap": 3834534374.653224,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "SOL",
+      "image": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB/logo.svg",
+      "original": {
+        "mint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
+        "name": "USDT",
+        "symbol": "USDT",
+        "image": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB/logo.svg",
+        "association": "quote-market",
+        "assetClass": "ecosystem",
+        "derivedPrice": true,
+        "priceUsd": 0.9999423536558868,
+        "change24h": null,
+        "liquidityUsd": 880525.01,
+        "volume24hUsd": 159901.26,
+        "marketCapUsd": 3834534374.653224,
+        "pair": "7XawhbbxtsRcQA8KTkHT9f9nc6d69UwqCDh6U5EEbEmX",
+        "quoteMint": "So11111111111111111111111111111111111111112",
+        "quoteSymbol": "SOL",
+        "venue": "raydium",
+        "sourceUrl": "https://dexscreener.com/solana/7XawhbbxtsRcQA8KTkHT9f9nc6d69UwqCDh6U5EEbEmX",
+        "imageCandidates": [
+          "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB/logo.svg"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
+        "marketCapSourceUrl": "https://api.jup.ag/tokens/v2/search?query=Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
+        "pairedLeveragedMints": [],
+        "ecosystems": [
+          "solana"
+        ],
+        "marketLane": "solana-memes",
+        "verification": {
+          "mint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "decimals": 6,
+          "mintAuthorityPresent": true,
+          "freezeAuthorityPresent": true
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "4sWNB8zGWHkh6UnmwiEtzNxL4XrN7uK9tosbESbJFfVs",
+      "name": "Hylo Leveraged SOL",
+      "symbol": "xSOL",
+      "price": 0.04152,
+      "volume": 89575.5,
+      "cap": 169601,
+      "change": 3.18,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "SOL",
+      "image": "https://hylo-token-metadata.s3.us-east-2.amazonaws.com/xSOL/icon.png",
+      "original": {
+        "mint": "4sWNB8zGWHkh6UnmwiEtzNxL4XrN7uK9tosbESbJFfVs",
+        "name": "Hylo Leveraged SOL",
+        "symbol": "xSOL",
+        "image": "https://hylo-token-metadata.s3.us-east-2.amazonaws.com/xSOL/icon.png",
+        "association": "selected-asset",
+        "assetClass": "leveraged",
+        "derivedPrice": false,
+        "priceUsd": 0.04152,
+        "change24h": 3.18,
+        "liquidityUsd": 239329.66,
+        "volume24hUsd": 89575.5,
+        "marketCapUsd": 169601,
+        "pair": "5ht3AsCvksCLMp6Zcjf7zaLUsD1ripKMA7jAwgvDAes8",
+        "quoteMint": "So11111111111111111111111111111111111111112",
+        "quoteSymbol": "SOL",
+        "venue": "orca",
+        "sourceUrl": "https://dexscreener.com/solana/5ht3AsCvksCLMp6Zcjf7zaLUsD1ripKMA7jAwgvDAes8",
+        "imageCandidates": [
+          "https://hylo-token-metadata.s3.us-east-2.amazonaws.com/xSOL/icon.png"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=4sWNB8zGWHkh6UnmwiEtzNxL4XrN7uK9tosbESbJFfVs",
+        "marketCapSourceUrl": "https://dexscreener.com/solana/5ht3AsCvksCLMp6Zcjf7zaLUsD1ripKMA7jAwgvDAes8",
+        "pairedLeveragedMints": [],
+        "ecosystems": [
+          "solana"
+        ],
+        "marketLane": "leveraged",
+        "verification": {
+          "mint": "4sWNB8zGWHkh6UnmwiEtzNxL4XrN7uK9tosbESbJFfVs",
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "decimals": 6,
+          "mintAuthorityPresent": true,
+          "freezeAuthorityPresent": false
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "7ga6rtE9qSb3wdEiDCpTu2kHqoGVfT52jD8ign1rYTvx",
+      "name": "Hylo Leveraged HYPE",
+      "symbol": "xHYPE",
+      "price": 1.46,
+      "volume": 26394.33,
+      "cap": 663254,
+      "change": 5.11,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "USDC",
+      "image": "https://hylo-token-metadata.s3.us-east-2.amazonaws.com/xHYPE/icon.png",
+      "original": {
+        "mint": "7ga6rtE9qSb3wdEiDCpTu2kHqoGVfT52jD8ign1rYTvx",
+        "name": "Hylo Leveraged HYPE",
+        "symbol": "xHYPE",
+        "image": "https://hylo-token-metadata.s3.us-east-2.amazonaws.com/xHYPE/icon.png",
+        "association": "selected-asset",
+        "assetClass": "leveraged",
+        "derivedPrice": false,
+        "priceUsd": 1.46,
+        "change24h": 5.11,
+        "liquidityUsd": 180390.44,
+        "volume24hUsd": 26394.33,
+        "marketCapUsd": 663254,
+        "pair": "8tp8GJADuYu2czhnaWzXYxpXTq2dwjribGwSav4J4m7e",
+        "quoteMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "quoteSymbol": "USDC",
+        "venue": "meteora",
+        "sourceUrl": "https://dexscreener.com/solana/8tp8GJADuYu2czhnaWzXYxpXTq2dwjribGwSav4J4m7e",
+        "imageCandidates": [
+          "https://hylo-token-metadata.s3.us-east-2.amazonaws.com/xHYPE/icon.png"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=7ga6rtE9qSb3wdEiDCpTu2kHqoGVfT52jD8ign1rYTvx",
+        "marketCapSourceUrl": "https://dexscreener.com/solana/8tp8GJADuYu2czhnaWzXYxpXTq2dwjribGwSav4J4m7e",
+        "pairedLeveragedMints": [
+          "4sWNB8zGWHkh6UnmwiEtzNxL4XrN7uK9tosbESbJFfVs"
+        ],
+        "ecosystems": [
+          "hyper",
+          "solana"
+        ],
+        "marketLane": "leveraged",
+        "verification": {
+          "mint": "7ga6rtE9qSb3wdEiDCpTu2kHqoGVfT52jD8ign1rYTvx",
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "decimals": 6,
+          "mintAuthorityPresent": true,
+          "freezeAuthorityPresent": false
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "A7bdiYdS5GjqGFtxf17ppRHtDKPkkRqbKtR27dxvQXaS",
+      "name": "Zcash",
+      "symbol": "ZEC",
+      "price": 1311.9402985074628,
+      "volume": 22847.11,
+      "cap": 140532301.1866618,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "HYPE",
+      "image": "https://arweave.net/QSYqnmB7NYlB7n1R6rz935Y07dlRK0tIuKe2mof5Sho",
+      "original": {
+        "mint": "A7bdiYdS5GjqGFtxf17ppRHtDKPkkRqbKtR27dxvQXaS",
+        "name": "Zcash",
+        "symbol": "ZEC",
+        "image": "https://arweave.net/QSYqnmB7NYlB7n1R6rz935Y07dlRK0tIuKe2mof5Sho",
+        "association": "quote-market",
+        "assetClass": "ecosystem",
+        "derivedPrice": true,
+        "priceUsd": 1311.9402985074628,
+        "change24h": null,
+        "liquidityUsd": 20614.57,
+        "volume24hUsd": 22847.11,
+        "marketCapUsd": 140532301.1866618,
+        "pair": "CidRADE9zNhmNjEKv8SfvUbnAvRkCi7DQ6UWrqQ4xMrT",
+        "quoteMint": "98sMhvDwXj1RQi5c5Mndm3vPe9cBqPrbLaufMXFNMh5g",
+        "quoteSymbol": "HYPE",
+        "venue": "orca",
+        "sourceUrl": "https://dexscreener.com/solana/CidRADE9zNhmNjEKv8SfvUbnAvRkCi7DQ6UWrqQ4xMrT",
+        "imageCandidates": [
+          "https://arweave.net/QSYqnmB7NYlB7n1R6rz935Y07dlRK0tIuKe2mof5Sho"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=A7bdiYdS5GjqGFtxf17ppRHtDKPkkRqbKtR27dxvQXaS",
+        "marketCapSourceUrl": "https://api.jup.ag/tokens/v2/search?query=A7bdiYdS5GjqGFtxf17ppRHtDKPkkRqbKtR27dxvQXaS",
+        "pairedLeveragedMints": [],
+        "ecosystems": [
+          "hyper"
+        ],
+        "marketLane": "exotic",
+        "verification": {
+          "mint": "A7bdiYdS5GjqGFtxf17ppRHtDKPkkRqbKtR27dxvQXaS",
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "decimals": 8,
+          "mintAuthorityPresent": true,
+          "freezeAuthorityPresent": false
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "3Di8HztV3HPKXnch6SBr3r8NGEoW7DgbmRsAipG5A67E",
+      "name": "Color of Crypto",
+      "symbol": "F7931A",
+      "price": 0.00005089,
+      "volume": 17641.08,
+      "cap": 50892,
+      "change": -8.89,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "xBTC",
+      "image": "https://gateway.irys.xyz/7BgS9QX9vE8BrVw6x9oR98KwwKyHUJx7wi11LUaG9kma",
+      "original": {
+        "mint": "3Di8HztV3HPKXnch6SBr3r8NGEoW7DgbmRsAipG5A67E",
+        "name": "Color of Crypto",
+        "symbol": "F7931A",
+        "image": "https://gateway.irys.xyz/7BgS9QX9vE8BrVw6x9oR98KwwKyHUJx7wi11LUaG9kma",
+        "association": "quote-market",
+        "assetClass": "ecosystem",
+        "derivedPrice": false,
+        "priceUsd": 0.00005089,
+        "change24h": -8.89,
+        "liquidityUsd": 18456.93,
+        "volume24hUsd": 17641.08,
+        "marketCapUsd": 50892,
+        "pair": "GEDpnnhyLZdpHi1yz36SBbPdxtU8K4dxbFx3eFet4BTf",
+        "quoteMint": "2zCo6bUowJMvr89ajxuWsPadAqJ2F9akCkxumNsSdgsL",
+        "quoteSymbol": "xBTC",
+        "venue": "raydium",
+        "sourceUrl": "https://dexscreener.com/solana/GEDpnnhyLZdpHi1yz36SBbPdxtU8K4dxbFx3eFet4BTf",
+        "imageCandidates": [
+          "https://gateway.irys.xyz/7BgS9QX9vE8BrVw6x9oR98KwwKyHUJx7wi11LUaG9kma",
+          "https://cdn.dexscreener.com/cms/images/N308zBhHbnGwVAuc?width=96&height=96&quality=80&format=auto"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=3Di8HztV3HPKXnch6SBr3r8NGEoW7DgbmRsAipG5A67E",
+        "marketCapSourceUrl": "https://dexscreener.com/solana/GEDpnnhyLZdpHi1yz36SBbPdxtU8K4dxbFx3eFet4BTf",
+        "pairedLeveragedMints": [
+          "2zCo6bUowJMvr89ajxuWsPadAqJ2F9akCkxumNsSdgsL"
+        ],
+        "ecosystems": [
+          "bitcoin"
+        ],
+        "marketLane": "exotic",
+        "verification": {
+          "mint": "3Di8HztV3HPKXnch6SBr3r8NGEoW7DgbmRsAipG5A67E",
+          "program": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+          "decimals": 6,
+          "mintAuthorityPresent": false,
+          "freezeAuthorityPresent": false
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "E4Ap4icMLwKot8rkkTbq5JkS5kZxt5XCE3yfxbzYBjHx",
+      "name": "Buy The Cat",
+      "symbol": "BTC",
+      "price": 0.0005128,
+      "volume": 9045.09,
+      "cap": 512868,
+      "change": -1.76,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "WBTC",
+      "image": "https://assets.coingecko.com/coins/images/102176771/standard/24u5bzlbm1s8kcd5wfgkj2ulivzh.?1788680089",
+      "original": {
+        "mint": "E4Ap4icMLwKot8rkkTbq5JkS5kZxt5XCE3yfxbzYBjHx",
+        "name": "Buy The Cat",
+        "symbol": "BTC",
+        "image": "https://assets.coingecko.com/coins/images/102176771/standard/24u5bzlbm1s8kcd5wfgkj2ulivzh.?1788680089",
+        "association": "quote-market",
+        "assetClass": "ecosystem",
+        "derivedPrice": false,
+        "priceUsd": 0.0005128,
+        "change24h": -1.76,
+        "liquidityUsd": 101933.72,
+        "volume24hUsd": 9045.09,
+        "marketCapUsd": 512868,
+        "pair": "2RmBs1KYzkDuaRR4F8zU9rPR6KT16eCgJ9YS1c8XXZgQ",
+        "quoteMint": "3NZ9JMVBmGAqocybic2c7LQCJScmgsAZ6vQqTDzcqmJh",
+        "quoteSymbol": "WBTC",
+        "venue": "raydium",
+        "sourceUrl": "https://dexscreener.com/solana/2RmBs1KYzkDuaRR4F8zU9rPR6KT16eCgJ9YS1c8XXZgQ",
+        "imageCandidates": [
+          "https://assets.coingecko.com/coins/images/102176771/standard/24u5bzlbm1s8kcd5wfgkj2ulivzh.?1788680089",
+          "https://cdn.dexscreener.com/cms/images/QNFnLyShg-dgTMfQ?width=96&height=96&quality=80&format=auto",
+          "https://cdn.dexscreener.com/cms/images/ZSuYkfUn9aQ0Io9K?width=96&height=96&quality=80&format=auto"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=E4Ap4icMLwKot8rkkTbq5JkS5kZxt5XCE3yfxbzYBjHx",
+        "marketCapSourceUrl": "https://dexscreener.com/solana/2RmBs1KYzkDuaRR4F8zU9rPR6KT16eCgJ9YS1c8XXZgQ",
+        "pairedLeveragedMints": [],
+        "ecosystems": [
+          "bitcoin"
+        ],
+        "marketLane": "exotic",
+        "verification": {
+          "mint": "E4Ap4icMLwKot8rkkTbq5JkS5kZxt5XCE3yfxbzYBjHx",
+          "program": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+          "decimals": 9,
+          "mintAuthorityPresent": false,
+          "freezeAuthorityPresent": false
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "2zCo6bUowJMvr89ajxuWsPadAqJ2F9akCkxumNsSdgsL",
+      "name": "Hylo Leveraged BTC",
+      "symbol": "xBTC",
+      "price": 1.58,
+      "volume": 8044.82,
+      "cap": 78136,
+      "change": -0.97,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "USDC",
+      "image": "https://hylo-token-metadata.s3.us-east-2.amazonaws.com/xBTC/icon.png",
+      "original": {
+        "mint": "2zCo6bUowJMvr89ajxuWsPadAqJ2F9akCkxumNsSdgsL",
+        "name": "Hylo Leveraged BTC",
+        "symbol": "xBTC",
+        "image": "https://hylo-token-metadata.s3.us-east-2.amazonaws.com/xBTC/icon.png",
+        "association": "selected-asset",
+        "assetClass": "leveraged",
+        "derivedPrice": false,
+        "priceUsd": 1.58,
+        "change24h": -0.97,
+        "liquidityUsd": 48565.8,
+        "volume24hUsd": 8044.82,
+        "marketCapUsd": 78136,
+        "pair": "4m1WVt7dWwkZG3cZcEHcKKXbb5EL4rLAFD1ne1aFdngb",
+        "quoteMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+        "quoteSymbol": "USDC",
+        "venue": "meteora",
+        "sourceUrl": "https://dexscreener.com/solana/4m1WVt7dWwkZG3cZcEHcKKXbb5EL4rLAFD1ne1aFdngb",
+        "imageCandidates": [
+          "https://hylo-token-metadata.s3.us-east-2.amazonaws.com/xBTC/icon.png"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=2zCo6bUowJMvr89ajxuWsPadAqJ2F9akCkxumNsSdgsL",
+        "marketCapSourceUrl": "https://dexscreener.com/solana/4m1WVt7dWwkZG3cZcEHcKKXbb5EL4rLAFD1ne1aFdngb",
+        "pairedLeveragedMints": [
+          "4sWNB8zGWHkh6UnmwiEtzNxL4XrN7uK9tosbESbJFfVs",
+          "7ga6rtE9qSb3wdEiDCpTu2kHqoGVfT52jD8ign1rYTvx"
+        ],
+        "ecosystems": [
+          "bitcoin",
+          "solana",
+          "hyper"
+        ],
+        "marketLane": "leveraged",
+        "verification": {
+          "mint": "2zCo6bUowJMvr89ajxuWsPadAqJ2F9akCkxumNsSdgsL",
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "decimals": 6,
+          "mintAuthorityPresent": true,
+          "freezeAuthorityPresent": false
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "7Qy2cXpdj4Fu2DUPVWdN3oogM3JSwLUV2LZaKVgVcPZh",
+      "name": "HYPERCAT",
+      "symbol": "HYPERCAT",
+      "price": 0.00007695,
+      "volume": 2623.94,
+      "cap": 76953,
+      "change": 43.74,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "xHYPE",
+      "image": "https://gateway.irys.xyz/D6uqJBkBFtXhEUwpsTe9U8NnDvmTTWBSeJhb2USZKwuK",
+      "original": {
+        "mint": "7Qy2cXpdj4Fu2DUPVWdN3oogM3JSwLUV2LZaKVgVcPZh",
+        "name": "HYPERCAT",
+        "symbol": "HYPERCAT",
+        "image": "https://gateway.irys.xyz/D6uqJBkBFtXhEUwpsTe9U8NnDvmTTWBSeJhb2USZKwuK",
+        "association": "quote-market",
+        "assetClass": "ecosystem",
+        "derivedPrice": false,
+        "priceUsd": 0.00007695,
+        "change24h": 43.74,
+        "liquidityUsd": 20314.09,
+        "volume24hUsd": 2623.94,
+        "marketCapUsd": 76953,
+        "pair": "EWQKo1GFY9pEyUcwuPwbyLHnnZh5Q7WbuNw1BibQjkwM",
+        "quoteMint": "7ga6rtE9qSb3wdEiDCpTu2kHqoGVfT52jD8ign1rYTvx",
+        "quoteSymbol": "xHYPE",
+        "venue": "raydium",
+        "sourceUrl": "https://dexscreener.com/solana/EWQKo1GFY9pEyUcwuPwbyLHnnZh5Q7WbuNw1BibQjkwM",
+        "imageCandidates": [
+          "https://gateway.irys.xyz/D6uqJBkBFtXhEUwpsTe9U8NnDvmTTWBSeJhb2USZKwuK",
+          "https://cdn.dexscreener.com/cms/images/HJX1Dinl3CQjwELI?width=96&height=96&quality=80&format=auto"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=7Qy2cXpdj4Fu2DUPVWdN3oogM3JSwLUV2LZaKVgVcPZh",
+        "marketCapSourceUrl": "https://dexscreener.com/solana/EWQKo1GFY9pEyUcwuPwbyLHnnZh5Q7WbuNw1BibQjkwM",
+        "pairedLeveragedMints": [
+          "7ga6rtE9qSb3wdEiDCpTu2kHqoGVfT52jD8ign1rYTvx"
+        ],
+        "ecosystems": [
+          "hyper"
+        ],
+        "marketLane": "exotic",
+        "verification": {
+          "mint": "7Qy2cXpdj4Fu2DUPVWdN3oogM3JSwLUV2LZaKVgVcPZh",
+          "program": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+          "decimals": 6,
+          "mintAuthorityPresent": false,
+          "freezeAuthorityPresent": false
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "GodL6KZ9uuUoQwELggtVzQkKmU1LfqmDokPibPeDKkhF",
+      "name": "GODL",
+      "symbol": "GODL",
+      "price": 0.6743251928020566,
+      "volume": 2474.57,
+      "cap": 1053745.774599354,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "xSOL",
+      "image": "https://www.godl.supply/icons/godl.png",
+      "original": {
+        "mint": "GodL6KZ9uuUoQwELggtVzQkKmU1LfqmDokPibPeDKkhF",
+        "name": "GODL",
+        "symbol": "GODL",
+        "image": "https://www.godl.supply/icons/godl.png",
+        "association": "quote-market",
+        "assetClass": "ecosystem",
+        "derivedPrice": true,
+        "priceUsd": 0.6743251928020566,
+        "change24h": null,
+        "liquidityUsd": 38466.98,
+        "volume24hUsd": 2474.57,
+        "marketCapUsd": 1053745.774599354,
+        "pair": "EHTC7AyxcE18YVoAYCmQ2KCXo7bXT5oZm2jyyxR7cyi9",
+        "quoteMint": "4sWNB8zGWHkh6UnmwiEtzNxL4XrN7uK9tosbESbJFfVs",
+        "quoteSymbol": "xSOL",
+        "venue": "meteora",
+        "sourceUrl": "https://dexscreener.com/solana/EHTC7AyxcE18YVoAYCmQ2KCXo7bXT5oZm2jyyxR7cyi9",
+        "imageCandidates": [
+          "https://www.godl.supply/icons/godl.png"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=GodL6KZ9uuUoQwELggtVzQkKmU1LfqmDokPibPeDKkhF",
+        "marketCapSourceUrl": "https://api.jup.ag/tokens/v2/search?query=GodL6KZ9uuUoQwELggtVzQkKmU1LfqmDokPibPeDKkhF",
+        "pairedLeveragedMints": [
+          "4sWNB8zGWHkh6UnmwiEtzNxL4XrN7uK9tosbESbJFfVs"
+        ],
+        "ecosystems": [
+          "hyper",
+          "solana"
+        ],
+        "marketLane": "exotic",
+        "verification": {
+          "mint": "GodL6KZ9uuUoQwELggtVzQkKmU1LfqmDokPibPeDKkhF",
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "decimals": 11,
+          "mintAuthorityPresent": true,
+          "freezeAuthorityPresent": false
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "AGi2s9zPRPHs3zEDPhPTroumTEXK5ufymYSfEFndCSSW",
+      "name": "Leveraged Cat",
+      "symbol": "LEVERCAT",
+      "price": 0.000173,
+      "volume": 2402.19,
+      "cap": 172862,
+      "change": 11.82,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "xSOL",
+      "image": "https://gateway.irys.xyz/72ipFM6nub2FJEzQjhLSG2KGq7YDFQ2qmp8ZpYwcNKyh",
+      "original": {
+        "mint": "AGi2s9zPRPHs3zEDPhPTroumTEXK5ufymYSfEFndCSSW",
+        "name": "Leveraged Cat",
+        "symbol": "LEVERCAT",
+        "image": "https://gateway.irys.xyz/72ipFM6nub2FJEzQjhLSG2KGq7YDFQ2qmp8ZpYwcNKyh",
+        "association": "quote-market",
+        "assetClass": "ecosystem",
+        "derivedPrice": false,
+        "priceUsd": 0.000173,
+        "change24h": 11.82,
+        "liquidityUsd": 36486.52,
+        "volume24hUsd": 2402.19,
+        "marketCapUsd": 172862,
+        "pair": "CsjcF4mEmJsXZDWzBtuviVEV7JiKTY4NAJ1rdcHhVxi3",
+        "quoteMint": "4sWNB8zGWHkh6UnmwiEtzNxL4XrN7uK9tosbESbJFfVs",
+        "quoteSymbol": "xSOL",
+        "venue": "raydium",
+        "sourceUrl": "https://dexscreener.com/solana/CsjcF4mEmJsXZDWzBtuviVEV7JiKTY4NAJ1rdcHhVxi3",
+        "imageCandidates": [
+          "https://gateway.irys.xyz/72ipFM6nub2FJEzQjhLSG2KGq7YDFQ2qmp8ZpYwcNKyh",
+          "https://cdn.dexscreener.com/cms/images/n25k7nXhnTMETSKm?width=96&height=96&quality=80&format=auto"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=AGi2s9zPRPHs3zEDPhPTroumTEXK5ufymYSfEFndCSSW",
+        "marketCapSourceUrl": "https://dexscreener.com/solana/CsjcF4mEmJsXZDWzBtuviVEV7JiKTY4NAJ1rdcHhVxi3",
+        "pairedLeveragedMints": [
+          "4sWNB8zGWHkh6UnmwiEtzNxL4XrN7uK9tosbESbJFfVs"
+        ],
+        "ecosystems": [
+          "solana"
+        ],
+        "marketLane": "exotic",
+        "verification": {
+          "mint": "AGi2s9zPRPHs3zEDPhPTroumTEXK5ufymYSfEFndCSSW",
+          "program": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+          "decimals": 6,
+          "mintAuthorityPresent": false,
+          "freezeAuthorityPresent": false
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn",
+      "name": "Jito Staked SOL",
+      "symbol": "JitoSOL",
+      "price": 117.45578930915622,
+      "volume": 1413.77,
+      "cap": 923633180.5179192,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "WBTC",
+      "image": "https://storage.googleapis.com/token-metadata/JitoSOL-256.png",
+      "original": {
+        "mint": "J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn",
+        "name": "Jito Staked SOL",
+        "symbol": "JitoSOL",
+        "image": "https://storage.googleapis.com/token-metadata/JitoSOL-256.png",
+        "association": "quote-market",
+        "assetClass": "ecosystem",
+        "derivedPrice": true,
+        "priceUsd": 117.45578930915622,
+        "change24h": null,
+        "liquidityUsd": 10137.65,
+        "volume24hUsd": 1413.77,
+        "marketCapUsd": 923633180.5179192,
+        "pair": "CGpj52wyu2z5kKNJg3voyn7DMes5B1L7BJpE1JQD6qJA",
+        "quoteMint": "3NZ9JMVBmGAqocybic2c7LQCJScmgsAZ6vQqTDzcqmJh",
+        "quoteSymbol": "WBTC",
+        "venue": "orca",
+        "sourceUrl": "https://dexscreener.com/solana/CGpj52wyu2z5kKNJg3voyn7DMes5B1L7BJpE1JQD6qJA",
+        "imageCandidates": [
+          "https://storage.googleapis.com/token-metadata/JitoSOL-256.png"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn",
+        "marketCapSourceUrl": "https://api.jup.ag/tokens/v2/search?query=J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn",
+        "pairedLeveragedMints": [],
+        "ecosystems": [
+          "bitcoin"
+        ],
+        "marketLane": "exotic",
+        "verification": {
+          "mint": "J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn",
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "decimals": 9,
+          "mintAuthorityPresent": true,
+          "freezeAuthorityPresent": false
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4",
+      "name": "Jupiter Perps LP",
+      "symbol": "JLP",
+      "price": 4.215782233720722,
+      "volume": 1293.43,
+      "cap": 785161020.4017802,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "WBTC",
+      "image": "https://static.jup.ag/jlp/icon.png",
+      "original": {
+        "mint": "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4",
+        "name": "Jupiter Perps LP",
+        "symbol": "JLP",
+        "image": "https://static.jup.ag/jlp/icon.png",
+        "association": "quote-market",
+        "assetClass": "ecosystem",
+        "derivedPrice": true,
+        "priceUsd": 4.215782233720722,
+        "change24h": null,
+        "liquidityUsd": 16693.14,
+        "volume24hUsd": 1293.43,
+        "marketCapUsd": 785161020.4017802,
+        "pair": "7rCWunLK7a2uLYog5e79Nxz5gfXptJaotjBuqv29JKz",
+        "quoteMint": "3NZ9JMVBmGAqocybic2c7LQCJScmgsAZ6vQqTDzcqmJh",
+        "quoteSymbol": "WBTC",
+        "venue": "orca",
+        "sourceUrl": "https://dexscreener.com/solana/7rCWunLK7a2uLYog5e79Nxz5gfXptJaotjBuqv29JKz",
+        "imageCandidates": [
+          "https://static.jup.ag/jlp/icon.png"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4",
+        "marketCapSourceUrl": "https://api.jup.ag/tokens/v2/search?query=27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4",
+        "pairedLeveragedMints": [],
+        "ecosystems": [
+          "bitcoin"
+        ],
+        "marketLane": "exotic",
+        "verification": {
+          "mint": "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4",
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "decimals": 6,
+          "mintAuthorityPresent": true,
+          "freezeAuthorityPresent": true
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "4CX9pg8hTJCqAnpY3Xqkvt6i7aQ6UtNPPifE64vMM8r1",
+      "name": "Solana",
+      "symbol": "SOL",
+      "price": 90.29,
+      "volume": 1260.25,
+      "cap": 4424505554272,
+      "change": 0.24,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "SOL",
+      "image": "https://ipfs.io/ipfs/bafkreida3by2p6p6almscwff262nbciscyrywuchsexk2e3dustgr67mom",
+      "original": {
+        "mint": "4CX9pg8hTJCqAnpY3Xqkvt6i7aQ6UtNPPifE64vMM8r1",
+        "name": "Solana",
+        "symbol": "SOL",
+        "image": "https://ipfs.io/ipfs/bafkreida3by2p6p6almscwff262nbciscyrywuchsexk2e3dustgr67mom",
+        "association": "quote-market",
+        "assetClass": "ecosystem",
+        "derivedPrice": false,
+        "priceUsd": 90.29,
+        "change24h": 0.24,
+        "liquidityUsd": 9029604.07,
+        "volume24hUsd": 1260.25,
+        "marketCapUsd": 4424505554272,
+        "pair": "SAvkfRW3GNJAzSdp4WVfgz41RJenBHWHQak5eGbkpHU",
+        "quoteMint": "So11111111111111111111111111111111111111112",
+        "quoteSymbol": "SOL",
+        "venue": "meteora",
+        "sourceUrl": "https://dexscreener.com/solana/SAvkfRW3GNJAzSdp4WVfgz41RJenBHWHQak5eGbkpHU",
+        "imageCandidates": [
+          "https://ipfs.io/ipfs/bafkreida3by2p6p6almscwff262nbciscyrywuchsexk2e3dustgr67mom"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=4CX9pg8hTJCqAnpY3Xqkvt6i7aQ6UtNPPifE64vMM8r1",
+        "marketCapSourceUrl": "https://dexscreener.com/solana/SAvkfRW3GNJAzSdp4WVfgz41RJenBHWHQak5eGbkpHU",
+        "pairedLeveragedMints": [],
+        "ecosystems": [
+          "solana"
+        ],
+        "marketLane": "solana-memes",
+        "verification": {
+          "mint": "4CX9pg8hTJCqAnpY3Xqkvt6i7aQ6UtNPPifE64vMM8r1",
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "decimals": 6,
+          "mintAuthorityPresent": false,
+          "freezeAuthorityPresent": false
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "6iLrk475gh1yUv1tQKSC5nUugAHgxeTUf2GTo1Xvsz5m",
+      "name": "BitcoinX",
+      "symbol": "BTCX",
+      "price": 0.0001714,
+      "volume": 1150.44,
+      "cap": 171412,
+      "change": -3.36,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "xBTC",
+      "image": "https://pbs.twimg.com/media/HR09aFha4AAw2oO?format=jpg&name=small",
+      "original": {
+        "mint": "6iLrk475gh1yUv1tQKSC5nUugAHgxeTUf2GTo1Xvsz5m",
+        "name": "BitcoinX",
+        "symbol": "BTCX",
+        "image": "https://pbs.twimg.com/media/HR09aFha4AAw2oO?format=jpg&name=small",
+        "association": "quote-market",
+        "assetClass": "ecosystem",
+        "derivedPrice": false,
+        "priceUsd": 0.0001714,
+        "change24h": -3.36,
+        "liquidityUsd": 33151.62,
+        "volume24hUsd": 1150.44,
+        "marketCapUsd": 171412,
+        "pair": "99DWaXPH7bKKqLz1YwQX21hopQnL3uMbNamd1EC86Vfs",
+        "quoteMint": "2zCo6bUowJMvr89ajxuWsPadAqJ2F9akCkxumNsSdgsL",
+        "quoteSymbol": "xBTC",
+        "venue": "raydium",
+        "sourceUrl": "https://dexscreener.com/solana/99DWaXPH7bKKqLz1YwQX21hopQnL3uMbNamd1EC86Vfs",
+        "imageCandidates": [
+          "https://pbs.twimg.com/media/HR09aFha4AAw2oO?format=jpg&name=small",
+          "https://cdn.dexscreener.com/cms/images/S-lLfKcOCi6BZo0k?width=96&height=96&quality=80&format=auto"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=6iLrk475gh1yUv1tQKSC5nUugAHgxeTUf2GTo1Xvsz5m",
+        "marketCapSourceUrl": "https://dexscreener.com/solana/99DWaXPH7bKKqLz1YwQX21hopQnL3uMbNamd1EC86Vfs",
+        "pairedLeveragedMints": [
+          "2zCo6bUowJMvr89ajxuWsPadAqJ2F9akCkxumNsSdgsL"
+        ],
+        "ecosystems": [
+          "bitcoin"
+        ],
+        "marketLane": "exotic",
+        "verification": {
+          "mint": "6iLrk475gh1yUv1tQKSC5nUugAHgxeTUf2GTo1Xvsz5m",
+          "program": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+          "decimals": 6,
+          "mintAuthorityPresent": false,
+          "freezeAuthorityPresent": false
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "8g8TYcAcR6mEtvZ7X1TcMNPGtcdhDR3az5FqJpwBfcui",
+      "name": "Bitcoin Pizza",
+      "symbol": "PIZZA",
+      "price": 0.00001924,
+      "volume": 554.42,
+      "cap": 19249,
+      "change": 0.16,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "xBTC",
+      "image": "https://gateway.irys.xyz/76HW8omkqL2EtQFjFjRizHULPuxihmHUdRbjh1Bmyqoe",
+      "original": {
+        "mint": "8g8TYcAcR6mEtvZ7X1TcMNPGtcdhDR3az5FqJpwBfcui",
+        "name": "Bitcoin Pizza",
+        "symbol": "PIZZA",
+        "image": "https://gateway.irys.xyz/76HW8omkqL2EtQFjFjRizHULPuxihmHUdRbjh1Bmyqoe",
+        "association": "quote-market",
+        "assetClass": "ecosystem",
+        "derivedPrice": false,
+        "priceUsd": 0.00001924,
+        "change24h": 0.16,
+        "liquidityUsd": 15970.94,
+        "volume24hUsd": 554.42,
+        "marketCapUsd": 19249,
+        "pair": "6U9HA9jU4wrus9zJB9guMWrVrvNwjGuBmq5ey2fajWRw",
+        "quoteMint": "2zCo6bUowJMvr89ajxuWsPadAqJ2F9akCkxumNsSdgsL",
+        "quoteSymbol": "xBTC",
+        "venue": "raydium",
+        "sourceUrl": "https://dexscreener.com/solana/6U9HA9jU4wrus9zJB9guMWrVrvNwjGuBmq5ey2fajWRw",
+        "imageCandidates": [
+          "https://gateway.irys.xyz/76HW8omkqL2EtQFjFjRizHULPuxihmHUdRbjh1Bmyqoe",
+          "https://cdn.dexscreener.com/cms/images/XWqP3IFneg6iuENc?width=96&height=96&quality=80&format=auto"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=8g8TYcAcR6mEtvZ7X1TcMNPGtcdhDR3az5FqJpwBfcui",
+        "marketCapSourceUrl": "https://dexscreener.com/solana/6U9HA9jU4wrus9zJB9guMWrVrvNwjGuBmq5ey2fajWRw",
+        "pairedLeveragedMints": [
+          "2zCo6bUowJMvr89ajxuWsPadAqJ2F9akCkxumNsSdgsL"
+        ],
+        "ecosystems": [
+          "bitcoin"
+        ],
+        "marketLane": "exotic",
+        "verification": {
+          "mint": "8g8TYcAcR6mEtvZ7X1TcMNPGtcdhDR3az5FqJpwBfcui",
+          "program": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+          "decimals": 9,
+          "mintAuthorityPresent": false,
+          "freezeAuthorityPresent": false
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "HiiRvVQmdETji3hRJArjJr6QxLKryYHKkREXrDEwNa4E",
+      "name": "Liquid Inu",
+      "symbol": "LIQUINU",
+      "price": 0.00002251,
+      "volume": 207.71,
+      "cap": 22516,
+      "change": -2.05,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "xHYPE",
+      "image": "https://gateway.irys.xyz/HzzzL5tuYKVB3xq3UAU6xwsL1jGWAVnbjQSsqpJwW7Li",
+      "original": {
+        "mint": "HiiRvVQmdETji3hRJArjJr6QxLKryYHKkREXrDEwNa4E",
+        "name": "Liquid Inu",
+        "symbol": "LIQUINU",
+        "image": "https://gateway.irys.xyz/HzzzL5tuYKVB3xq3UAU6xwsL1jGWAVnbjQSsqpJwW7Li",
+        "association": "quote-market",
+        "assetClass": "ecosystem",
+        "derivedPrice": false,
+        "priceUsd": 0.00002251,
+        "change24h": -2.05,
+        "liquidityUsd": 10103.61,
+        "volume24hUsd": 207.71,
+        "marketCapUsd": 22516,
+        "pair": "4urS7v33AaAcxWJuc5JcPkkc1NzHPg9FDQxEmZvDrgTe",
+        "quoteMint": "7ga6rtE9qSb3wdEiDCpTu2kHqoGVfT52jD8ign1rYTvx",
+        "quoteSymbol": "xHYPE",
+        "venue": "raydium",
+        "sourceUrl": "https://dexscreener.com/solana/4urS7v33AaAcxWJuc5JcPkkc1NzHPg9FDQxEmZvDrgTe",
+        "imageCandidates": [
+          "https://gateway.irys.xyz/HzzzL5tuYKVB3xq3UAU6xwsL1jGWAVnbjQSsqpJwW7Li",
+          "https://cdn.dexscreener.com/cms/images/ddJiPoCa2cgeDWio?width=96&height=96&quality=80&format=auto"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=HiiRvVQmdETji3hRJArjJr6QxLKryYHKkREXrDEwNa4E",
+        "marketCapSourceUrl": "https://dexscreener.com/solana/4urS7v33AaAcxWJuc5JcPkkc1NzHPg9FDQxEmZvDrgTe",
+        "pairedLeveragedMints": [
+          "7ga6rtE9qSb3wdEiDCpTu2kHqoGVfT52jD8ign1rYTvx"
+        ],
+        "ecosystems": [
+          "hyper"
+        ],
+        "marketLane": "exotic",
+        "verification": {
+          "mint": "HiiRvVQmdETji3hRJArjJr6QxLKryYHKkREXrDEwNa4E",
+          "program": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+          "decimals": 6,
+          "mintAuthorityPresent": false,
+          "freezeAuthorityPresent": false
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R",
+      "name": "Raydium",
+      "symbol": "RAY",
+      "price": 1.7970294767856672,
+      "volume": 151.3,
+      "cap": 483433452.1012763,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "WBTC",
+      "image": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R/logo.png",
+      "original": {
+        "mint": "4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R",
+        "name": "Raydium",
+        "symbol": "RAY",
+        "image": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R/logo.png",
+        "association": "quote-market",
+        "assetClass": "ecosystem",
+        "derivedPrice": true,
+        "priceUsd": 1.7970294767856672,
+        "change24h": null,
+        "liquidityUsd": 7419.35,
+        "volume24hUsd": 151.3,
+        "marketCapUsd": 483433452.1012763,
+        "pair": "HwRmkERUQmr1dq6gJhdtwkF6gxLU3AP6fZMJpzWHQQpr",
+        "quoteMint": "3NZ9JMVBmGAqocybic2c7LQCJScmgsAZ6vQqTDzcqmJh",
+        "quoteSymbol": "WBTC",
+        "venue": "raydium",
+        "sourceUrl": "https://dexscreener.com/solana/HwRmkERUQmr1dq6gJhdtwkF6gxLU3AP6fZMJpzWHQQpr",
+        "imageCandidates": [
+          "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R/logo.png"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R",
+        "marketCapSourceUrl": "https://api.jup.ag/tokens/v2/search?query=4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R",
+        "pairedLeveragedMints": [],
+        "ecosystems": [
+          "bitcoin"
+        ],
+        "marketLane": "exotic",
+        "verification": {
+          "mint": "4k3Dyjzvzp8eMZWUXbBCjEvwSkkk59S5iCNLY3QrkX6R",
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "decimals": 6,
+          "mintAuthorityPresent": false,
+          "freezeAuthorityPresent": false
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "2Ghxme9RXa2vatoRPGnQgNKCXNZy2N3X7PbH4kzxHYPE",
+      "name": "LeverHyppo",
+      "symbol": "LEVERHYPPO",
+      "price": 0.000004329,
+      "volume": 138.64,
+      "cap": 4329,
+      "change": 13.47,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "xHYPE",
+      "image": "https://leverhyppo.com/token/pfp.jpg",
+      "original": {
+        "mint": "2Ghxme9RXa2vatoRPGnQgNKCXNZy2N3X7PbH4kzxHYPE",
+        "name": "LeverHyppo",
+        "symbol": "LEVERHYPPO",
+        "image": "https://leverhyppo.com/token/pfp.jpg",
+        "association": "quote-market",
+        "assetClass": "ecosystem",
+        "derivedPrice": false,
+        "priceUsd": 0.000004329,
+        "change24h": 13.47,
+        "liquidityUsd": 4718.84,
+        "volume24hUsd": 138.64,
+        "marketCapUsd": 4329,
+        "pair": "5gG4AU6GJ2k82PMuM1Qbm44K1Qx6v3z8TxNZacTfh18q",
+        "quoteMint": "7ga6rtE9qSb3wdEiDCpTu2kHqoGVfT52jD8ign1rYTvx",
+        "quoteSymbol": "xHYPE",
+        "venue": "raydium",
+        "sourceUrl": "https://dexscreener.com/solana/5gG4AU6GJ2k82PMuM1Qbm44K1Qx6v3z8TxNZacTfh18q",
+        "imageCandidates": [
+          "https://leverhyppo.com/token/pfp.jpg",
+          "https://cdn.dexscreener.com/cms/images/Oi3IOIlD6xrxPaZN?width=96&height=96&quality=80&format=auto"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=2Ghxme9RXa2vatoRPGnQgNKCXNZy2N3X7PbH4kzxHYPE",
+        "marketCapSourceUrl": "https://dexscreener.com/solana/5gG4AU6GJ2k82PMuM1Qbm44K1Qx6v3z8TxNZacTfh18q",
+        "pairedLeveragedMints": [
+          "7ga6rtE9qSb3wdEiDCpTu2kHqoGVfT52jD8ign1rYTvx"
+        ],
+        "ecosystems": [
+          "hyper"
+        ],
+        "marketLane": "exotic",
+        "verification": {
+          "mint": "2Ghxme9RXa2vatoRPGnQgNKCXNZy2N3X7PbH4kzxHYPE",
+          "program": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+          "decimals": 6,
+          "mintAuthorityPresent": false,
+          "freezeAuthorityPresent": false
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "pgtgG6UCiyA49ShyETG2wpcMAvtLSvNp22UaJ1FWp3P",
+      "name": "xp",
+      "symbol": "xp",
+      "price": 0.00001665,
+      "volume": 119.48,
+      "cap": 16654,
+      "change": 0.39,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "xSOL",
+      "image": "https://axiomtrading-v2.axiom-cdn.io/677jK6xujhRFtBcD7Szn32tt2MSv4k6qZ4v3nGMgpump.webp",
+      "original": {
+        "mint": "pgtgG6UCiyA49ShyETG2wpcMAvtLSvNp22UaJ1FWp3P",
+        "name": "xp",
+        "symbol": "xp",
+        "image": "https://axiomtrading-v2.axiom-cdn.io/677jK6xujhRFtBcD7Szn32tt2MSv4k6qZ4v3nGMgpump.webp",
+        "association": "quote-market",
+        "assetClass": "ecosystem",
+        "derivedPrice": false,
+        "priceUsd": 0.00001665,
+        "change24h": 0.39,
+        "liquidityUsd": 11906.8,
+        "volume24hUsd": 119.48,
+        "marketCapUsd": 16654,
+        "pair": "6dojtVXb3rDqqvTgAUihQ9UpVgkLgkRYgbhQu9aYgvW7",
+        "quoteMint": "4sWNB8zGWHkh6UnmwiEtzNxL4XrN7uK9tosbESbJFfVs",
+        "quoteSymbol": "xSOL",
+        "venue": "raydium",
+        "sourceUrl": "https://dexscreener.com/solana/6dojtVXb3rDqqvTgAUihQ9UpVgkLgkRYgbhQu9aYgvW7",
+        "imageCandidates": [
+          "https://axiomtrading-v2.axiom-cdn.io/677jK6xujhRFtBcD7Szn32tt2MSv4k6qZ4v3nGMgpump.webp",
+          "https://cdn.dexscreener.com/cms/images/4wWPITOoOEtkgPx1?width=96&height=96&quality=80&format=auto"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=pgtgG6UCiyA49ShyETG2wpcMAvtLSvNp22UaJ1FWp3P",
+        "marketCapSourceUrl": "https://dexscreener.com/solana/6dojtVXb3rDqqvTgAUihQ9UpVgkLgkRYgbhQu9aYgvW7",
+        "pairedLeveragedMints": [
+          "4sWNB8zGWHkh6UnmwiEtzNxL4XrN7uK9tosbESbJFfVs"
+        ],
+        "ecosystems": [
+          "solana"
+        ],
+        "marketLane": "exotic",
+        "verification": {
+          "mint": "pgtgG6UCiyA49ShyETG2wpcMAvtLSvNp22UaJ1FWp3P",
+          "program": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+          "decimals": 6,
+          "mintAuthorityPresent": false,
+          "freezeAuthorityPresent": false
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "BjthYsyHKCMkEhFoNcANF4VVU4UPTLQjLxiH7jXjQdjS",
+      "name": "Sat The Cat",
+      "symbol": "SAT",
+      "price": 0.000003137,
+      "volume": 111.42,
+      "cap": 3137,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "xBTC",
+      "image": "https://gateway.irys.xyz/98H5muZ15oNfzCicDjbj8nVMLbLGkBBap8p5PWuMBHr3",
+      "original": {
+        "mint": "BjthYsyHKCMkEhFoNcANF4VVU4UPTLQjLxiH7jXjQdjS",
+        "name": "Sat The Cat",
+        "symbol": "SAT",
+        "image": "https://gateway.irys.xyz/98H5muZ15oNfzCicDjbj8nVMLbLGkBBap8p5PWuMBHr3",
+        "association": "quote-market",
+        "assetClass": "ecosystem",
+        "derivedPrice": false,
+        "priceUsd": 0.000003137,
+        "change24h": null,
+        "liquidityUsd": 4720.98,
+        "volume24hUsd": 111.42,
+        "marketCapUsd": 3137,
+        "pair": "3Ec5AhcigvM3nmcX5MiCx14yD47R5wDZNCnuRhddyMLk",
+        "quoteMint": "2zCo6bUowJMvr89ajxuWsPadAqJ2F9akCkxumNsSdgsL",
+        "quoteSymbol": "xBTC",
+        "venue": "raydium",
+        "sourceUrl": "https://dexscreener.com/solana/3Ec5AhcigvM3nmcX5MiCx14yD47R5wDZNCnuRhddyMLk",
+        "imageCandidates": [
+          "https://gateway.irys.xyz/98H5muZ15oNfzCicDjbj8nVMLbLGkBBap8p5PWuMBHr3",
+          "https://cdn.dexscreener.com/cms/images/z5ARp2tMQEU87bkq?width=96&height=96&quality=80&format=auto"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=BjthYsyHKCMkEhFoNcANF4VVU4UPTLQjLxiH7jXjQdjS",
+        "marketCapSourceUrl": "https://dexscreener.com/solana/3Ec5AhcigvM3nmcX5MiCx14yD47R5wDZNCnuRhddyMLk",
+        "pairedLeveragedMints": [
+          "2zCo6bUowJMvr89ajxuWsPadAqJ2F9akCkxumNsSdgsL"
+        ],
+        "ecosystems": [
+          "bitcoin"
+        ],
+        "marketLane": "exotic",
+        "verification": {
+          "mint": "BjthYsyHKCMkEhFoNcANF4VVU4UPTLQjLxiH7jXjQdjS",
+          "program": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+          "decimals": 6,
+          "mintAuthorityPresent": false,
+          "freezeAuthorityPresent": false
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "8VsFryV6n8tNfU49L1GmaDp9LU1ubz6DbgjqKBMF3G3G",
+      "name": "LeverHedge",
+      "symbol": "LEVERHEDGE",
+      "price": 0.00001843,
+      "volume": 104.91,
+      "cap": 18433,
+      "change": -3.35,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "xBTC",
+      "image": "https://gateway.irys.xyz/3zTNWg1W855UEDzcvrJafkk7TUfxXmuEWWHcrNCz1B5A",
+      "original": {
+        "mint": "8VsFryV6n8tNfU49L1GmaDp9LU1ubz6DbgjqKBMF3G3G",
+        "name": "LeverHedge",
+        "symbol": "LEVERHEDGE",
+        "image": "https://gateway.irys.xyz/3zTNWg1W855UEDzcvrJafkk7TUfxXmuEWWHcrNCz1B5A",
+        "association": "quote-market",
+        "assetClass": "ecosystem",
+        "derivedPrice": false,
+        "priceUsd": 0.00001843,
+        "change24h": -3.35,
+        "liquidityUsd": 13856.66,
+        "volume24hUsd": 104.91,
+        "marketCapUsd": 18433,
+        "pair": "5tqvwxTmoC4GA9EcqmtrPquwvwHhFoZFMbohrdQARNyY",
+        "quoteMint": "2zCo6bUowJMvr89ajxuWsPadAqJ2F9akCkxumNsSdgsL",
+        "quoteSymbol": "xBTC",
+        "venue": "raydium",
+        "sourceUrl": "https://dexscreener.com/solana/5tqvwxTmoC4GA9EcqmtrPquwvwHhFoZFMbohrdQARNyY",
+        "imageCandidates": [
+          "https://gateway.irys.xyz/3zTNWg1W855UEDzcvrJafkk7TUfxXmuEWWHcrNCz1B5A",
+          "https://cdn.dexscreener.com/cms/images/obP7BIrlDKtwYwk-?width=96&height=96&quality=80&format=auto"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=8VsFryV6n8tNfU49L1GmaDp9LU1ubz6DbgjqKBMF3G3G",
+        "marketCapSourceUrl": "https://dexscreener.com/solana/5tqvwxTmoC4GA9EcqmtrPquwvwHhFoZFMbohrdQARNyY",
+        "pairedLeveragedMints": [
+          "2zCo6bUowJMvr89ajxuWsPadAqJ2F9akCkxumNsSdgsL"
+        ],
+        "ecosystems": [
+          "bitcoin"
+        ],
+        "marketLane": "exotic",
+        "verification": {
+          "mint": "8VsFryV6n8tNfU49L1GmaDp9LU1ubz6DbgjqKBMF3G3G",
+          "program": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+          "decimals": 6,
+          "mintAuthorityPresent": false,
+          "freezeAuthorityPresent": false
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "7vfCXTUXx5WJV5JADk17DUJ4ksgau7utNKj4b963voxs",
+      "name": "Wrapped Ether (Wormhole)",
+      "symbol": "WETH",
+      "price": 2236.9341618740686,
+      "volume": 91.25,
+      "cap": 95036448.71918504,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "WBTC",
+      "image": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/7vfCXTUXx5WJV5JADk17DUJ4ksgau7utNKj4b963voxs/logo.png",
+      "original": {
+        "mint": "7vfCXTUXx5WJV5JADk17DUJ4ksgau7utNKj4b963voxs",
+        "name": "Wrapped Ether (Wormhole)",
+        "symbol": "WETH",
+        "image": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/7vfCXTUXx5WJV5JADk17DUJ4ksgau7utNKj4b963voxs/logo.png",
+        "association": "quote-market",
+        "assetClass": "ecosystem",
+        "derivedPrice": true,
+        "priceUsd": 2236.9341618740686,
+        "change24h": null,
+        "liquidityUsd": 175943.2,
+        "volume24hUsd": 91.25,
+        "marketCapUsd": 95036448.71918504,
+        "pair": "DYmirDZoK5WW63HGLWLRyKfkGMKknGhzqts98gPVQ1BX",
+        "quoteMint": "3NZ9JMVBmGAqocybic2c7LQCJScmgsAZ6vQqTDzcqmJh",
+        "quoteSymbol": "WBTC",
+        "venue": "meteora",
+        "sourceUrl": "https://dexscreener.com/solana/DYmirDZoK5WW63HGLWLRyKfkGMKknGhzqts98gPVQ1BX",
+        "imageCandidates": [
+          "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/7vfCXTUXx5WJV5JADk17DUJ4ksgau7utNKj4b963voxs/logo.png"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=7vfCXTUXx5WJV5JADk17DUJ4ksgau7utNKj4b963voxs",
+        "marketCapSourceUrl": "https://api.jup.ag/tokens/v2/search?query=7vfCXTUXx5WJV5JADk17DUJ4ksgau7utNKj4b963voxs",
+        "pairedLeveragedMints": [],
+        "ecosystems": [
+          "bitcoin"
+        ],
+        "marketLane": "exotic",
+        "verification": {
+          "mint": "7vfCXTUXx5WJV5JADk17DUJ4ksgau7utNKj4b963voxs",
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "decimals": 8,
+          "mintAuthorityPresent": true,
+          "freezeAuthorityPresent": false
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "HhXe2PbtXQHzZ5Ch46MBXf7rEbMgnYsCGaEhktyKGZNT",
+      "name": "SCHLONG",
+      "symbol": "SCHLONG",
+      "price": 0.000004019,
+      "volume": 89.73,
+      "cap": 4020,
+      "change": 0.5,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "xHYPE",
+      "image": "https://axiomtrading-v2.axiom-cdn.io/8xSnEuMRTgZVCTBFQLJ4s1Au2X9mRViQE6MWcgLoNs6C.webp",
+      "original": {
+        "mint": "HhXe2PbtXQHzZ5Ch46MBXf7rEbMgnYsCGaEhktyKGZNT",
+        "name": "SCHLONG",
+        "symbol": "SCHLONG",
+        "image": "https://axiomtrading-v2.axiom-cdn.io/8xSnEuMRTgZVCTBFQLJ4s1Au2X9mRViQE6MWcgLoNs6C.webp",
+        "association": "quote-market",
+        "assetClass": "ecosystem",
+        "derivedPrice": false,
+        "priceUsd": 0.000004019,
+        "change24h": 0.5,
+        "liquidityUsd": 4613.14,
+        "volume24hUsd": 89.73,
+        "marketCapUsd": 4020,
+        "pair": "4RgV4wZLiv64QZjrtLswS5Abr44p6E4m3mrC5sfjtt3P",
+        "quoteMint": "7ga6rtE9qSb3wdEiDCpTu2kHqoGVfT52jD8ign1rYTvx",
+        "quoteSymbol": "xHYPE",
+        "venue": "raydium",
+        "sourceUrl": "https://dexscreener.com/solana/4RgV4wZLiv64QZjrtLswS5Abr44p6E4m3mrC5sfjtt3P",
+        "imageCandidates": [
+          "https://axiomtrading-v2.axiom-cdn.io/8xSnEuMRTgZVCTBFQLJ4s1Au2X9mRViQE6MWcgLoNs6C.webp",
+          "https://cdn.dexscreener.com/cms/images/rN4BUmEGUPkEZzMs?width=96&height=96&quality=80&format=auto"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=HhXe2PbtXQHzZ5Ch46MBXf7rEbMgnYsCGaEhktyKGZNT",
+        "marketCapSourceUrl": "https://dexscreener.com/solana/4RgV4wZLiv64QZjrtLswS5Abr44p6E4m3mrC5sfjtt3P",
+        "pairedLeveragedMints": [
+          "7ga6rtE9qSb3wdEiDCpTu2kHqoGVfT52jD8ign1rYTvx"
+        ],
+        "ecosystems": [
+          "hyper"
+        ],
+        "marketLane": "exotic",
+        "verification": {
+          "mint": "HhXe2PbtXQHzZ5Ch46MBXf7rEbMgnYsCGaEhktyKGZNT",
+          "program": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+          "decimals": 6,
+          "mintAuthorityPresent": false,
+          "freezeAuthorityPresent": false
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "H4Fx7kqZcxbyNnF7qKBZsiJ1VGeTTSQMWjCXFp9maugQ",
+      "name": "StonkBuilder",
+      "symbol": "STONKB",
+      "price": 0.0001721,
+      "volume": 87.09,
+      "cap": 172116,
+      "change": -1.46,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "xBTC",
+      "image": "https://www.stonkbuilder.com/assets/stonkbuilder-token-logo.png",
+      "original": {
+        "mint": "H4Fx7kqZcxbyNnF7qKBZsiJ1VGeTTSQMWjCXFp9maugQ",
+        "name": "StonkBuilder",
+        "symbol": "STONKB",
+        "image": "https://www.stonkbuilder.com/assets/stonkbuilder-token-logo.png",
+        "association": "quote-market",
+        "assetClass": "ecosystem",
+        "derivedPrice": false,
+        "priceUsd": 0.0001721,
+        "change24h": -1.46,
+        "liquidityUsd": 7725.44,
+        "volume24hUsd": 87.09,
+        "marketCapUsd": 172116,
+        "pair": "24HKjGXHLqJkfFMkpVN24MQFpzmTjVz59JmR6RFJj2dL",
+        "quoteMint": "2zCo6bUowJMvr89ajxuWsPadAqJ2F9akCkxumNsSdgsL",
+        "quoteSymbol": "xBTC",
+        "venue": "meteora",
+        "sourceUrl": "https://dexscreener.com/solana/24HKjGXHLqJkfFMkpVN24MQFpzmTjVz59JmR6RFJj2dL",
+        "imageCandidates": [
+          "https://www.stonkbuilder.com/assets/stonkbuilder-token-logo.png"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=H4Fx7kqZcxbyNnF7qKBZsiJ1VGeTTSQMWjCXFp9maugQ",
+        "marketCapSourceUrl": "https://dexscreener.com/solana/24HKjGXHLqJkfFMkpVN24MQFpzmTjVz59JmR6RFJj2dL",
+        "pairedLeveragedMints": [
+          "2zCo6bUowJMvr89ajxuWsPadAqJ2F9akCkxumNsSdgsL"
+        ],
+        "ecosystems": [
+          "bitcoin"
+        ],
+        "marketLane": "exotic",
+        "verification": {
+          "mint": "H4Fx7kqZcxbyNnF7qKBZsiJ1VGeTTSQMWjCXFp9maugQ",
+          "program": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+          "decimals": 6,
+          "mintAuthorityPresent": false,
+          "freezeAuthorityPresent": false
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "8JVtwRnDiDmjV2pSRTmqzPtXZyNdgUkpijrufgYJRARA",
+      "name": "LOOOONG",
+      "symbol": "LOOOONG",
+      "price": 0.00001347,
+      "volume": 45.64,
+      "cap": 13471,
+      "change": 1.24,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "xSOL",
+      "image": "https://gateway.irys.xyz/DuBeWWDsXn1XJkPFDVFo2GVd4HtBfivviPfMDdVRKaH",
+      "original": {
+        "mint": "8JVtwRnDiDmjV2pSRTmqzPtXZyNdgUkpijrufgYJRARA",
+        "name": "LOOOONG",
+        "symbol": "LOOOONG",
+        "image": "https://gateway.irys.xyz/DuBeWWDsXn1XJkPFDVFo2GVd4HtBfivviPfMDdVRKaH",
+        "association": "quote-market",
+        "assetClass": "ecosystem",
+        "derivedPrice": false,
+        "priceUsd": 0.00001347,
+        "change24h": 1.24,
+        "liquidityUsd": 11939.35,
+        "volume24hUsd": 45.64,
+        "marketCapUsd": 13471,
+        "pair": "DXDvMEc5XjyNwDh883Fxw8S3WHfVPHfySHc8BLACyoNx",
+        "quoteMint": "4sWNB8zGWHkh6UnmwiEtzNxL4XrN7uK9tosbESbJFfVs",
+        "quoteSymbol": "xSOL",
+        "venue": "raydium",
+        "sourceUrl": "https://dexscreener.com/solana/DXDvMEc5XjyNwDh883Fxw8S3WHfVPHfySHc8BLACyoNx",
+        "imageCandidates": [
+          "https://gateway.irys.xyz/DuBeWWDsXn1XJkPFDVFo2GVd4HtBfivviPfMDdVRKaH",
+          "https://cdn.dexscreener.com/cms/images/Wm7d_dAtRpQ0-7CQ?width=96&height=96&quality=80&format=auto"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=8JVtwRnDiDmjV2pSRTmqzPtXZyNdgUkpijrufgYJRARA",
+        "marketCapSourceUrl": "https://dexscreener.com/solana/DXDvMEc5XjyNwDh883Fxw8S3WHfVPHfySHc8BLACyoNx",
+        "pairedLeveragedMints": [
+          "4sWNB8zGWHkh6UnmwiEtzNxL4XrN7uK9tosbESbJFfVs"
+        ],
+        "ecosystems": [
+          "solana"
+        ],
+        "marketLane": "exotic",
+        "verification": {
+          "mint": "8JVtwRnDiDmjV2pSRTmqzPtXZyNdgUkpijrufgYJRARA",
+          "program": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+          "decimals": 9,
+          "mintAuthorityPresent": false,
+          "freezeAuthorityPresent": false
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "BgCeigJo2iY3dJhqS2z9w4pjjufFd4F9oKS3FrkMbmbJ",
+      "name": "Trump Bucks",
+      "symbol": "TrumpBucks",
+      "price": 0.0002068361396560309,
+      "volume": 31.34,
+      "cap": 187469.2395784171,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "HYPE",
+      "image": "https://bafybeif7y7n4pukk2liatiejmrvi4ka6xhb666b426mac4fmf6x3s2dn7a.ipfs.nftstorage.link/",
+      "original": {
+        "mint": "BgCeigJo2iY3dJhqS2z9w4pjjufFd4F9oKS3FrkMbmbJ",
+        "name": "Trump Bucks",
+        "symbol": "TrumpBucks",
+        "image": "https://bafybeif7y7n4pukk2liatiejmrvi4ka6xhb666b426mac4fmf6x3s2dn7a.ipfs.nftstorage.link/",
+        "association": "quote-market",
+        "assetClass": "ecosystem",
+        "derivedPrice": true,
+        "priceUsd": 0.0002068361396560309,
+        "change24h": null,
+        "liquidityUsd": 5956.33,
+        "volume24hUsd": 31.34,
+        "marketCapUsd": 187469.2395784171,
+        "pair": "6ECxgWCBWdvqPNPguKxtX6e1zVZ8n4CepWxc3c6ovGTC",
+        "quoteMint": "98sMhvDwXj1RQi5c5Mndm3vPe9cBqPrbLaufMXFNMh5g",
+        "quoteSymbol": "HYPE",
+        "venue": "meteora",
+        "sourceUrl": "https://dexscreener.com/solana/6ECxgWCBWdvqPNPguKxtX6e1zVZ8n4CepWxc3c6ovGTC",
+        "imageCandidates": [
+          "https://bafybeif7y7n4pukk2liatiejmrvi4ka6xhb666b426mac4fmf6x3s2dn7a.ipfs.nftstorage.link/"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=BgCeigJo2iY3dJhqS2z9w4pjjufFd4F9oKS3FrkMbmbJ",
+        "marketCapSourceUrl": "https://api.jup.ag/tokens/v2/search?query=BgCeigJo2iY3dJhqS2z9w4pjjufFd4F9oKS3FrkMbmbJ",
+        "pairedLeveragedMints": [],
+        "ecosystems": [
+          "bitcoin",
+          "hyper"
+        ],
+        "marketLane": "exotic",
+        "verification": {
+          "mint": "BgCeigJo2iY3dJhqS2z9w4pjjufFd4F9oKS3FrkMbmbJ",
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "decimals": 9,
+          "mintAuthorityPresent": false,
+          "freezeAuthorityPresent": false
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "3ec8dr6BhrzLE31xJUcfMDKGZ8gCWGGeH1ikUkEpfbSC",
+      "name": "Bitcat",
+      "symbol": "bitcat",
+      "price": 0.000002126,
+      "volume": 24.66,
+      "cap": 2127,
+      "change": -3.43,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "xBTC",
+      "image": "https://axiomtrading-v2.axiom-cdn.io/4Eq6ixi25TF8U2uQHxg1nyXVD614EhhooN9dyMQU9wBZ.webp",
+      "original": {
+        "mint": "3ec8dr6BhrzLE31xJUcfMDKGZ8gCWGGeH1ikUkEpfbSC",
+        "name": "Bitcat",
+        "symbol": "bitcat",
+        "image": "https://axiomtrading-v2.axiom-cdn.io/4Eq6ixi25TF8U2uQHxg1nyXVD614EhhooN9dyMQU9wBZ.webp",
+        "association": "quote-market",
+        "assetClass": "ecosystem",
+        "derivedPrice": false,
+        "priceUsd": 0.000002126,
+        "change24h": -3.43,
+        "liquidityUsd": 3709.99,
+        "volume24hUsd": 24.66,
+        "marketCapUsd": 2127,
+        "pair": "8mEanMDbXWfmN8kVMMNduMweUdyc83uU2tHoH2oJwHNG",
+        "quoteMint": "2zCo6bUowJMvr89ajxuWsPadAqJ2F9akCkxumNsSdgsL",
+        "quoteSymbol": "xBTC",
+        "venue": "raydium",
+        "sourceUrl": "https://dexscreener.com/solana/8mEanMDbXWfmN8kVMMNduMweUdyc83uU2tHoH2oJwHNG",
+        "imageCandidates": [
+          "https://axiomtrading-v2.axiom-cdn.io/4Eq6ixi25TF8U2uQHxg1nyXVD614EhhooN9dyMQU9wBZ.webp"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=3ec8dr6BhrzLE31xJUcfMDKGZ8gCWGGeH1ikUkEpfbSC",
+        "marketCapSourceUrl": "https://dexscreener.com/solana/8mEanMDbXWfmN8kVMMNduMweUdyc83uU2tHoH2oJwHNG",
+        "pairedLeveragedMints": [
+          "2zCo6bUowJMvr89ajxuWsPadAqJ2F9akCkxumNsSdgsL"
+        ],
+        "ecosystems": [
+          "bitcoin"
+        ],
+        "marketLane": "exotic",
+        "verification": {
+          "mint": "3ec8dr6BhrzLE31xJUcfMDKGZ8gCWGGeH1ikUkEpfbSC",
+          "program": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+          "decimals": 6,
+          "mintAuthorityPresent": false,
+          "freezeAuthorityPresent": false
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "FNV7tM5GbbUPvXUaLXDBt9Udd9v4yranCWmNkWcSrj38",
+      "name": "KORILA",
+      "symbol": "KORILA",
+      "price": 0.000001942,
+      "volume": 10.07,
+      "cap": 1942,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "xHYPE",
+      "image": "https://gateway.irys.xyz/HfiB3Gb44sQyVPFpD8KqR7rJU3sgrpYUDagS3cfyB7P4",
+      "original": {
+        "mint": "FNV7tM5GbbUPvXUaLXDBt9Udd9v4yranCWmNkWcSrj38",
+        "name": "KORILA",
+        "symbol": "KORILA",
+        "image": "https://gateway.irys.xyz/HfiB3Gb44sQyVPFpD8KqR7rJU3sgrpYUDagS3cfyB7P4",
+        "association": "quote-market",
+        "assetClass": "ecosystem",
+        "derivedPrice": false,
+        "priceUsd": 0.000001942,
+        "change24h": null,
+        "liquidityUsd": 2907.44,
+        "volume24hUsd": 10.07,
+        "marketCapUsd": 1942,
+        "pair": "hxkaYJUAzXkYgfcT19rZPmGoN5ARy76LFW654MMRY1w",
+        "quoteMint": "7ga6rtE9qSb3wdEiDCpTu2kHqoGVfT52jD8ign1rYTvx",
+        "quoteSymbol": "xHYPE",
+        "venue": "raydium",
+        "sourceUrl": "https://dexscreener.com/solana/hxkaYJUAzXkYgfcT19rZPmGoN5ARy76LFW654MMRY1w",
+        "imageCandidates": [
+          "https://gateway.irys.xyz/HfiB3Gb44sQyVPFpD8KqR7rJU3sgrpYUDagS3cfyB7P4",
+          "https://cdn.dexscreener.com/cms/images/ujFnvSwhrXK-X6oJ?width=96&height=96&quality=80&format=auto"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=FNV7tM5GbbUPvXUaLXDBt9Udd9v4yranCWmNkWcSrj38",
+        "marketCapSourceUrl": "https://dexscreener.com/solana/hxkaYJUAzXkYgfcT19rZPmGoN5ARy76LFW654MMRY1w",
+        "pairedLeveragedMints": [
+          "7ga6rtE9qSb3wdEiDCpTu2kHqoGVfT52jD8ign1rYTvx"
+        ],
+        "ecosystems": [
+          "hyper"
+        ],
+        "marketLane": "exotic",
+        "verification": {
+          "mint": "FNV7tM5GbbUPvXUaLXDBt9Udd9v4yranCWmNkWcSrj38",
+          "program": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+          "decimals": 6,
+          "mintAuthorityPresent": false,
+          "freezeAuthorityPresent": false
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "4FHrkmyycMqrNSSzFE9NJcaDRWYsDA6ZUjB5bgZSQqXU",
+      "name": "elooong",
+      "symbol": "ELOOONG",
+      "price": 0.000001453,
+      "volume": 6.78,
+      "cap": 1453,
+      "change": 3.98,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "xHYPE",
+      "image": "https://axiomtrading-v2.axiom-cdn.io/3zoyoJwywuALj49wi9ffsz49hJaToJ29f9JBSCGNpump.webp",
+      "original": {
+        "mint": "4FHrkmyycMqrNSSzFE9NJcaDRWYsDA6ZUjB5bgZSQqXU",
+        "name": "elooong",
+        "symbol": "ELOOONG",
+        "image": "https://axiomtrading-v2.axiom-cdn.io/3zoyoJwywuALj49wi9ffsz49hJaToJ29f9JBSCGNpump.webp",
+        "association": "quote-market",
+        "assetClass": "ecosystem",
+        "derivedPrice": false,
+        "priceUsd": 0.000001453,
+        "change24h": 3.98,
+        "liquidityUsd": 2628.64,
+        "volume24hUsd": 6.78,
+        "marketCapUsd": 1453,
+        "pair": "6h6tJz9vbYM37QVxjCaeS1Mb94TSmrqj4EBoR7LzdJ3Q",
+        "quoteMint": "7ga6rtE9qSb3wdEiDCpTu2kHqoGVfT52jD8ign1rYTvx",
+        "quoteSymbol": "xHYPE",
+        "venue": "raydium",
+        "sourceUrl": "https://dexscreener.com/solana/6h6tJz9vbYM37QVxjCaeS1Mb94TSmrqj4EBoR7LzdJ3Q",
+        "imageCandidates": [
+          "https://axiomtrading-v2.axiom-cdn.io/3zoyoJwywuALj49wi9ffsz49hJaToJ29f9JBSCGNpump.webp"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=4FHrkmyycMqrNSSzFE9NJcaDRWYsDA6ZUjB5bgZSQqXU",
+        "marketCapSourceUrl": "https://dexscreener.com/solana/6h6tJz9vbYM37QVxjCaeS1Mb94TSmrqj4EBoR7LzdJ3Q",
+        "pairedLeveragedMints": [
+          "7ga6rtE9qSb3wdEiDCpTu2kHqoGVfT52jD8ign1rYTvx"
+        ],
+        "ecosystems": [
+          "hyper"
+        ],
+        "marketLane": "exotic",
+        "verification": {
+          "mint": "4FHrkmyycMqrNSSzFE9NJcaDRWYsDA6ZUjB5bgZSQqXU",
+          "program": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+          "decimals": 6,
+          "mintAuthorityPresent": false,
+          "freezeAuthorityPresent": false
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "HdCAJytsv6V8whgzbZf2UfCcmwQAysWsbGC772AtojeH",
+      "name": "Bitcoin Mascot",
+      "symbol": "BITTY",
+      "price": 0.000004469,
+      "volume": 4.14,
+      "cap": 4470,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "xBTC",
+      "image": "https://gateway.irys.xyz/FTq3DR7qCAeyfmXBDPk3kXsudHeLNDSaWV7DtciPizC6",
+      "original": {
+        "mint": "HdCAJytsv6V8whgzbZf2UfCcmwQAysWsbGC772AtojeH",
+        "name": "Bitcoin Mascot",
+        "symbol": "BITTY",
+        "image": "https://gateway.irys.xyz/FTq3DR7qCAeyfmXBDPk3kXsudHeLNDSaWV7DtciPizC6",
+        "association": "quote-market",
+        "assetClass": "ecosystem",
+        "derivedPrice": false,
+        "priceUsd": 0.000004469,
+        "change24h": null,
+        "liquidityUsd": 4337.57,
+        "volume24hUsd": 4.14,
+        "marketCapUsd": 4470,
+        "pair": "BwciQschk6XN7UfpXRrfCr46ahuUQf8wioogbvehv7wm",
+        "quoteMint": "2zCo6bUowJMvr89ajxuWsPadAqJ2F9akCkxumNsSdgsL",
+        "quoteSymbol": "xBTC",
+        "venue": "raydium",
+        "sourceUrl": "https://dexscreener.com/solana/BwciQschk6XN7UfpXRrfCr46ahuUQf8wioogbvehv7wm",
+        "imageCandidates": [
+          "https://gateway.irys.xyz/FTq3DR7qCAeyfmXBDPk3kXsudHeLNDSaWV7DtciPizC6"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=HdCAJytsv6V8whgzbZf2UfCcmwQAysWsbGC772AtojeH",
+        "marketCapSourceUrl": "https://dexscreener.com/solana/BwciQschk6XN7UfpXRrfCr46ahuUQf8wioogbvehv7wm",
+        "pairedLeveragedMints": [
+          "2zCo6bUowJMvr89ajxuWsPadAqJ2F9akCkxumNsSdgsL"
+        ],
+        "ecosystems": [
+          "bitcoin"
+        ],
+        "marketLane": "exotic",
+        "verification": {
+          "mint": "HdCAJytsv6V8whgzbZf2UfCcmwQAysWsbGC772AtojeH",
+          "program": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+          "decimals": 9,
+          "mintAuthorityPresent": false,
+          "freezeAuthorityPresent": false
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "F9og9QxJRmCh51gYBd27nhtvMgCR6mmotJu9Rcp9BEWn",
+      "name": "OG Matter",
+      "symbol": "OGM",
+      "price": 46.99605384064586,
+      "volume": 4.05,
+      "cap": 49309.78288999456,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "cbBTC",
+      "image": "https://gateway.irys.xyz/QZGC4V_bH2KqO7FT6sKc29auJXzmH0g62RpOAoLIpeY",
+      "original": {
+        "mint": "F9og9QxJRmCh51gYBd27nhtvMgCR6mmotJu9Rcp9BEWn",
+        "name": "OG Matter",
+        "symbol": "OGM",
+        "image": "https://gateway.irys.xyz/QZGC4V_bH2KqO7FT6sKc29auJXzmH0g62RpOAoLIpeY",
+        "association": "quote-market",
+        "assetClass": "ecosystem",
+        "derivedPrice": true,
+        "priceUsd": 46.99605384064586,
+        "change24h": null,
+        "liquidityUsd": 5327.81,
+        "volume24hUsd": 4.05,
+        "marketCapUsd": 49309.78288999456,
+        "pair": "BvRqedGuYiYWEbPa5iqZnms3bqJRfHpB82tgjAL5oSxu",
+        "quoteMint": "cbbtcf3aa214zXHbiAZQwf4122FBYbraNdFqgw4iMij",
+        "quoteSymbol": "cbBTC",
+        "venue": "meteora",
+        "sourceUrl": "https://dexscreener.com/solana/BvRqedGuYiYWEbPa5iqZnms3bqJRfHpB82tgjAL5oSxu",
+        "imageCandidates": [
+          "https://gateway.irys.xyz/QZGC4V_bH2KqO7FT6sKc29auJXzmH0g62RpOAoLIpeY"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=F9og9QxJRmCh51gYBd27nhtvMgCR6mmotJu9Rcp9BEWn",
+        "marketCapSourceUrl": "https://api.jup.ag/tokens/v2/search?query=F9og9QxJRmCh51gYBd27nhtvMgCR6mmotJu9Rcp9BEWn",
+        "pairedLeveragedMints": [],
+        "ecosystems": [
+          "bitcoin"
+        ],
+        "marketLane": "exotic",
+        "verification": {
+          "mint": "F9og9QxJRmCh51gYBd27nhtvMgCR6mmotJu9Rcp9BEWn",
+          "program": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+          "decimals": 9,
+          "mintAuthorityPresent": false,
+          "freezeAuthorityPresent": false
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "Gbyv2fPkswX8BqEtheYvDCwqqZHfgCYEnyG71fyvhASy",
+      "name": "Max Leveraged",
+      "symbol": "MAX",
+      "price": 0.000002845,
+      "volume": 0.56,
+      "cap": 2845,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "xHYPE",
+      "image": "https://axiomtrading-v2.axiom-cdn.io/5zesJ2fk2ogVgmaXqS94TWb4KCEtuwU9kzcMCL5KtRx1.webp",
+      "original": {
+        "mint": "Gbyv2fPkswX8BqEtheYvDCwqqZHfgCYEnyG71fyvhASy",
+        "name": "Max Leveraged",
+        "symbol": "MAX",
+        "image": "https://axiomtrading-v2.axiom-cdn.io/5zesJ2fk2ogVgmaXqS94TWb4KCEtuwU9kzcMCL5KtRx1.webp",
+        "association": "quote-market",
+        "assetClass": "ecosystem",
+        "derivedPrice": false,
+        "priceUsd": 0.000002845,
+        "change24h": null,
+        "liquidityUsd": 3663.37,
+        "volume24hUsd": 0.56,
+        "marketCapUsd": 2845,
+        "pair": "3ybsao4YMheCJPuwWGhMThHWzjEZLHUUGh5kyntjrBkU",
+        "quoteMint": "7ga6rtE9qSb3wdEiDCpTu2kHqoGVfT52jD8ign1rYTvx",
+        "quoteSymbol": "xHYPE",
+        "venue": "raydium",
+        "sourceUrl": "https://dexscreener.com/solana/3ybsao4YMheCJPuwWGhMThHWzjEZLHUUGh5kyntjrBkU",
+        "imageCandidates": [
+          "https://axiomtrading-v2.axiom-cdn.io/5zesJ2fk2ogVgmaXqS94TWb4KCEtuwU9kzcMCL5KtRx1.webp"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=Gbyv2fPkswX8BqEtheYvDCwqqZHfgCYEnyG71fyvhASy",
+        "marketCapSourceUrl": "https://dexscreener.com/solana/3ybsao4YMheCJPuwWGhMThHWzjEZLHUUGh5kyntjrBkU",
+        "pairedLeveragedMints": [
+          "7ga6rtE9qSb3wdEiDCpTu2kHqoGVfT52jD8ign1rYTvx"
+        ],
+        "ecosystems": [
+          "hyper"
+        ],
+        "marketLane": "exotic",
+        "verification": {
+          "mint": "Gbyv2fPkswX8BqEtheYvDCwqqZHfgCYEnyG71fyvhASy",
+          "program": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+          "decimals": 6,
+          "mintAuthorityPresent": false,
+          "freezeAuthorityPresent": false
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "9dArv7ud537mfEepwW9w1gZCaWochFSetwkU2osSemup",
+      "name": "energy coin",
+      "symbol": "ENERGY",
+      "price": 0.000007694,
+      "volume": 0.33,
+      "cap": 7695,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "xBTC",
+      "image": "https://gateway.irys.xyz/8Y4EFqWgo1bj7D4atowmsHTrhGcXvk19nXZTgLYtqV7q",
+      "original": {
+        "mint": "9dArv7ud537mfEepwW9w1gZCaWochFSetwkU2osSemup",
+        "name": "energy coin",
+        "symbol": "ENERGY",
+        "image": "https://gateway.irys.xyz/8Y4EFqWgo1bj7D4atowmsHTrhGcXvk19nXZTgLYtqV7q",
+        "association": "quote-market",
+        "assetClass": "ecosystem",
+        "derivedPrice": false,
+        "priceUsd": 0.000007694,
+        "change24h": null,
+        "liquidityUsd": 7469.52,
+        "volume24hUsd": 0.33,
+        "marketCapUsd": 7695,
+        "pair": "BMq5qhgMEhVcjz3uQqdS8E6Hjg95RuAsM6MqyHesy3e2",
+        "quoteMint": "2zCo6bUowJMvr89ajxuWsPadAqJ2F9akCkxumNsSdgsL",
+        "quoteSymbol": "xBTC",
+        "venue": "raydium",
+        "sourceUrl": "https://dexscreener.com/solana/BMq5qhgMEhVcjz3uQqdS8E6Hjg95RuAsM6MqyHesy3e2",
+        "imageCandidates": [
+          "https://gateway.irys.xyz/8Y4EFqWgo1bj7D4atowmsHTrhGcXvk19nXZTgLYtqV7q"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=9dArv7ud537mfEepwW9w1gZCaWochFSetwkU2osSemup",
+        "marketCapSourceUrl": "https://dexscreener.com/solana/BMq5qhgMEhVcjz3uQqdS8E6Hjg95RuAsM6MqyHesy3e2",
+        "pairedLeveragedMints": [
+          "2zCo6bUowJMvr89ajxuWsPadAqJ2F9akCkxumNsSdgsL"
+        ],
+        "ecosystems": [
+          "bitcoin"
+        ],
+        "marketLane": "exotic",
+        "verification": {
+          "mint": "9dArv7ud537mfEepwW9w1gZCaWochFSetwkU2osSemup",
+          "program": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+          "decimals": 9,
+          "mintAuthorityPresent": false,
+          "freezeAuthorityPresent": false
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "solana",
+      "address": "3n69VYFP71bbcCmk683uduZq4h7vzaxusRt4tgWh4FDb",
+      "name": "Energycoin",
+      "symbol": "ENERGY",
+      "price": 0.000007933,
+      "volume": 0.13,
+      "cap": 7933,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "USD",
+      "pair": "xBTC",
+      "image": "https://gateway.irys.xyz/43rUgwf2WLKqNTey7g1JcvNm7c9kpRUDU3yi2SPQXuPo",
+      "original": {
+        "mint": "3n69VYFP71bbcCmk683uduZq4h7vzaxusRt4tgWh4FDb",
+        "name": "Energycoin",
+        "symbol": "ENERGY",
+        "image": "https://gateway.irys.xyz/43rUgwf2WLKqNTey7g1JcvNm7c9kpRUDU3yi2SPQXuPo",
+        "association": "quote-market",
+        "assetClass": "ecosystem",
+        "derivedPrice": false,
+        "priceUsd": 0.000007933,
+        "change24h": null,
+        "liquidityUsd": 7696.39,
+        "volume24hUsd": 0.13,
+        "marketCapUsd": 7933,
+        "pair": "Bmp8N1jvwDxjXRSHnu5Dc6nV99ZuTpqStVqEY7GdKvCp",
+        "quoteMint": "2zCo6bUowJMvr89ajxuWsPadAqJ2F9akCkxumNsSdgsL",
+        "quoteSymbol": "xBTC",
+        "venue": "raydium",
+        "sourceUrl": "https://dexscreener.com/solana/Bmp8N1jvwDxjXRSHnu5Dc6nV99ZuTpqStVqEY7GdKvCp",
+        "imageCandidates": [
+          "https://gateway.irys.xyz/43rUgwf2WLKqNTey7g1JcvNm7c9kpRUDU3yi2SPQXuPo"
+        ],
+        "imageSourceUrl": "https://api.jup.ag/tokens/v2/search?query=3n69VYFP71bbcCmk683uduZq4h7vzaxusRt4tgWh4FDb",
+        "marketCapSourceUrl": "https://dexscreener.com/solana/Bmp8N1jvwDxjXRSHnu5Dc6nV99ZuTpqStVqEY7GdKvCp",
+        "pairedLeveragedMints": [
+          "2zCo6bUowJMvr89ajxuWsPadAqJ2F9akCkxumNsSdgsL"
+        ],
+        "ecosystems": [
+          "bitcoin"
+        ],
+        "marketLane": "exotic",
+        "verification": {
+          "mint": "3n69VYFP71bbcCmk683uduZq4h7vzaxusRt4tgWh4FDb",
+          "program": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+          "decimals": 9,
+          "mintAuthorityPresent": false,
+          "freezeAuthorityPresent": false
+        }
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": false,
+        "source": "Dexscreener bounded market scan; no platform-launch claim"
+      }
+    },
+    {
+      "chain": "elysium",
+      "address": "0x0435D720ba3f04Df865435A38946FE49419a0b7a",
+      "name": "The FBI Insider",
+      "symbol": "PATRICK",
+      "price": null,
+      "volume": null,
+      "cap": null,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "HYPE",
+      "pair": "HYPE / WHYPE",
+      "decimals": 18,
+      "metadataVerified": true,
+      "poolId": "0x902084634200fbda9359032382d74cbb6d1f00cdde25d10410ddb76cb23b450b",
+      "manager": "0xe2e105d3f7209a9da11f83ccf3e7398a753823f1",
+      "key": {
+        "currency0": "0x0000000000000000000000000000000000000000",
+        "currency1": "0x0435D720ba3f04Df865435A38946FE49419a0b7a",
+        "fee": 8388608,
+        "tickSpacing": 200,
+        "hooks": "0x6b1216A40B65c83e9c9e18a562C446697B8cf8EC"
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": true,
+        "source": "V4 pool initialization event (not platform launch)",
+        "transactionHash": "0x63eac8eac76ba0ee4fa98b25d035a6d5e5812f5d9cf4c90d028ca534106f0d03",
+        "block": 1814480
+      }
+    },
+    {
+      "chain": "elysium",
+      "address": "0x06f19DB0802977703a60C12384e540E8Fa203df2",
+      "name": "Memecoin",
+      "symbol": "MEMECOIN",
+      "price": null,
+      "volume": null,
+      "cap": null,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "HYPE",
+      "pair": "HYPE / WHYPE",
+      "decimals": 18,
+      "metadataVerified": true,
+      "poolId": "0xac7a15b437ee5c58100db9b302435d67aeea15ec8a602062483b907894d4b874",
+      "manager": "0xe2e105d3f7209a9da11f83ccf3e7398a753823f1",
+      "key": {
+        "currency0": "0x0000000000000000000000000000000000000000",
+        "currency1": "0x06f19DB0802977703a60C12384e540E8Fa203df2",
+        "fee": 8388608,
+        "tickSpacing": 200,
+        "hooks": "0x6b1216A40B65c83e9c9e18a562C446697B8cf8EC"
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": true,
+        "source": "V4 pool initialization event (not platform launch)",
+        "transactionHash": "0x85fafc04a6e6110d869010d2e29f6404c9e219345ffd8e9e395ca6aaeaa28061",
+        "block": 1814573
+      }
+    },
+    {
+      "chain": "elysium",
+      "address": "0x0f1D67D9203A032B0570640048cacBF6293C4818",
+      "name": "ATTENTION",
+      "symbol": "ATTENTION",
+      "price": null,
+      "volume": null,
+      "cap": null,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "HYPE",
+      "pair": "HYPE / WHYPE",
+      "decimals": 18,
+      "metadataVerified": true,
+      "poolId": "0x72a1c9eae3968b084937f9a987a6f12c5ed088c0b53c4f40133e77d50d9051a5",
+      "manager": "0xe2e105d3f7209a9da11f83ccf3e7398a753823f1",
+      "key": {
+        "currency0": "0x0000000000000000000000000000000000000000",
+        "currency1": "0x0f1D67D9203A032B0570640048cacBF6293C4818",
+        "fee": 8388608,
+        "tickSpacing": 200,
+        "hooks": "0x6b1216A40B65c83e9c9e18a562C446697B8cf8EC"
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": true,
+        "source": "V4 pool initialization event (not platform launch)",
+        "transactionHash": "0x6e306513c8822c7c4cdf5db557e7e5cca48731f60cc2f568a53572dabadf242b",
+        "block": 1813693
+      }
+    },
+    {
+      "chain": "elysium",
+      "address": "0x267b6602a06348C75aCa4bF3c49532141d339824",
+      "name": "Memecoin",
+      "symbol": "MEMECOIN",
+      "price": null,
+      "volume": null,
+      "cap": null,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "HYPE",
+      "pair": "HYPE / WHYPE",
+      "decimals": 18,
+      "metadataVerified": true,
+      "poolId": "0x7aa9b6af666df71a7aaa3e757b303534f19f055ccf85fcc9f3205aac24da6898",
+      "manager": "0x06c63714fbf1f5753017123e2fcfdede4540b2c4",
+      "key": {
+        "currency0": "0x0000000000000000000000000000000000000000",
+        "currency1": "0x267b6602a06348C75aCa4bF3c49532141d339824",
+        "fee": 0,
+        "tickSpacing": 200,
+        "hooks": "0xB3E25CDf4a2f42e7f37aB3aE43Bfb90EE8052AcC"
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": true,
+        "source": "V4 pool initialization event (not platform launch)",
+        "transactionHash": "0xb22d4c5aa87fbe21aa4988192592f8ee030555cfa0c550a24bfc32d16cb260da",
+        "block": 1814567
+      }
+    },
+    {
+      "chain": "elysium",
+      "address": "0x29537E1833CF8C9F01C9b323D9cDf3d0EE0380D5",
+      "name": "Alice Huang",
+      "symbol": "ALICE",
+      "price": null,
+      "volume": null,
+      "cap": null,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "HYPE",
+      "pair": "HYPE / WHYPE",
+      "decimals": 18,
+      "metadataVerified": true,
+      "poolId": "0x079cd2308735f5df273d84176304864f9db6a48c88c1554d1c8264eb66405796",
+      "manager": "0x06c63714fbf1f5753017123e2fcfdede4540b2c4",
+      "key": {
+        "currency0": "0x0000000000000000000000000000000000000000",
+        "currency1": "0x29537E1833CF8C9F01C9b323D9cDf3d0EE0380D5",
+        "fee": 0,
+        "tickSpacing": 200,
+        "hooks": "0xB3E25CDf4a2f42e7f37aB3aE43Bfb90EE8052AcC"
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": true,
+        "source": "V4 pool initialization event (not platform launch)",
+        "transactionHash": "0x6821f4691e8fe0ae95216b2814e740850cbe4849b025b217f84fd969672ffe50",
+        "block": 1814466
+      }
+    },
+    {
+      "chain": "elysium",
+      "address": "0x3cb4395891A6917075cE17580673617E72D333E7",
+      "name": "GoonStrategy",
+      "symbol": "GSTR",
+      "price": null,
+      "volume": null,
+      "cap": null,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "HYPE",
+      "pair": "HYPE / WHYPE",
+      "decimals": 18,
+      "metadataVerified": true,
+      "poolId": "0x1d9e890bd8a0140e9c2264595a46385bbd58e0e92e143f06cae44d99f59c4da7",
+      "manager": "0x06c63714fbf1f5753017123e2fcfdede4540b2c4",
+      "key": {
+        "currency0": "0x0000000000000000000000000000000000000000",
+        "currency1": "0x3cb4395891A6917075cE17580673617E72D333E7",
+        "fee": 0,
+        "tickSpacing": 200,
+        "hooks": "0xB3E25CDf4a2f42e7f37aB3aE43Bfb90EE8052AcC"
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": true,
+        "source": "V4 pool initialization event (not platform launch)",
+        "transactionHash": "0xc7fc4c4f48c7d1d37fc3d7a3e6cf3397800cce19f2c80dff62386112e0a42f0d",
+        "block": 1814395
+      }
+    },
+    {
+      "chain": "elysium",
+      "address": "0x4337252AED82700Aec187295E3A8fd0506108B98",
+      "name": "KINETIQ ENERGY",
+      "symbol": "ENERGY",
+      "price": null,
+      "volume": null,
+      "cap": null,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "HYPE",
+      "pair": "HYPE / WHYPE",
+      "decimals": 18,
+      "metadataVerified": true,
+      "poolId": "0x412f6734be630613071d655f9143ec8d19c710295ace90e024faf54c609e7e48",
+      "manager": "0xe2e105d3f7209a9da11f83ccf3e7398a753823f1",
+      "key": {
+        "currency0": "0x0000000000000000000000000000000000000000",
+        "currency1": "0x4337252AED82700Aec187295E3A8fd0506108B98",
+        "fee": 8388608,
+        "tickSpacing": 200,
+        "hooks": "0x6b1216A40B65c83e9c9e18a562C446697B8cf8EC"
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": true,
+        "source": "V4 pool initialization event (not platform launch)",
+        "transactionHash": "0xbce5cd160296d359be80775f59aecac115d86102e9501e6c4c729a97179c62f0",
+        "block": 1813879
+      }
+    },
+    {
+      "chain": "elysium",
+      "address": "0x55949B026b92208f52378C020f37cFf91023b192",
+      "name": "ELYSICAT",
+      "symbol": "ELYSICAT",
+      "price": null,
+      "volume": null,
+      "cap": null,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "HYPE",
+      "pair": "HYPE / WHYPE",
+      "decimals": 18,
+      "metadataVerified": true,
+      "poolId": "0x559d76c4e5beabe83bc42c38a7b911061f09e46d378ad642f76fdd9d0e2c0ccd",
+      "manager": "0xe2e105d3f7209a9da11f83ccf3e7398a753823f1",
+      "key": {
+        "currency0": "0x55949B026b92208f52378C020f37cFf91023b192",
+        "currency1": "0xbA876237B0F021A6c6D852d6c26E107997cC5E81",
+        "fee": 8388608,
+        "tickSpacing": 200,
+        "hooks": "0xe0dEF4221b9840a610D4e7d55812a79A6431a8eC"
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": true,
+        "source": "V4 pool initialization event (not platform launch)",
+        "transactionHash": "0x41b59f2bd006135fedc178a5611463ddb419abe46d5370a3b6073089dfd7fbd0",
+        "block": 1814602
+      }
+    },
+    {
+      "chain": "elysium",
+      "address": "0x62798f56d6BC0BAc7b162c27B75C9B01a5c386d3",
+      "name": "Elytag",
+      "symbol": "ELYTAG",
+      "price": null,
+      "volume": null,
+      "cap": null,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "HYPE",
+      "pair": "HYPE / WHYPE",
+      "decimals": 18,
+      "metadataVerified": true,
+      "poolId": "0xbc708130c66b04fa787f45ffb80e603e68fed6874d84d0f34daf0712e6025b49",
+      "manager": "0xe2e105d3f7209a9da11f83ccf3e7398a753823f1",
+      "key": {
+        "currency0": "0x0000000000000000000000000000000000000000",
+        "currency1": "0x62798f56d6BC0BAc7b162c27B75C9B01a5c386d3",
+        "fee": 8388608,
+        "tickSpacing": 200,
+        "hooks": "0x6b1216A40B65c83e9c9e18a562C446697B8cf8EC"
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": true,
+        "source": "V4 pool initialization event (not platform launch)",
+        "transactionHash": "0xe10d34275feebb797618e5a80c89a633acf41c8c91b01aab3a0db9d2cd943a67",
+        "block": 1813884
+      }
+    },
+    {
+      "chain": "elysium",
+      "address": "0x7068363F712a9B2dcDd1aF8283a02A93E288e48d",
+      "name": "NVIDIA",
+      "symbol": "NVIDIA",
+      "price": null,
+      "volume": null,
+      "cap": null,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "HYPE",
+      "pair": "HYPE / WHYPE",
+      "decimals": 18,
+      "metadataVerified": true,
+      "poolId": "0x2d4586b14c4440cdb282ee48516dd9d29ab0fe8415803142db3eac52ac30ded7",
+      "manager": "0x06c63714fbf1f5753017123e2fcfdede4540b2c4",
+      "key": {
+        "currency0": "0x0000000000000000000000000000000000000000",
+        "currency1": "0x7068363F712a9B2dcDd1aF8283a02A93E288e48d",
+        "fee": 0,
+        "tickSpacing": 200,
+        "hooks": "0xB3E25CDf4a2f42e7f37aB3aE43Bfb90EE8052AcC"
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": true,
+        "source": "V4 pool initialization event (not platform launch)",
+        "transactionHash": "0x87bcc816da82d1b9925dbe27b7f1d37360f27cdc7f57e8cc3f603707e89deb9b",
+        "block": 1814677
+      }
+    },
+    {
+      "chain": "elysium",
+      "address": "0x86489c0E8CB5fe61Ccd98F72E80Ab193A07790fb",
+      "name": "mesa.cx gamma-21 heron",
+      "symbol": "GAM21",
+      "price": null,
+      "volume": null,
+      "cap": null,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "HYPE",
+      "pair": "HYPE / WHYPE",
+      "decimals": 18,
+      "metadataVerified": true,
+      "poolId": "0x440316aee69ffa55e70b8f40252e91e40ca98402f104d8f66eca27921ad5d720",
+      "manager": "0xe2e105d3f7209a9da11f83ccf3e7398a753823f1",
+      "key": {
+        "currency0": "0x0000000000000000000000000000000000000000",
+        "currency1": "0x86489c0E8CB5fe61Ccd98F72E80Ab193A07790fb",
+        "fee": 0,
+        "tickSpacing": 200,
+        "hooks": "0xE928F2336051cBD5B9D4531C25EaDd13f9A82aeC"
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": true,
+        "source": "V4 pool initialization event (not platform launch)",
+        "transactionHash": "0x61e90135d2e229b6333dd412a48d09bd1a4a0ddad5ebe7c3118e52d81bcc6c32",
+        "block": 1813534
+      }
+    },
+    {
+      "chain": "elysium",
+      "address": "0x89F78E0E17232d94429B94b91C7E6DC45DD0807D",
+      "name": "Ratehearth",
+      "symbol": "RTHR",
+      "price": null,
+      "volume": null,
+      "cap": null,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "HYPE",
+      "pair": "HYPE / WHYPE",
+      "decimals": 18,
+      "metadataVerified": true,
+      "poolId": "0x4236585c6d58de0c49ef3e38d618539287c340316aa593742d9d8697c483537e",
+      "manager": "0xe2e105d3f7209a9da11f83ccf3e7398a753823f1",
+      "key": {
+        "currency0": "0x0000000000000000000000000000000000000000",
+        "currency1": "0x89F78E0E17232d94429B94b91C7E6DC45DD0807D",
+        "fee": 0,
+        "tickSpacing": 200,
+        "hooks": "0xE928F2336051cBD5B9D4531C25EaDd13f9A82aeC"
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": true,
+        "source": "V4 pool initialization event (not platform launch)",
+        "transactionHash": "0x625bb40f4b4e363da9b281fe8884826917227ff72b745b0349dae75ca9561012",
+        "block": 1813823
+      }
+    },
+    {
+      "chain": "elysium",
+      "address": "0x8F5DBF908e1A8EBee6bEbCEda31F579B5aEF18c7",
+      "name": "McGraw",
+      "symbol": "MCG",
+      "price": null,
+      "volume": null,
+      "cap": null,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "HYPE",
+      "pair": "HYPE / WHYPE",
+      "decimals": 18,
+      "metadataVerified": true,
+      "poolId": "0x7c1e9025078ea31063e0f51f40095eb08e0eeaa7b9c62f86a488b82b88513a97",
+      "manager": "0xe2e105d3f7209a9da11f83ccf3e7398a753823f1",
+      "key": {
+        "currency0": "0x0000000000000000000000000000000000000000",
+        "currency1": "0x8F5DBF908e1A8EBee6bEbCEda31F579B5aEF18c7",
+        "fee": 8388608,
+        "tickSpacing": 200,
+        "hooks": "0x6b1216A40B65c83e9c9e18a562C446697B8cf8EC"
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": true,
+        "source": "V4 pool initialization event (not platform launch)",
+        "transactionHash": "0xd2b4f2fd07b6cbd96a077f2da3691fb1cb6d92d2cdd911465fa680b9770c6be4",
+        "block": 1814757
+      }
+    },
+    {
+      "chain": "elysium",
+      "address": "0xAb47DE7d5afF55A3ACf36F9278412F8c5a8DF57A",
+      "name": "CHAMELEON",
+      "symbol": "CHAMELEON",
+      "price": null,
+      "volume": null,
+      "cap": null,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "HYPE",
+      "pair": "HYPE / WHYPE",
+      "decimals": 18,
+      "metadataVerified": true,
+      "poolId": "0x30806bed62744a21d1e303d0e0ca0d36a184a6c4a7a68d9eabe13446b412a505",
+      "manager": "0xe2e105d3f7209a9da11f83ccf3e7398a753823f1",
+      "key": {
+        "currency0": "0x0000000000000000000000000000000000000000",
+        "currency1": "0xAb47DE7d5afF55A3ACf36F9278412F8c5a8DF57A",
+        "fee": 8388608,
+        "tickSpacing": 200,
+        "hooks": "0x6b1216A40B65c83e9c9e18a562C446697B8cf8EC"
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": true,
+        "source": "V4 pool initialization event (not platform launch)",
+        "transactionHash": "0x787e2fbf9b4798db407ec2598c7b91da25e5ec37b4911bea2bc4522691624133",
+        "block": 1814326
+      }
+    },
+    {
+      "chain": "elysium",
+      "address": "0xabE75424299e96eD838AD500fE664cdF8CEBc74a",
+      "name": "GoonStrategy",
+      "symbol": "GSTR",
+      "price": null,
+      "volume": null,
+      "cap": null,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "HYPE",
+      "pair": "HYPE / WHYPE",
+      "decimals": 18,
+      "metadataVerified": true,
+      "poolId": "0x80a6b088008cf78e570ffd8e5dbe35344bca2a356f37a4dd209d077412e02be5",
+      "manager": "0xe2e105d3f7209a9da11f83ccf3e7398a753823f1",
+      "key": {
+        "currency0": "0x0000000000000000000000000000000000000000",
+        "currency1": "0xabE75424299e96eD838AD500fE664cdF8CEBc74a",
+        "fee": 8388608,
+        "tickSpacing": 200,
+        "hooks": "0x6b1216A40B65c83e9c9e18a562C446697B8cf8EC"
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": true,
+        "source": "V4 pool initialization event (not platform launch)",
+        "transactionHash": "0xdf432e89a3fce2b6bd02ec3ea07ef70a4cf979d28a4466ca97c3965793c31964",
+        "block": 1814390
+      }
+    },
+    {
+      "chain": "elysium",
+      "address": "0xAd52ce5041882034F9cd4C67D5bbc9145208dD1f",
+      "name": "NVIDIA",
+      "symbol": "NVIDIA",
+      "price": null,
+      "volume": null,
+      "cap": null,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "HYPE",
+      "pair": "HYPE / WHYPE",
+      "decimals": 18,
+      "metadataVerified": true,
+      "poolId": "0xd0dada4abe94ab0456a811e0fdc0c8f832984d48006890214f6b265a7e38c026",
+      "manager": "0xe2e105d3f7209a9da11f83ccf3e7398a753823f1",
+      "key": {
+        "currency0": "0x0000000000000000000000000000000000000000",
+        "currency1": "0xAd52ce5041882034F9cd4C67D5bbc9145208dD1f",
+        "fee": 8388608,
+        "tickSpacing": 200,
+        "hooks": "0x6b1216A40B65c83e9c9e18a562C446697B8cf8EC"
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": true,
+        "source": "V4 pool initialization event (not platform launch)",
+        "transactionHash": "0x61b3cc4ea0da39dc2de7837c62b6ee6271a12447328f0ea1d4ea11f8956168f8",
+        "block": 1814682
+      }
+    },
+    {
+      "chain": "elysium",
+      "address": "0xb918C27b288B3Ce1fADf94391a557ee14739C577",
+      "name": "エリジウム",
+      "symbol": "MONDAY",
+      "price": null,
+      "volume": null,
+      "cap": null,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "HYPE",
+      "pair": "HYPE / WHYPE",
+      "decimals": 18,
+      "metadataVerified": true,
+      "poolId": "0xd9e12296c54c7fd1e91dbd0de5f929a2dc448c89935318cc2dbd9506fa5c1a09",
+      "manager": "0xe2e105d3f7209a9da11f83ccf3e7398a753823f1",
+      "key": {
+        "currency0": "0x0000000000000000000000000000000000000000",
+        "currency1": "0xb918C27b288B3Ce1fADf94391a557ee14739C577",
+        "fee": 8388608,
+        "tickSpacing": 200,
+        "hooks": "0x6b1216A40B65c83e9c9e18a562C446697B8cf8EC"
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": true,
+        "source": "V4 pool initialization event (not platform launch)",
+        "transactionHash": "0x2007f4754c487aa846b2a93d033e1bbf5fa1e96831082c513bfcab9358ac4d20",
+        "block": 1814194
+      }
+    },
+    {
+      "chain": "elysium",
+      "address": "0xc9476A10C81f5213B1e54BA954fe001df6a8A6f3",
+      "name": "ericnomic",
+      "symbol": "ERIC",
+      "price": null,
+      "volume": null,
+      "cap": null,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "HYPE",
+      "pair": "HYPE / WHYPE",
+      "decimals": 18,
+      "metadataVerified": true,
+      "poolId": "0x524dec2f70a4a814c727a7221974296d40722a6baad0e491c7a8ed14fc9b9e72",
+      "manager": "0xe2e105d3f7209a9da11f83ccf3e7398a753823f1",
+      "key": {
+        "currency0": "0x0000000000000000000000000000000000000000",
+        "currency1": "0xc9476A10C81f5213B1e54BA954fe001df6a8A6f3",
+        "fee": 8388608,
+        "tickSpacing": 200,
+        "hooks": "0x6b1216A40B65c83e9c9e18a562C446697B8cf8EC"
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": true,
+        "source": "V4 pool initialization event (not platform launch)",
+        "transactionHash": "0x7ef4ce4b6ddb4cb03b38a069437e5b53a590eada9e377e2763792dd50b8b53a0",
+        "block": 1814194
+      }
+    },
+    {
+      "chain": "elysium",
+      "address": "0xD03a97D24bD1FeE01f179c7Cc24adbC6a7fF942f",
+      "name": "ATTENTION",
+      "symbol": "ATTENTION",
+      "price": null,
+      "volume": null,
+      "cap": null,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "HYPE",
+      "pair": "HYPE / WHYPE",
+      "decimals": 18,
+      "metadataVerified": true,
+      "poolId": "0x62fa83708dab160963e0aebdac40ad8262468ad767b82c40477c848aa157cdc0",
+      "manager": "0x06c63714fbf1f5753017123e2fcfdede4540b2c4",
+      "key": {
+        "currency0": "0x0000000000000000000000000000000000000000",
+        "currency1": "0xD03a97D24bD1FeE01f179c7Cc24adbC6a7fF942f",
+        "fee": 0,
+        "tickSpacing": 200,
+        "hooks": "0xB3E25CDf4a2f42e7f37aB3aE43Bfb90EE8052AcC"
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": true,
+        "source": "V4 pool initialization event (not platform launch)",
+        "transactionHash": "0xc87a9ef3e263c649a35d2a01ec8e49fdb924341cd8c4d123bf15b9909a21f1b6",
+        "block": 1813700
+      }
+    },
+    {
+      "chain": "elysium",
+      "address": "0xD33eb47b9171d88746912c15558f9687B4ab2fC5",
+      "name": "Gwak",
+      "symbol": "GWAK",
+      "price": null,
+      "volume": null,
+      "cap": null,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "HYPE",
+      "pair": "HYPE / WHYPE",
+      "decimals": 18,
+      "metadataVerified": true,
+      "poolId": "0xe3b899fc8354d2f78a608c8877e49d3b87937e7abcff680733eb9e5036a44a1e",
+      "manager": "0xe2e105d3f7209a9da11f83ccf3e7398a753823f1",
+      "key": {
+        "currency0": "0x0000000000000000000000000000000000000000",
+        "currency1": "0xD33eb47b9171d88746912c15558f9687B4ab2fC5",
+        "fee": 8388608,
+        "tickSpacing": 200,
+        "hooks": "0x6b1216A40B65c83e9c9e18a562C446697B8cf8EC"
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": true,
+        "source": "V4 pool initialization event (not platform launch)",
+        "transactionHash": "0x6b1f6b72e1bcbef6309c989fb790fa591f6a2e01dafd0ae5df46ef7390e73da6",
+        "block": 1813900
+      }
+    },
+    {
+      "chain": "elysium",
+      "address": "0xD3aCc8bA9c6300c83432D80E0B323Bbf1dE8a918",
+      "name": "Pennant Duel",
+      "symbol": "PNDL",
+      "price": null,
+      "volume": null,
+      "cap": null,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "HYPE",
+      "pair": "HYPE / WHYPE",
+      "decimals": 18,
+      "metadataVerified": true,
+      "poolId": "0x5bb0bf4f1f42f6d017f159f65d236e22d4b7d92f3b1cb556992d67516c6e73f6",
+      "manager": "0xe2e105d3f7209a9da11f83ccf3e7398a753823f1",
+      "key": {
+        "currency0": "0x0000000000000000000000000000000000000000",
+        "currency1": "0xD3aCc8bA9c6300c83432D80E0B323Bbf1dE8a918",
+        "fee": 0,
+        "tickSpacing": 200,
+        "hooks": "0xE928F2336051cBD5B9D4531C25EaDd13f9A82aeC"
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": true,
+        "source": "V4 pool initialization event (not platform launch)",
+        "transactionHash": "0xaa2da11c5059fc3eb4614d7f50d05f67ec14cbaff055b1b6722b1fd243907fdb",
+        "block": 1814107
+      }
+    },
+    {
+      "chain": "elysium",
+      "address": "0xD78e50e2127aE27CC0909C705265C149E02D728E",
+      "name": "mesa.cx cartographer 8933899",
+      "symbol": "CART3899",
+      "price": null,
+      "volume": null,
+      "cap": null,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "HYPE",
+      "pair": "HYPE / WHYPE",
+      "decimals": 18,
+      "metadataVerified": true,
+      "poolId": "0x465c43951ebfdd7f8871fcfe73d5272ebfd5445caee645bef11a96ac722045e6",
+      "manager": "0xe2e105d3f7209a9da11f83ccf3e7398a753823f1",
+      "key": {
+        "currency0": "0x0000000000000000000000000000000000000000",
+        "currency1": "0xD78e50e2127aE27CC0909C705265C149E02D728E",
+        "fee": 0,
+        "tickSpacing": 200,
+        "hooks": "0xE928F2336051cBD5B9D4531C25EaDd13f9A82aeC"
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": true,
+        "source": "V4 pool initialization event (not platform launch)",
+        "transactionHash": "0x8ff130b528ca82f0f86b1cf94a03c9a999452881c719965c4b97ee71cb08a39d",
+        "block": 1814431
+      }
+    },
+    {
+      "chain": "elysium",
+      "address": "0xDE4591aFac5c0F32dCa12EC5Ff4e5e7c17A812F6",
+      "name": "ChineseCommunistPussy",
+      "symbol": "CCP",
+      "price": null,
+      "volume": null,
+      "cap": null,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "HYPE",
+      "pair": "HYPE / WHYPE",
+      "decimals": 18,
+      "metadataVerified": true,
+      "poolId": "0xb87aa83448959e495c35deb93d0e10042951f76b8e1cd988b6943983e1516143",
+      "manager": "0x06c63714fbf1f5753017123e2fcfdede4540b2c4",
+      "key": {
+        "currency0": "0x0000000000000000000000000000000000000000",
+        "currency1": "0xDE4591aFac5c0F32dCa12EC5Ff4e5e7c17A812F6",
+        "fee": 0,
+        "tickSpacing": 200,
+        "hooks": "0xB3E25CDf4a2f42e7f37aB3aE43Bfb90EE8052AcC"
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": true,
+        "source": "V4 pool initialization event (not platform launch)",
+        "transactionHash": "0xd317972b147e8c1b5d6d09327bddeb5761393697ce209f9d30f4da02f79236b7",
+        "block": 1814653
+      }
+    },
+    {
+      "chain": "elysium",
+      "address": "0xe8958Dd64Bf5a157465144FE1A63E6CacbD556fd",
+      "name": "mesa.cx signal",
+      "symbol": "SIGNA6540",
+      "price": null,
+      "volume": null,
+      "cap": null,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "HYPE",
+      "pair": "HYPE / WHYPE",
+      "decimals": 18,
+      "metadataVerified": true,
+      "poolId": "0x585980a82e68fd17f4d68c46d710f8c7f449b15b79961609ec031396ceb0129c",
+      "manager": "0xe2e105d3f7209a9da11f83ccf3e7398a753823f1",
+      "key": {
+        "currency0": "0x0000000000000000000000000000000000000000",
+        "currency1": "0xe8958Dd64Bf5a157465144FE1A63E6CacbD556fd",
+        "fee": 0,
+        "tickSpacing": 200,
+        "hooks": "0xE928F2336051cBD5B9D4531C25EaDd13f9A82aeC"
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": true,
+        "source": "V4 pool initialization event (not platform launch)",
+        "transactionHash": "0xe1ca81552ccc0750e72a293c0e173949c65ba9cdbbed23751e2e8d98eb85e203",
+        "block": 1814376
+      }
+    },
+    {
+      "chain": "elysium",
+      "address": "0xEF20575173A82fB84Ae93D8FF826D1579Cf18Da7",
+      "name": "Sweepindex",
+      "symbol": "SWPX",
+      "price": null,
+      "volume": null,
+      "cap": null,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "HYPE",
+      "pair": "HYPE / WHYPE",
+      "decimals": 18,
+      "metadataVerified": true,
+      "poolId": "0xa116619f4f9865b92a4ec2d53004f6008e166801bca5d45e3500ee90bb735d1e",
+      "manager": "0xe2e105d3f7209a9da11f83ccf3e7398a753823f1",
+      "key": {
+        "currency0": "0x0000000000000000000000000000000000000000",
+        "currency1": "0xEF20575173A82fB84Ae93D8FF826D1579Cf18Da7",
+        "fee": 0,
+        "tickSpacing": 200,
+        "hooks": "0xE928F2336051cBD5B9D4531C25EaDd13f9A82aeC"
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": true,
+        "source": "V4 pool initialization event (not platform launch)",
+        "transactionHash": "0xb7390a714ca4fad4f473a27185600c0785ae6a6584a4739a3937b66b063162a8",
+        "block": 1814428
+      }
+    },
+    {
+      "chain": "elysium",
+      "address": "0xf52e5D5c39C7Df71524C83e69f40918A6fA33243",
+      "name": "ChineseCommunistPussy",
+      "symbol": "CCP",
+      "price": null,
+      "volume": null,
+      "cap": null,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "HYPE",
+      "pair": "HYPE / WHYPE",
+      "decimals": 18,
+      "metadataVerified": true,
+      "poolId": "0x59be58a8b2e739b8437eac224d49b194603c284788d60feb534e38fae2fb1b7b",
+      "manager": "0xe2e105d3f7209a9da11f83ccf3e7398a753823f1",
+      "key": {
+        "currency0": "0x0000000000000000000000000000000000000000",
+        "currency1": "0xf52e5D5c39C7Df71524C83e69f40918A6fA33243",
+        "fee": 8388608,
+        "tickSpacing": 200,
+        "hooks": "0x6b1216A40B65c83e9c9e18a562C446697B8cf8EC"
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": true,
+        "source": "V4 pool initialization event (not platform launch)",
+        "transactionHash": "0xe9d75f308f78078c8477943bc1ee54b49d2c7e6b7c7d2129c4aedadda9cfee1a",
+        "block": 1814654
+      }
+    },
+    {
+      "chain": "elysium",
+      "address": "0xf55e2A0AF6F8df97930f7627Cea43C3E8F051D77",
+      "name": "Toolchest",
+      "symbol": "TLCH",
+      "price": null,
+      "volume": null,
+      "cap": null,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "HYPE",
+      "pair": "HYPE / WHYPE",
+      "decimals": 18,
+      "metadataVerified": true,
+      "poolId": "0xbfb348e7f9bc6ca0a6ef363846d9958c848d00df58b157f951a66b17bfded2f8",
+      "manager": "0xe2e105d3f7209a9da11f83ccf3e7398a753823f1",
+      "key": {
+        "currency0": "0x0000000000000000000000000000000000000000",
+        "currency1": "0xf55e2A0AF6F8df97930f7627Cea43C3E8F051D77",
+        "fee": 0,
+        "tickSpacing": 200,
+        "hooks": "0xE928F2336051cBD5B9D4531C25EaDd13f9A82aeC"
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": true,
+        "source": "V4 pool initialization event (not platform launch)",
+        "transactionHash": "0xdc933a14a08dc8d6d01fc9ea19d2bdad546c9db21e3ebf3c042c0710abfe0fb0",
+        "block": 1814736
+      }
+    },
+    {
+      "chain": "elysium",
+      "address": "0xF60c99fb31EbAb4459f53D20De12259775799E8a",
+      "name": "MACHINE",
+      "symbol": "MACHINE",
+      "price": null,
+      "volume": null,
+      "cap": null,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "HYPE",
+      "pair": "HYPE / WHYPE",
+      "decimals": 18,
+      "metadataVerified": true,
+      "poolId": "0x9cd69ccc55165179ce685ca8c78b155a77eb65a76674ff5bf75ab39f13faa5ed",
+      "manager": "0xe2e105d3f7209a9da11f83ccf3e7398a753823f1",
+      "key": {
+        "currency0": "0x0000000000000000000000000000000000000000",
+        "currency1": "0xF60c99fb31EbAb4459f53D20De12259775799E8a",
+        "fee": 8388608,
+        "tickSpacing": 200,
+        "hooks": "0x6b1216A40B65c83e9c9e18a562C446697B8cf8EC"
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": true,
+        "source": "V4 pool initialization event (not platform launch)",
+        "transactionHash": "0xee746faefabf89696f1ade99c41a03934c8db6cf49a4189fb2aa2c978580d643",
+        "block": 1814100
+      }
+    },
+    {
+      "chain": "elysium",
+      "address": "0xf643E91f14CBc88e6dE1a3b61615C71AEa01eBF3",
+      "name": "The FBI Insider",
+      "symbol": "PATRICK",
+      "price": null,
+      "volume": null,
+      "cap": null,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "HYPE",
+      "pair": "HYPE / WHYPE",
+      "decimals": 18,
+      "metadataVerified": true,
+      "poolId": "0x2fdc5b82475d406586e5cd6085041aa2b7fd28e585f14520b28bbb37433a895e",
+      "manager": "0x06c63714fbf1f5753017123e2fcfdede4540b2c4",
+      "key": {
+        "currency0": "0x0000000000000000000000000000000000000000",
+        "currency1": "0xf643E91f14CBc88e6dE1a3b61615C71AEa01eBF3",
+        "fee": 0,
+        "tickSpacing": 200,
+        "hooks": "0xB3E25CDf4a2f42e7f37aB3aE43Bfb90EE8052AcC"
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": true,
+        "source": "V4 pool initialization event (not platform launch)",
+        "transactionHash": "0x2f66a786da4c6ab8ff0a8b258517203927381d789f9eed3e3163a9ceacf48a33",
+        "block": 1814484
+      }
+    },
+    {
+      "chain": "elysium",
+      "address": "0xfA6E6FA297e9ED5e4396e4ED0Db629b4cd041c04",
+      "name": "Alice Huang",
+      "symbol": "ALICE",
+      "price": null,
+      "volume": null,
+      "cap": null,
+      "change": null,
+      "holders": null,
+      "series": [],
+      "unit": "HYPE",
+      "pair": "HYPE / WHYPE",
+      "decimals": 18,
+      "metadataVerified": true,
+      "poolId": "0x26c5bd4043803f7344f53bbcd266e99b9c61ca91ee9c49e5b0f8129d638ff603",
+      "manager": "0xe2e105d3f7209a9da11f83ccf3e7398a753823f1",
+      "key": {
+        "currency0": "0x0000000000000000000000000000000000000000",
+        "currency1": "0xfA6E6FA297e9ED5e4396e4ED0Db629b4cd041c04",
+        "fee": 8388608,
+        "tickSpacing": 200,
+        "hooks": "0x6b1216A40B65c83e9c9e18a562C446697B8cf8EC"
+      },
+      "provenance": {
+        "kind": "market",
+        "verified": true,
+        "source": "V4 pool initialization event (not platform launch)",
+        "transactionHash": "0xec19685206dcded62dfa7f20d867e93f6982e486780df9fcc9bb5333e4d0ab1d",
+        "block": 1814462
+      }
+    }
+  ],
+  "sources": {
+    "platformEvm": {
+      "status": "complete",
+      "complete": true,
+      "count": 0,
+      "fromBlock": 583984,
+      "throughBlock": 1814943,
+      "head": 1815007,
+      "confirmations": 64,
+      "checkedAt": "2026-11-07T05:44:22.431Z"
+    },
+    "platformSolana": {
+      "status": "unavailable",
+      "complete": false,
+      "count": null,
+      "error": "Platform registry is not configured; historical launch provenance unavailable",
+      "attemptedAt": "2026-11-07T05:44:09.603Z"
+    },
+    "evmMarkets": {
+      "status": "partial",
+      "complete": false,
+      "count": 30,
+      "observedCandidates": 6860,
+      "limit": 30,
+      "fromBlock": 1614943,
+      "throughBlock": 1814943,
+      "missingMetadata": 0,
+      "checkedAt": "2026-11-07T05:45:16.644Z",
+      "coverage": "Latest 30 native/WHYPE V4 pools initialized in the last 200,000 confirmed blocks; metrics unavailable until indexed."
+    },
+    "solanaMarkets": {
+      "status": "partial",
+      "complete": false,
+      "count": 40,
+      "checkedAt": "2026-11-07T05:44:10.242Z",
+      "coverage": "Selected quote-asset pools and Solana name matches, bounded to returned sources. Not an exhaustive ecosystem index.",
+      "warnings": [
+        "Some token artwork and market cap metadata is unavailable. Missing values are not invented."
+      ]
+    },
+    "ecosystem": {
+      "status": "complete",
+      "complete": true,
+      "count": 1,
+      "checkedAt": "2026-11-07T05:44:10.019Z"
+    }
+  },
+  "cursor": 1814943,
+  "checkedAt": "2026-11-07T05:45:16.644Z"
+}
