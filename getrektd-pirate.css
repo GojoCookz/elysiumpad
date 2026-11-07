@@ -1,0 +1,257 @@
+/* The user's pinned pirate-TV/trench-flyer visual world. The cat illustration
+   is user-supplied; lettering is original SVG and coins use source artwork. Skew lives
+   on paper/backing layers, never on the financial controls or source figures. */
+html[data-brand=getrektd]{--rekt-paper:var(--ink);--rekt-ink:var(--bg)}
+html[data-brand=getrektd] .top{border-bottom:2px solid var(--accent)}
+html[data-brand=getrektd] .top button{border-radius:0!important}
+html[data-brand=getrektd] .brand-symbol{transform:rotate(-5deg);border-radius:0!important}
+html[data-brand=getrektd] .welcoming-launchpad[data-panel=discover] .rekt-game-stage{border:0;border-radius:0!important;background:none;padding:20px 0 30px;margin-top:12px;gap:28px}
+html[data-brand=getrektd] .welcoming-launchpad[data-panel=discover] .rekt-game-stage::before,
+html[data-brand=getrektd] .welcoming-launchpad[data-panel=discover] .rekt-game-stage::after{display:none}
+html[data-brand=getrektd] .rekt-pirate-wordmark{position:relative;background:var(--rekt-paper);color:var(--rekt-ink);padding:9px 9px 5px;transform:rotate(-2deg);margin:0 0 25px;max-width:650px;isolation:isolate}
+html[data-brand=getrektd] .rekt-pirate-wordmark::before{content:'';position:absolute;inset:-7px 9px 7px -7px;border:2px solid var(--accent);z-index:-1;pointer-events:none}
+html[data-brand=getrektd] .rekt-pirate-wordmark svg{display:block;width:100%;height:auto;overflow:visible}
+html[data-brand=getrektd] .welcoming-launchpad[data-panel=discover] .rekt-game-stage h1{font-size:39px!important;line-height:1.03;max-width:19ch!important;text-transform:uppercase;letter-spacing:-.025em;font-style:italic;color:var(--ink)}
+html[data-brand=getrektd] .rekt-contestant{display:inline-block;background:var(--accent);color:var(--accent-ink);padding:7px 11px;transform:rotate(-1deg);margin-top:18px;font-size:13px;font-weight:800;max-width:45ch}
+html[data-brand=getrektd] .welcoming-launchpad .rekt-game-stage .launch-intro{font-size:15px;max-width:46ch;margin-top:17px}
+html[data-brand=getrektd] .rekt-game-stage .welcome-actions .rekt-enter{border:2px solid var(--accent);border-radius:0!important;font-size:16px;min-height:55px;letter-spacing:0}
+html[data-brand=getrektd] .rekt-game-stage .welcome-actions button:not(.rekt-enter){border-radius:0!important;border-width:2px;background:none;font-size:13px}
+html[data-brand=getrektd] .rekt-pirate-stamp{position:absolute;inset:auto 8px 8px auto;border:3px solid var(--accent);padding:5px 9px;transform:rotate(3deg);color:var(--accent);font:850 11px/1.2 var(--sans);letter-spacing:.04em;pointer-events:none}
+html[data-brand=getrektd] .rekt-tutor-panel:not([hidden]){display:block;align-self:center;text-align:center;padding:0 16px 20px;min-width:0}
+html[data-brand=getrektd] .rekt-host-reaction{display:block;width:100%;max-width:330px;margin:0 auto;background:none;border:0;padding:0;min-height:44px;color:var(--accent)}
+html[data-brand=getrektd] .rekt-host-reaction:hover{filter:none}
+html[data-brand=getrektd] .rekt-host-reaction:focus-visible{outline:3px solid var(--accent);outline-offset:5px}
+html[data-brand=getrektd] .rekt-host-reaction .rekt-mascot{display:block;width:100%;max-width:none}
+html[data-brand=getrektd] .rekt-mascot picture,html[data-brand=getrektd] .rekt-mascot img{display:block;width:100%;height:auto}
+html[data-brand=getrektd] .rekt-cue-label{font:700 10px/1.5 var(--mono);letter-spacing:.04em;color:var(--muted);margin-top:5px}
+html[data-brand=getrektd] .rekt-tutor-caption{position:relative;background:var(--rekt-paper);color:var(--rekt-ink);font:900 23px/1.12 Bahnschrift,'Trebuchet MS',var(--sans);text-align:start;max-width:340px;padding:16px 18px;transform:rotate(2deg);margin:10px auto 0;overflow-wrap:anywhere}
+html[data-brand=getrektd] .rekt-tutor-caption::after{content:'';position:absolute;inset:6px -7px -7px 6px;border:2px solid var(--accent);z-index:-1;pointer-events:none}
+html[data-brand=getrektd] .rekt-tutor-sub{font-size:11px;line-height:1.6;max-width:32ch;margin:18px auto 0}
+html[data-brand=getrektd] .rekt-mobile-cue{display:none}
+html[data-brand=getrektd] .welcoming-launchpad .launchpad-panels{max-width:none;border-bottom:3px solid var(--line);gap:8px;padding-bottom:8px}
+html[data-brand=getrektd] .welcoming-launchpad .launchpad-panels button{font-size:14px;font-weight:800}
+html[data-brand=getrektd] .welcoming-launchpad .launchpad-panels button[aria-pressed=true]{box-shadow:none;background:var(--accent);color:var(--accent-ink)}
+html[data-brand=getrektd] .welcoming-launchpad .launch-feed-heading h2{font-size:32px;text-transform:uppercase;font-style:italic}
+html[data-brand=getrektd] .welcoming-launchpad .launch-token-grid{gap:24px;margin-top:25px}
+html[data-brand=getrektd] .welcoming-launchpad .launch-token-card{position:relative;border:2px solid var(--line);border-radius:0!important;padding:14px;background:var(--panel);overflow:visible;min-width:0;isolation:isolate}
+html[data-brand=getrektd] .welcoming-launchpad .launch-token-card::before{display:block;content:'';position:absolute;width:auto;height:auto;inset-inline-start:auto;inset:-9px 5px 7px -7px;border:0;background:var(--rekt-paper);opacity:.65;clip-path:polygon(1% 1%,18% 0,19% 1%,43% 0,62% 1%,80% 0,99% 1%,100% 18%,99% 36%,100% 57%,99% 78%,100% 98%,78% 100%,59% 99%,38% 100%,17% 99%,0 100%,1% 79%,0 61%,1% 42%,0 21%);transform:rotate(-1deg);pointer-events:none;z-index:-1}
+html[data-brand=getrektd] .welcoming-launchpad .launch-token-card::after{display:block;content:'';position:absolute;inset:0;width:auto;height:auto;border:0;background:var(--panel);pointer-events:none;z-index:-1}
+html[data-brand=getrektd] .welcoming-launchpad .launch-token-card::before{z-index:-2}
+html[data-brand=getrektd] .welcoming-launchpad .launch-tools :is(button,input){border-radius:0!important}
+html[data-brand=getrektd] #appearance-toggle svg{display:block;width:20px;height:20px}
+html[data-brand=getrektd] .welcoming-launchpad .launch-token-card:nth-child(even)::before{transform:rotate(1deg);inset:5px -6px -6px 5px}
+html[data-brand=getrektd] .welcoming-launchpad .launch-token-identity{display:grid;grid-template-columns:minmax(0,1fr);gap:0;min-width:0}
+html[data-brand=getrektd] .welcoming-launchpad .launch-token-identity>.token-art{display:grid;width:100%!important;height:195px!important;max-width:100%;border-radius:0!important;background:var(--raised);font-size:64px;font-weight:900;color:var(--accent)}
+html[data-brand=getrektd] .welcoming-launchpad .launch-token-identity>.token-art img{object-fit:contain;padding:5px}
+html[data-brand=getrektd] .welcoming-launchpad .launch-token-identity>.token-art[data-art-state=fallback]::after{content:'ARTWORK UNAVAILABLE';position:absolute;inset:auto 8px 8px;font:600 10px/1.4 var(--mono);color:var(--muted);text-align:center}
+html[data-brand=getrektd] .welcoming-launchpad .launch-token-identity>div{position:relative;margin:-13px 8px 0 0;padding:10px 12px;background:var(--rekt-paper);color:var(--rekt-ink);transform:rotate(-1deg);min-width:0}
+html[data-brand=getrektd] .welcoming-launchpad .launch-token-identity h3{font-size:23px!important;line-height:1.12;color:var(--rekt-ink);overflow-wrap:anywhere;text-transform:uppercase;font-weight:900}
+html[data-brand=getrektd] .welcoming-launchpad .launch-token-identity p{font:700 11px/1.5 var(--mono);color:var(--rekt-ink);margin-top:4px}
+html[data-brand=getrektd] .launch-card-pair{background:var(--accent);color:var(--accent-ink);margin-block:17px 14px;padding:9px 10px;gap:7px 10px}
+html[data-brand=getrektd] .launch-pair-assets{color:var(--accent-ink);font-size:16px;font-weight:850}
+html[data-brand=getrektd] .launch-quote-kind{background:none;border:1px solid currentColor;color:var(--accent-ink);font-size:10px;padding:3px 6px}
+html[data-brand=getrektd] .welcoming-launchpad .launch-card-actions{border-top:2px solid var(--line);padding-top:13px}
+html[data-brand=getrektd] .welcoming-launchpad .launch-card-actions button,
+html[data-brand=getrektd] .welcoming-launchpad .launch-card-actions a{border-radius:0!important;font-size:12px;line-height:1.5}
+html[data-brand=getrektd] .welcoming-launchpad .launch-card-metrics dt{font-size:11px}
+html[data-brand=getrektd] .welcoming-launchpad .launch-card-metrics dd{font-size:15px}
+html[data-brand=getrektd] .welcoming-launchpad .launch-creator,
+html[data-brand=getrektd] .rekt-tutorial{border-radius:0!important;border-width:2px}
+html[data-brand=getrektd] .rekt-tutorial{border-top-width:6px}
+html[data-brand=getrektd] .rekt-progress{background:var(--accent);color:var(--accent-ink);padding:6px 9px;font-weight:850}
+html[data-brand=getrektd] #rekt-lesson-title{font-size:33px;text-transform:uppercase;font-style:italic}
+html[data-brand=getrektd] .rekt-dialog-actions button,html[data-brand=getrektd] .rekt-close{border-radius:0!important}
+@media(min-width:900px){
+ html[data-brand=getrektd] .welcoming-launchpad[data-panel=discover] .rekt-game-stage{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:45px;padding:26px 0 38px}
+ html[data-brand=getrektd] .welcoming-launchpad[data-panel=discover] .rekt-game-stage h1{font-size:42px!important;max-width:18ch!important}
+ html[data-brand=getrektd] .rekt-game-stage .welcome-actions{max-width:530px}
+ html[data-brand=getrektd] .welcoming-launchpad .launch-token-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:759px){
+ html[data-brand=getrektd] .welcoming-launchpad[data-panel=discover] .rekt-game-stage{padding:16px 0 27px;margin-bottom:20px}
+ html[data-brand=getrektd] .rekt-pirate-wordmark{margin:0 0 24px;padding:7px 4px 3px;transform:rotate(-2deg)}
+ html[data-brand=getrektd] .welcoming-launchpad[data-panel=discover] .rekt-game-stage h1{font-size:31px!important;max-width:calc(100% - 108px)!important;min-height:96px;text-align:start;text-wrap:pretty}
+ html[data-brand=getrektd] .rekt-tutor-panel:not([hidden]){position:absolute;inset:92px -4px auto auto;width:104px;padding:0;align-self:auto}
+ html[data-brand=getrektd] .rekt-host-reaction{width:104px;margin:0}
+ html[data-brand=getrektd] .rekt-host-reaction .rekt-mascot{transform:none}
+ html[data-brand=getrektd] .rekt-cue-label,html[data-brand=getrektd] .rekt-tutor-caption,html[data-brand=getrektd] .rekt-tutor-sub{display:none}
+ html[data-brand=getrektd] .rekt-mobile-cue:not([hidden]){display:block;background:var(--rekt-paper);color:var(--rekt-ink);font:850 13px/1.4 var(--sans);padding:9px 11px;margin:0 0 17px;transform:rotate(1deg)}
+ html[data-brand=getrektd] .rekt-contestant{font-size:12px;line-height:1.5;padding:6px 9px;margin-top:7px}
+ html[data-brand=getrektd] .welcoming-launchpad .rekt-game-stage .launch-intro{font-size:14px;line-height:1.6;margin-block:15px 18px}
+ html[data-brand=getrektd] .rekt-game-stage .welcome-actions .rekt-enter{font-size:15px;min-height:52px}
+ html[data-brand=getrektd] .rekt-game-stage .welcome-actions button:not(.rekt-enter){font-size:12px}
+ html[data-brand=getrektd] .rekt-pirate-stamp{font-size:9px;inset:auto 0 0 auto;border-width:2px}
+ html[data-brand=getrektd] .welcoming-launchpad .launchpad-panels button{font-size:12px;overflow-wrap:anywhere;padding:10px 7px}
+ html[data-brand=getrektd] .welcoming-launchpad .launch-feed-heading h2{font-size:27px}
+ html[data-brand=getrektd] .welcoming-launchpad .launch-token-grid{gap:25px}
+ html[data-brand=getrektd] .welcoming-launchpad .launch-token-card{padding:13px}
+ html[data-brand=getrektd] .welcoming-launchpad .launch-token-identity>.token-art{height:205px!important}
+ html[data-brand=getrektd] .welcoming-launchpad .launch-token-identity h3{font-size:24px!important}
+ html[data-brand=getrektd] .launch-pair-assets{font-size:16px}
+ html[data-brand=getrektd] #rekt-lesson-title{font-size:28px}
+}
+/* Social links remain identifiable without relying on color. */
+.rekt-social-link{text-decoration:underline;text-underline-offset:.2em}
+.rekt-social-link:focus-visible{outline:2px solid currentColor;outline-offset:4px}
+
+/* Pump-style creation hierarchy, within HypurrLabs' existing visual world. */
+html[data-brand=getrektd] #launchpad-root[data-panel=create] :is(.launchpad-masthead,.launchpad-panels){display:none}
+html[data-brand=getrektd] .launch-creator[data-layout=pump]{border:0!important;background:transparent;padding:12px 0 32px!important;max-width:1120px;margin-inline:auto;box-shadow:none}
+html[data-brand=getrektd] .launch-creator[data-layout=pump]::before,
+html[data-brand=getrektd] .launch-creator[data-layout=pump]::after,
+html[data-brand=getrektd] .launch-creator[data-layout=pump]>.rekt-create-roast{display:none}
+html[data-brand=getrektd] .launch-creator[data-layout=pump] .launch-creator-heading{align-items:center;margin:0 0 12px;gap:16px}
+html[data-brand=getrektd] .launch-creator[data-layout=pump] .launch-creator-heading h2{font-size:28px;line-height:1.2;letter-spacing:-.025em;text-transform:none;font-style:normal;flex-basis:auto}
+html[data-brand=getrektd] .launch-creator[data-layout=pump] .launch-creator-heading button{font-size:12px;min-height:44px;background:transparent}
+html[data-brand=getrektd] .launch-creator[data-layout=pump] .launch-draft-warning{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 12px;border:0;background:transparent;padding:0!important;margin:0 0 28px;color:var(--muted)}
+html[data-brand=getrektd] .launch-creator[data-layout=pump] .launch-draft-warning strong{font:650 12px/1.5 var(--sans);color:var(--accent);white-space:nowrap}
+html[data-brand=getrektd] .launch-creator[data-layout=pump] .launch-draft-warning p{font:400 12px/1.6 var(--sans);margin:0}
+html[data-brand=getrektd] .launch-creator[data-layout=pump] .launch-creator-body{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:36px;align-items:start}
+html[data-brand=getrektd] .launch-compose{min-width:0}
+html[data-brand=getrektd] .launch-creator[data-layout=pump] .launch-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 16px;padding:0;border:0;background:transparent}
+html[data-brand=getrektd] .launch-creator[data-layout=pump] .launch-field{min-width:0}
+html[data-brand=getrektd] .launch-creator[data-layout=pump] .launch-field:has(textarea),
+html[data-brand=getrektd] .launch-creator[data-layout=pump] .launch-field:has(#launch-quote),
+html[data-brand=getrektd] .launch-creator[data-layout=pump] .launch-artwork-field{grid-column:1/-1}
+html[data-brand=getrektd] .launch-creator[data-layout=pump] .launch-field>label{display:block;font:600 13px/1.5 var(--sans);margin-bottom:8px;color:var(--ink)}
+html[data-brand=getrektd] .launch-optional{font-weight:400;color:var(--muted);margin-inline-start:4px}
+html[data-brand=getrektd] .launch-artwork-label{font:600 13px/1.5 var(--sans);margin:0 0 8px;color:var(--ink)}
+html[data-brand=getrektd] .launch-creator[data-layout=pump] .launch-field :is(input:not([type=file]),select,textarea){min-height:46px;padding:12px;font:400 14px/1.5 var(--sans);background:var(--panel);border:1px solid var(--line);width:100%;box-sizing:border-box;color:var(--ink);caret-color:var(--accent)}
+html[data-brand=getrektd] .launch-creator[data-layout=pump] .launch-field textarea{resize:vertical;min-height:104px}
+html[data-brand=getrektd] .launch-creator[data-layout=pump] .launch-field-note{font:400 12px/1.6 var(--sans);margin:8px 0 0;color:var(--muted)}
+html[data-brand=getrektd] .launch-creator[data-layout=pump] .launch-field>.launch-image-drop{display:flex;position:relative;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:174px;box-sizing:border-box;border:1px dashed var(--line);padding:24px;background:var(--panel);cursor:pointer;text-align:center;margin:0}
+html[data-brand=getrektd] .launch-image-drop:is(:hover,:focus-within),
+html[data-brand=getrektd] .launch-image-drop[data-dragging=true]{border-color:var(--accent);outline:2px solid var(--accent);outline-offset:3px}
+html[data-brand=getrektd] .launch-image-drop strong{font-size:14px;color:var(--ink)}
+html[data-brand=getrektd] .launch-image-drop>span:not(.launch-upload-icon){font:400 12px/1.5 var(--sans);color:var(--muted)}
+html[data-brand=getrektd] .launch-upload-icon svg{width:36px;height:36px;display:block;color:var(--muted)}
+html[data-brand=getrektd] .launch-image-drop input[type=file]{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+html[data-brand=getrektd] .launch-remove-image{font-size:12px;margin-top:10px;min-height:44px}
+html[data-brand=getrektd] .launch-creator[data-layout=pump] .launch-form>button{font-size:14px;min-height:48px;grid-column:1/-1}
+html[data-brand=getrektd] .launch-creator[data-layout=pump] .launch-draft-preview{position:sticky;top:84px;display:block;padding:0;border:0;background:transparent;min-width:0}
+html[data-brand=getrektd] .launch-preview-title{font:600 15px/1.5 var(--sans);margin:0 0 14px}
+html[data-brand=getrektd] .launch-creator[data-layout=pump] .draft-art{width:100%;height:auto;aspect-ratio:1;display:grid;place-items:center;box-sizing:border-box;border:1px solid var(--line);background:var(--panel);overflow:hidden;font:400 13px/1.5 var(--sans);color:var(--muted);margin:0 0 16px}
+html[data-brand=getrektd] .launch-creator[data-layout=pump] .draft-art img{display:block;width:100%;height:100%;object-fit:contain}
+html[data-brand=getrektd] .launch-creator[data-layout=pump] .launch-draft-preview h3{font:650 19px/1.4 var(--sans);margin:12px 0 2px;overflow-wrap:anywhere}
+html[data-brand=getrektd] .launch-creator[data-layout=pump] .draft-description{font:400 13px/1.6 var(--sans);margin-top:12px;color:var(--muted);overflow-wrap:anywhere}
+html[data-brand=getrektd] .launch-creator[data-layout=pump] .draft-quote{font:400 12px/1.6 var(--sans);margin-top:12px;color:var(--accent);overflow-wrap:anywhere}
+html[data-brand=getrektd] .launch-draft-tools{border-top:1px solid var(--line);margin-top:20px;padding-top:8px}
+html[data-brand=getrektd] .launch-draft-tools summary{cursor:pointer;min-height:44px;align-content:center;font:500 13px/1.5 var(--sans)}
+html[data-brand=getrektd] .launch-draft-tools button{display:block;width:100%;margin:8px 0;min-height:44px;font-size:12px}
+html[data-brand=getrektd] .launch-compose .launch-form-status{font:400 12px/1.6 var(--sans);color:var(--accent);margin:12px 0}
+html[data-brand=getrektd] .launch-compose .launch-form-status:empty{display:none}
+@media(max-width:839px){
+ html[data-brand=getrektd] .launch-creator[data-layout=pump] .launch-creator-body{grid-template-columns:minmax(0,1fr);gap:28px}
+ html[data-brand=getrektd] .launch-creator[data-layout=pump] .launch-draft-preview{position:static;max-width:420px;width:100%}
+ html[data-brand=getrektd] .launch-creator[data-layout=pump] .launch-creator-heading h2{font-size:25px}
+}
+@media(max-width:379px){html[data-brand=getrektd] .launch-creator[data-layout=pump] .launch-form{grid-template-columns:minmax(0,1fr)}}
+html[data-brand=getrektd] .launch-compose .launch-live{margin-top:24px;padding-top:24px;border-top:1px solid var(--line)}
+html[data-brand=getrektd] .launch-provider-row{display:flex;align-items:center;gap:16px;justify-content:space-between;margin-bottom:22px}
+html[data-brand=getrektd] .launch-provider-row label{font:600 13px/1.5 var(--sans)}
+html[data-brand=getrektd] .launch-provider-row select{max-width:220px;min-height:44px;padding:9px 12px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font:400 13px/1.5 var(--sans)}
+html[data-brand=getrektd] .launch-compose .launch-live h2{font:650 19px/1.4 var(--sans);margin:0 0 8px}
+html[data-brand=getrektd] .launch-compose .launch-live p{font:400 12px/1.6 var(--sans);margin:8px 0;color:var(--muted)}
+html[data-brand=getrektd] .launch-compose .launch-live .pump-selected-quote{color:var(--accent)}
+html[data-brand=getrektd] .launch-compose .launch-live .pump-creator-fee{color:var(--accent);font-weight:600}
+html[data-brand=getrektd] :is(.pump-protocol-details,.launch-provider-help){border-top:1px solid var(--line);padding-top:6px;margin-top:14px}
+html[data-brand=getrektd] :is(.pump-protocol-details,.launch-provider-help) summary{cursor:pointer;min-height:44px;align-content:center;font:500 12px/1.5 var(--sans);color:var(--ink)}
+html[data-brand=getrektd] .pump-quote-status{font:400 12px/1.6 var(--sans);padding-inline-start:20px;margin:12px 0}
+html[data-brand=getrektd] .pump-protocol-details>button{font-size:12px;min-height:44px;margin-bottom:12px}
+html[data-brand=getrektd] .launch-compose .launch-live-form{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;margin-top:16px}
+html[data-brand=getrektd] .launch-compose .launch-live-form>label{font:400 12px/1.6 var(--sans);margin:0}
+html[data-brand=getrektd] .launch-compose .launch-live-form>button{font-size:13px;min-height:48px}
+html[data-brand=getrektd] :is(.pump-protocol-details,.launch-provider-help,.launch-draft-tools) summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+/* Compact show desk: the host stays, the source-market cards enter the first view. */
+html[data-brand=getrektd]{--show-space:12px;--show-card-art:58px}
+html[data-brand=getrektd] .brand-symbol{background:transparent!important;transform:none;width:36px;height:36px;padding:0;overflow:hidden}
+html[data-brand=getrektd] .brand-symbol img{display:block;width:100%;height:100%;object-fit:contain}
+html[data-brand=getrektd] .welcoming-launchpad[data-panel=discover] .rekt-game-stage{padding:12px 0 18px;gap:16px;margin:8px 0 12px}
+html[data-brand=getrektd] .rekt-pirate-wordmark{max-width:310px;margin-bottom:12px;padding:4px 6px}
+html[data-brand=getrektd] .welcoming-launchpad[data-panel=discover] .rekt-game-stage h1{font-size:25px!important;line-height:1.05;max-width:23ch!important;min-height:0}
+html[data-brand=getrektd] .rekt-contestant{margin-top:8px;padding:4px 8px;font-size:11px}
+html[data-brand=getrektd] .welcoming-launchpad .rekt-game-stage .launch-intro{font-size:12px;line-height:1.5;margin:8px 0 12px;max-width:55ch}
+html[data-brand=getrektd] .rekt-game-stage .welcome-actions{display:flex;flex-wrap:wrap;gap:8px;max-width:none}
+html[data-brand=getrektd] .rekt-game-stage .welcome-actions .rekt-enter,
+html[data-brand=getrektd] .rekt-game-stage .welcome-actions button:not(.rekt-enter){min-height:44px;font-size:12px;padding:8px 12px}
+html[data-brand=getrektd] .rekt-game-stage .launch-entry-note{font-size:10px;margin-top:8px}
+html[data-brand=getrektd] .rekt-tutor-panel:not([hidden]){position:relative;inset:auto;width:auto;padding:0;display:grid;grid-template-columns:120px minmax(0,1fr);align-items:center;gap:8px}
+html[data-brand=getrektd] .rekt-host-reaction{width:120px;max-width:120px;grid-row:1/4;margin:0}
+html[data-brand=getrektd] .rekt-cue-label{display:block;font-size:9px;text-align:start;margin:0}
+html[data-brand=getrektd] .rekt-tutor-caption{display:block;font-size:16px;line-height:1.1;padding:9px 12px;margin:0;width:auto;max-width:220px}
+html[data-brand=getrektd] .rekt-tutor-sub{display:block;font-size:10px;margin:4px 0;text-align:start}
+html[data-brand=getrektd] .rekt-pirate-stamp{display:none}
+html[data-brand=getrektd] .welcoming-launchpad .launchpad-panels{margin-bottom:12px;padding-bottom:4px;gap:4px}
+html[data-brand=getrektd] .welcoming-launchpad .launchpad-panels button{min-height:44px;font-size:12px;padding:8px}
+html[data-brand=getrektd] .welcoming-launchpad .launch-feed-heading{margin-block:8px;gap:8px}
+html[data-brand=getrektd] .welcoming-launchpad .launch-feed-heading h2{font-size:22px}
+html[data-brand=getrektd] .launch-ecosystems{display:flex;flex-wrap:wrap;gap:6px;margin-block:8px}
+html[data-brand=getrektd] .launch-ecosystems button{min-height:44px;padding:8px 14px;font-size:13px;border:1px solid var(--line);background:transparent;color:var(--ink)}
+html[data-brand=getrektd] .launch-ecosystems button[aria-pressed=true]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+html[data-brand=getrektd] .launch-ecosystem-note{font-size:11px;line-height:1.5;color:var(--muted);margin:4px 0 8px}
+html[data-brand=getrektd] .welcoming-launchpad .launch-tools{grid-template-columns:auto minmax(0,1fr) auto;gap:8px}
+html[data-brand=getrektd] .launch-pool-filters{grid-column:auto;font-size:12px}
+html[data-brand=getrektd] .launch-pool-filters[open]{grid-column:1/-1}
+html[data-brand=getrektd] .launch-pool-filters summary{cursor:pointer;min-height:44px;align-content:center}
+html[data-brand=getrektd] .launch-result-status{display:flex;flex-wrap:wrap;gap:4px 12px;margin:8px 0;font-size:11px;line-height:1.5}
+html[data-brand=getrektd] .launch-result-status .launch-partial{display:inline;margin:0;font-size:11px}
+html[data-brand=getrektd] .launch-pool-filters .launch-tabs{display:flex;flex-wrap:wrap;margin-bottom:8px}
+html[data-brand=getrektd] .welcoming-launchpad .launch-token-grid{grid-template-columns:minmax(0,1fr);gap:12px;margin-top:12px}
+html[data-brand=getrektd] .welcoming-launchpad .launch-token-card{padding:10px;border-width:1px;gap:6px}
+html[data-brand=getrektd] .welcoming-launchpad .launch-token-card::before{display:none}
+html[data-brand=getrektd] .welcoming-launchpad .launch-token-identity{grid-template-columns:var(--show-card-art) minmax(0,1fr);gap:10px;align-items:center}
+html[data-brand=getrektd] .welcoming-launchpad .launch-token-identity>.token-art{width:var(--show-card-art)!important;height:var(--show-card-art)!important;font-size:20px}
+html[data-brand=getrektd] .welcoming-launchpad .launch-token-identity>div{transform:none;margin:0;padding:6px 8px;align-self:center;min-height:46px;align-content:center}
+html[data-brand=getrektd] .welcoming-launchpad .launch-token-identity h3{font-size:16px!important;line-height:1.15}
+html[data-brand=getrektd] .welcoming-launchpad .launch-token-identity p{font-size:10px;margin-top:2px}
+html[data-brand=getrektd] .welcoming-launchpad .launch-token-identity>.token-art[data-art-state=fallback]::after{display:none}
+html[data-brand=getrektd] .launch-card-pair{margin:0;padding:6px 8px;gap:4px 8px}
+html[data-brand=getrektd] .launch-pair-assets{font-size:13px}
+html[data-brand=getrektd] .launch-quote-kind{font-size:9px;padding:2px 4px}
+html[data-brand=getrektd] .welcoming-launchpad .launch-lane{font-size:9px;margin-block:4px}
+html[data-brand=getrektd] .welcoming-launchpad .launch-card-metrics{gap:6px;margin-block:0}
+html[data-brand=getrektd] .welcoming-launchpad .launch-card-metrics dd{font-size:13px}
+html[data-brand=getrektd] .welcoming-launchpad .launch-card-metrics dt{font-size:10px}
+html[data-brand=getrektd] .welcoming-launchpad .launch-card-quote{margin:0}
+html[data-brand=getrektd] .rekt-game-stage .welcome-actions .launch-create{margin-top:0}
+html[data-brand=getrektd] .welcoming-launchpad .launch-card-actions{border-top-width:1px;padding-top:6px;gap:6px;margin-top:6px}
+html[data-brand=getrektd] .welcoming-launchpad .launch-card-actions :is(button,a){min-height:36px;font-size:11px;padding:6px 8px;align-content:center}
+.wallet-dialog{max-height:calc(100dvh - 32px);overflow:auto}
+.wallet-list{display:grid;gap:8px;margin-block:16px}
+.wallet-list button{min-height:48px;text-align:start;display:flex;align-items:center;gap:12px}
+.wallet-brand-icon{width:28px;height:28px;flex:0 0 28px;object-fit:contain;border-radius:6px}
+.wallet-brand-fallback{display:grid;place-items:center;background:var(--panel,#0b1a1f);font-size:22px}
+.wallet-dialog>button{min-height:44px;margin:4px}
+.wallet-dialog [role=status]{font-size:13px;line-height:1.5}
+@media(min-width:600px){html[data-brand=getrektd] .welcoming-launchpad .launch-token-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:900px){
+ html[data-brand=getrektd] .welcoming-launchpad[data-panel=discover] .rekt-game-stage{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);padding-block:12px 18px;gap:24px}
+ html[data-brand=getrektd] .rekt-game-stage>div:first-child{display:grid;grid-template-columns:210px minmax(0,1fr);gap:8px 16px;align-items:center}
+ html[data-brand=getrektd] .rekt-game-stage>div:first-child>.rekt-pirate-wordmark{margin:0}
+ html[data-brand=getrektd] .welcoming-launchpad[data-panel=discover] .rekt-game-stage h1{font-size:23px!important}
+ html[data-brand=getrektd] .rekt-game-stage>div:first-child>:is(.rekt-contestant,.launch-intro,.launch-entry){grid-column:1/-1;margin-block:0}
+ html[data-brand=getrektd] .welcoming-launchpad .rekt-game-stage .launch-intro{max-width:none}
+ html[data-brand=getrektd] .welcoming-launchpad .launch-token-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(min-width:1200px){html[data-brand=getrektd] .welcoming-launchpad .launch-token-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:759px){
+ html[data-brand=getrektd] .welcoming-launchpad[data-panel=discover] .rekt-game-stage{display:block;padding:8px 0 12px}
+ html[data-brand=getrektd] .rekt-pirate-wordmark{max-width:230px;margin-bottom:10px}
+ html[data-brand=getrektd] .welcoming-launchpad[data-panel=discover] .rekt-game-stage h1{font-size:23px!important;max-width:calc(100% - 88px)!important;min-height:54px}
+ html[data-brand=getrektd] .rekt-tutor-panel:not([hidden]){position:absolute;inset:42px 0 auto auto;display:block;width:76px}
+ html[data-brand=getrektd] .rekt-host-reaction{width:76px;max-width:76px}
+ html[data-brand=getrektd] :is(.rekt-cue-label,.rekt-tutor-caption,.rekt-tutor-sub){display:none}
+ html[data-brand=getrektd] .rekt-mobile-cue:not([hidden]){font-size:11px;padding:6px 8px;margin-bottom:8px}
+ html[data-brand=getrektd] .launch-ecosystems{gap:4px}
+ html[data-brand=getrektd] .launch-ecosystems button{flex:1;padding:6px;font-size:11px}
+ html[data-brand=getrektd] .welcoming-launchpad .launch-tools{grid-template-columns:minmax(0,1fr) auto}
+ html[data-brand=getrektd] .launch-pool-filters{grid-column:1/-1}
+ html[data-brand=getrektd] .welcoming-launchpad .launch-feed-heading h2{font-size:21px}
+ html[data-brand=getrektd] .rekt-game-stage .welcome-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+ html[data-brand=getrektd] .rekt-game-stage .welcome-actions :is(.rekt-enter,button:not(.rekt-enter)){grid-column:auto;font-size:10px;line-height:1.3;padding:6px;white-space:normal}
+}
+
+/* Desktop top bar: World + Purrlysium links pushed the brand into an ellipsis (HypurrLa…) at 1280. Keep the wordmark whole; let the nav and the language label give way instead. */
+@media (min-width:1024px){.top>.brand{flex:0 0 auto}.top>.brand #brand-name{max-width:none;overflow:visible;text-overflow:clip;white-space:nowrap}.top>nav{min-width:0;flex:1 1 auto}}
+@media (min-width:1024px) and (max-width:1440px){.top .top-language>span{display:none}}

@@ -1,0 +1,15 @@
+/* Hypeliysium financial identity. Legacy selectors are compatibility only, not game styling.
+   THESIS: the split-rail H identifies a direct financial tool, not a character world.
+   OWN-WORLD: petrol #04191d, pearl #f5fafb, restrained teal, substantial sans type.
+   STORY: choose the chain, create or trade, inspect before signing.
+   FIRST VIEWPORT: compact geometric wordmark, existing navigation and direct primary task.
+   FORM: owner-pinned Elysium reference, no new hero or metric claims.
+   FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance. */
+html[data-host="hypurrheaven"]{--sans:Arial,'Segoe UI',sans-serif;--head:var(--sans);--bg:#f2f7f7;--panel:#fff;--raised:#e5efef;--line:#a5bcbc;--ink:#102e33;--muted:#466168;--accent:#155e63;--accent-ink:#fff}
+html[data-host="hypurrheaven"][data-theme="dark"]{--bg:#04191d;--panel:#0b2429;--raised:#143238;--line:#426269;--ink:#f5fafb;--muted:#b1c8cc;--accent:#b6e4df;--accent-ink:#09272b;--good:#8de2b6;--bad:#ffacb8;--warn:#f0cf8d}
+html[data-host="hypurrheaven"][data-theme="blossom"]{--bg:#faf2f5;--panel:#fffafd;--raised:#efdee6;--line:#b99da9;--ink:#382331;--muted:#705363;--accent:#803f60;--accent-ink:#fff}
+html[data-host="hypurrheaven"] body{background-image:none;font-family:var(--sans);font-size:16px;--carve:var(--sans)}
+html[data-host="hypurrheaven"] .ely-brand{font:700 23px/1.1 var(--sans);letter-spacing:-.035em;gap:10px}
+html[data-host="hypurrheaven"] .ely-brand img{width:34px;height:34px;image-rendering:auto;border-radius:0}
+html[data-host="hypurrheaven"] :is(h1,h2,h3,.purr-launch-title){font-family:var(--sans);letter-spacing:-.025em}
+html[data-host="hypurrheaven"] :is(.ely-card,.purr-panel,.purr-coinbar,.purr-board-totals,.purr-king){box-shadow:none}

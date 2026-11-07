@@ -1,0 +1,94 @@
+/* Opt-in brand preview only. Inherits the user's aqua/teal palette and all
+   existing layouts and controls. The original mascot is not financial data. */
+html[data-brand=getrektd] #brand-name{font-family:Bahnschrift,'Trebuchet MS',var(--sans);font-weight:900;letter-spacing:-.055em;font-size:25px}
+html[data-brand=getrektd] .brand-symbol{font-weight:900;font-style:italic;border-radius:8px!important}
+html[data-brand=getrektd][data-view=launchpad] .top{border-bottom-color:var(--line)}
+html[data-brand=getrektd] .welcoming-launchpad .launchpad-masthead{position:relative;margin-bottom:8px}
+html[data-brand=getrektd] .welcoming-launchpad .launchpad-masthead h1{font-family:Bahnschrift,'Trebuchet MS',var(--sans);font-size:54px!important;line-height:.98;max-width:9ch!important;letter-spacing:-.04em;font-weight:900;color:var(--accent)}
+html[data-brand=getrektd] .welcoming-launchpad .launch-intro{font-size:15px;line-height:1.65;max-width:42ch;color:var(--ink)}
+html[data-brand=getrektd] .welcome-community{display:none!important}
+html[data-brand=getrektd] .welcome-practice{display:none!important}
+html[data-brand=getrektd] .rekt-tutor-panel{display:none;min-width:0;text-align:center;align-self:center;position:relative}
+html[data-brand=getrektd] .rekt-mascot{color:var(--accent);max-width:330px;margin:0 auto}
+html[data-brand=getrektd] .rekt-mascot svg{display:block;width:100%;height:auto;overflow:visible}
+html[data-brand=getrektd] .rekt-tutor-caption{font:750 20px/1.4 var(--sans);color:var(--ink)}
+html[data-brand=getrektd] .rekt-tutor-sub{font-size:13px;margin-top:4px}
+html[data-brand=getrektd] .rekt-tutorial-open{margin-top:18px;min-height:46px;border-radius:10px!important;color:var(--accent);font-size:13px}
+html[data-brand=getrektd] .rekt-mobile-tutorial{display:block;border:0;background:none;padding:12px 0 0;text-align:start;min-height:44px;color:var(--accent);font:600 13px/1.4 var(--sans);text-decoration:underline;text-underline-offset:4px}
+html[data-brand=getrektd] .rekt-concept-note{border-top:1px solid var(--line);margin-top:28px;padding-top:16px;font-size:12px;line-height:1.7}
+html[data-brand=getrektd] .rekt-create-roast{font:600 15px/1.6 var(--sans);color:var(--accent);padding-bottom:16px}
+html[data-brand=getrektd] .welcoming-launchpad .launch-feed-heading h2{font-size:22px;max-width:24ch}
+html[data-brand=getrektd] .rekt-tutorial{width:min(680px,calc(100% - 32px));max-height:calc(100dvh - 48px);margin:auto;background:var(--panel);color:var(--ink);border:1px solid var(--line);border-top:4px solid var(--accent);border-radius:18px!important;padding:24px;overscroll-behavior:contain}
+html[data-brand=getrektd] .rekt-tutorial::backdrop{background:rgb(0 0 0 / .78)}
+html[data-brand=getrektd] .rekt-dialog-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:24px}
+html[data-brand=getrektd] .rekt-progress{font:600 11px/1.5 var(--mono);color:var(--accent)}
+html[data-brand=getrektd] .rekt-close{min-height:44px;padding:8px 12px;border-radius:8px!important;font-size:12px}
+html[data-brand=getrektd] #rekt-lesson-title{font:800 30px/1.1 Bahnschrift,'Trebuchet MS',var(--sans);letter-spacing:-.03em;max-width:24ch;scroll-margin-top:20px}
+html[data-brand=getrektd] #rekt-lesson-title:focus{outline:none}
+html[data-brand=getrektd] #rekt-lesson-title:focus-visible{outline:2px solid var(--accent);outline-offset:5px}
+html[data-brand=getrektd] .rekt-lesson-roast{font:650 18px/1.6 var(--sans);color:var(--accent);margin:24px 0 18px;max-width:46ch}
+html[data-brand=getrektd] .rekt-lesson-body{font-size:15px;line-height:1.8;color:var(--ink);max-width:68ch}
+html[data-brand=getrektd] .rekt-formula{font:600 13px/1.8 var(--mono);overflow-wrap:anywhere;color:var(--ink);padding:16px;background:var(--bg);border:1px solid var(--line);border-radius:10px!important;margin-top:18px}
+html[data-brand=getrektd] .rekt-lesson-note{font-size:13px;line-height:1.8;margin-top:16px}
+html[data-brand=getrektd] .rekt-source{display:inline-block;font-size:13px;line-height:1.7;margin-top:18px;text-decoration:underline}
+html[data-brand=getrektd] .rekt-dialog-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px;border-top:1px solid var(--line);padding-top:20px}
+html[data-brand=getrektd] .rekt-dialog-actions button{min-height:46px;border-radius:10px!important;padding:10px 15px;font-size:13px}
+html[data-brand=getrektd] .rekt-dialog-actions .primary{margin-inline-start:auto}
+@media(min-width:900px){
+ html[data-brand=getrektd] .welcoming-launchpad[data-panel=discover] .launchpad-masthead{padding:30px 0 24px;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:44px}
+ html[data-brand=getrektd] .welcoming-launchpad .launchpad-masthead h1{font-size:clamp(72px,7vw,104px)!important;max-width:9ch!important}
+ html[data-brand=getrektd] .welcoming-launchpad .launch-intro{font-size:17px}
+ html[data-brand=getrektd] .rekt-tutor-panel{display:block}
+ html[data-brand=getrektd] .rekt-mobile-tutorial{display:none}
+ html[data-brand=getrektd] .welcoming-launchpad .launch-feed-heading h2{font-size:28px;max-width:none}
+}
+@media(max-width:759px){
+ html[data-brand=getrektd] .welcoming-launchpad .launchpad-masthead{padding:12px 0 4px}
+ html[data-brand=getrektd] .welcoming-launchpad .launchpad-masthead h1{font-size:48px!important}
+ html[data-brand=getrektd] .welcoming-launchpad .launchpad-masthead{margin-bottom:0}
+ html[data-brand=getrektd] .welcoming-launchpad .launchpad-panels{margin-bottom:12px}
+ html[data-brand=getrektd] .welcoming-launchpad .launch-feed-heading{margin-block:10px}
+ html[data-brand=getrektd] .welcoming-launchpad .launch-intro{font-size:14px;margin:12px 0 16px;max-width:44ch}
+ html[data-brand=getrektd] .rekt-tutorial{padding:20px;max-height:calc(100dvh - 24px)}
+ html[data-brand=getrektd] #rekt-lesson-title{font-size:27px}
+ html[data-brand=getrektd] .rekt-lesson-roast{font-size:17px;margin-block:20px 16px}
+ html[data-brand=getrektd] .rekt-dialog-top{margin-bottom:20px}
+ html[data-brand=getrektd] .rekt-dialog-actions button{flex:1 1 auto}
+ html[data-brand=getrektd] .rekt-dialog-actions .primary{margin-inline-start:0}
+}
+
+/* User-corrected concept: the entrance is the game show, not a friendly hero
+   with a separate roast button. Static marquee bulbs are illustration, never
+   telemetry, a countdown or a prize/odds display. */
+html[data-brand=getrektd] .welcoming-launchpad[data-panel=discover] .rekt-game-stage{background:var(--panel);border:1px solid var(--line);border-radius:24px!important;padding:32px 24px 28px;gap:24px;margin:16px 0 20px;isolation:isolate}
+html[data-brand=getrektd] .welcoming-launchpad[data-panel=discover] .rekt-game-stage::before{display:block;content:'';position:absolute;inset:0 18px auto;height:12px;opacity:.65;z-index:0;pointer-events:none;background:radial-gradient(circle,var(--accent) 2px,transparent 3px) center/24px 12px repeat-x}
+html[data-brand=getrektd] .welcoming-launchpad[data-panel=discover] .rekt-game-stage::after{display:block;content:'';position:absolute;inset:auto 26px -1px;height:2px;width:auto;background:var(--accent);pointer-events:none}
+html[data-brand=getrektd] .welcoming-launchpad[data-panel=discover] .rekt-game-stage h1{font-size:44px!important;line-height:1;max-width:none!important;font-weight:900;letter-spacing:-.035em;text-wrap:balance}
+html[data-brand=getrektd] .rekt-contestant{font:700 13px/1.6 var(--sans);color:var(--ink);margin-top:16px;max-width:42ch}
+html[data-brand=getrektd] .welcoming-launchpad .rekt-game-stage .launch-intro{font-size:15px;line-height:1.65;margin-block:12px 22px;max-width:45ch;color:var(--muted)}
+html[data-brand=getrektd] .rekt-game-stage .welcome-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+html[data-brand=getrektd] .rekt-game-stage .welcome-actions .rekt-enter{grid-column:1/-1;min-height:54px;font-size:16px;font-weight:850;letter-spacing:.025em}
+html[data-brand=getrektd] .rekt-game-stage .welcome-actions button:not(.rekt-enter){min-height:46px;font-size:12px;font-weight:650;background:var(--bg);color:var(--ink);border-color:var(--line);padding:10px 12px}
+html[data-brand=getrektd] .rekt-mobile-tutorial,html[data-brand=getrektd] .rekt-tutorial-open{display:none!important}
+html[data-brand=getrektd] .rekt-tutor-caption{font-size:21px;max-width:24ch;margin-inline:auto}
+html[data-brand=getrektd] .rekt-tutor-sub{font-size:14px;line-height:1.7}
+html[data-brand=getrektd] .rekt-create-roast{max-width:65ch}
+html[data-brand=getrektd] .welcoming-launchpad[data-panel=create] .launchpad-masthead h1{font-size:42px!important;max-width:20ch!important;line-height:1.1}
+html[data-brand=getrektd] .welcoming-launchpad[data-panel=create] .launchpad-masthead{padding-block:14px 16px;margin-bottom:10px}
+html[data-brand=getrektd] .launch-creator-heading h2,html[data-brand=getrektd] .launch-live>h2{overflow-wrap:anywhere}
+html[data-brand=getrektd] .launch-creator-heading button{white-space:normal;line-height:1.5}
+@media(min-width:900px){
+ html[data-brand=getrektd] .welcoming-launchpad[data-panel=discover] .rekt-game-stage{grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:36px;padding:42px 36px 32px}
+ html[data-brand=getrektd] .welcoming-launchpad[data-panel=discover] .rekt-game-stage h1{font-size:clamp(58px,5.5vw,80px)!important;max-width:14ch!important}
+ html[data-brand=getrektd] .rekt-game-stage .welcome-actions{max-width:510px}
+ html[data-brand=getrektd] .rekt-game-stage .rekt-mascot{max-width:360px}
+}
+@media(max-width:759px){
+ html[data-brand=getrektd] .welcoming-launchpad[data-panel=discover] .rekt-game-stage{margin-top:10px;padding:28px 18px 22px}
+ html[data-brand=getrektd] .welcoming-launchpad[data-panel=discover] .rekt-game-stage h1{font-size:40px!important}
+ html[data-brand=getrektd] .rekt-contestant{font-size:12px;line-height:1.5;margin-top:14px}
+ html[data-brand=getrektd] .welcoming-launchpad .rekt-game-stage .launch-intro{font-size:14px;line-height:1.6;margin-block:12px 18px}
+ html[data-brand=getrektd] .rekt-game-stage .welcome-actions .rekt-enter{font-size:14px;min-height:50px}
+ html[data-brand=getrektd] .rekt-game-stage .welcome-actions button:not(.rekt-enter){font-size:12px;min-height:48px;padding:8px}
+ html[data-brand=getrektd] .welcoming-launchpad[data-panel=create] .launchpad-masthead h1{font-size:32px!important}
+}

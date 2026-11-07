@@ -1,0 +1,96 @@
+{
+  "name": "Hypeliysium on Elysium",
+  "dex": "Hypeliysium Swap",
+  "chainId": 99901,
+  "chainName": "Elysium",
+  "local": false,
+  "rpc": "https://rpc.stockium.fun",
+  "rpcFailover": [
+    "https://rpc-live.elysp.com",
+    "https://rpc.stockium.fun",
+    "https://rpc.thekleos.xyz"
+  ],
+  "walletRpc": "https://rpc-live.elysp.com",
+  "walletRpcs": [
+    "https://rpc-live.elysp.com",
+    "https://rpc.stockium.fun"
+  ],
+  "explorer": "https://scan.elysp.com",
+  "whype": "0xbA876237B0F021A6c6D852d6c26E107997cC5E81",
+  "deployer": "0xDbd7Cca1D0541497eD9d552B21B16dDD7689b360",
+  "treasury": "0x0235006e02E93b23a45d95f2d66CED11d425CAe7",
+  "owner": "0x0235006e02E93b23a45d95f2d66CED11d425CAe7",
+  "generatedAt": "2026-11-04T22:32:47.122Z",
+  "broadcast": true,
+  "carbon": {
+    "poolManager": "0x06C63714fBf1F5753017123E2FcfdEde4540B2c4",
+    "launcher": "0x0347cf846effafa2c3ed020abafcc986d83fb99e",
+    "feeHook": "0x7655d3c01aac3162a0f26ffaacd855f73fd3a0cc",
+    "referralVault": "0x60ac4f63ceb506a818c857a0176a2257c43113a4",
+    "pairRegistry": "0x8d49bc8a266b2160e080639759820ab0591b63f9",
+    "tokenImplementation": "0xcd5b84f4b65034c784e959064f8d2c4af587ecbb",
+    "tradeRouter": "0xe7a0288da9c1581dde57fccbb8ddba5b0ea152eb",
+    "zapRouter": "0x0ca6fa94a736bbacef531ef3f9c804e69be3ff82",
+    "deployBlock": 583984,
+    "referralDirectBps": 2000,
+    "platformVolumeBps": 100,
+    "hybridRewards": true,
+    "traderReferralBps": 3000
+  },
+  "bridge": {
+    "parentChainId": 999,
+    "parentRpc": "https://rpc.hyperliquid.xyz/evm",
+    "inbox": "0xce59f8B65ad41C9DAE4c07A0571a39824bD92cff",
+    "bridge": "0x503D572157113fAaaD4DbeD2647Bb10b949216B6",
+    "rollup": "0x508C173dFe5F737B3493195Bf785d71fA76fD217",
+    "outbox": "0xeC6B106DfA14428FE5Eec2a4065a7be599f02728",
+    "arbSys": "0x0000000000000000000000000000000000000064",
+    "confirmPeriodBlocks": 483840,
+    "sequencerInbox": "0x7f3Ff53aecB87261206ad3bDc27A88b6D8420fa6",
+    "l1GatewayRouter": "0x5D24f760DD7664b4214bDD4B04a3f62B9edd68c0",
+    "l1StandardGateway": "0xd97B30dE0bA0C2eAeE942afce77530e06c5F122c",
+    "l1WhypeGateway": "0x4ADeEcE99eDfa453e40E79FfD2F179008F5a91EB",
+    "l1Whype": "0x5555555555555555555555555555555555555555",
+    "l2GatewayRouter": "0x61EbbC3A29f1970aF2Ce862bA9c5364832E14d17",
+    "l2StandardGateway": "0x5DC84e4Cb0F9082246E92a5585C5395592B1aF1f",
+    "l2WhypeGateway": "0xb916e67307ad52955d37B6C123CF1A79c10855B6"
+  },
+  "caps": {
+    "maxTradeHype": 25,
+    "maxDevBuyHype": 5,
+    "maxOpeningMarketCapHype": 500,
+    "defaultOpeningMarketCapHype": 20
+  },
+  "risk": [
+    "Unaudited contracts, live with small caps. Only use money you can lose.",
+    "This UI caps trades at 25 HYPE, opening buys at 5 HYPE and opening market caps at 500 HYPE during the test. The contracts themselves are permissionless.",
+    "HYPE pad liquidity is locked forever by design: there is no admin, no pause and no upgrade on launched pools.",
+    "WHYPE (Kinetiq aeWETH) is upgradeable by Kinetiq. The Uniswap V4 PoolManager owner on Elysium is an external EOA that can set a protocol fee of up to 0.1%.",
+    "Holder rewards are fee-share payouts and may be treated as dividends where you live."
+  ],
+  "disclosures": [
+    "Hypeliysium Swap V3: unmodified Uniswap V3 core + periphery. Only privileged role: factory owner (can add fee tiers, switch on a protocol fee of 1/4 to 1/10 of LP fees, transfer ownership). Cannot move LP funds, pause or upgrade.",
+    "HYPE pad: launches are permissionless and immutable. Platform takes a constant 1% of volume (less the 0.5% keeper bounty); 30% of it to the trader's link referrer (if any), 20% to the creator's referrer (if any), the rest to the treasury. Referrers are paid only from the platform's share.",
+    "PairRegistry owner can approve or deny pair currencies for NEW launches only (the disable switch). Existing pools keep trading.",
+    "Nothing is upgradeable. No contract can move user funds."
+  ],
+  "reuseAuthorized": true,
+  "swap": {
+    "factory": "0x4979271ccA58d29CeA1435BCe0aaeC3B4a506fD4",
+    "positionManager": "0x0e3e39391721A5d685337271cF43765c7943831e",
+    "swapRouter": "0xf0525BA3093E46453e5b4a767d8125b1D86dc382",
+    "quoterV2": "0x8e576030Aa7ba015Df2Ecc9683d4171Adc93Bf73",
+    "tickLens": "0x66da0B600878ea74844000b9311018474Cb51B92",
+    "positionDescriptor": "0x40D5eDa1f2D187c8a2b593658E31144583e15BD0",
+    "nftDescriptorLibrary": "0x2D9612C435299925E14afc8611124B209cbc6b6A",
+    "poolInitCodeHash": "0xe34f199b19b2b4f47f68442619d555527d244f78a3297ea89325f843f87b8b54",
+    "feeTiers": [
+      500,
+      3000,
+      10000
+    ],
+    "factoryOwner": "0x0235006e02E93b23a45d95f2d66CED11d425CAe7",
+    "deployBlock": 582950,
+    "listedTokens": []
+  }
+}

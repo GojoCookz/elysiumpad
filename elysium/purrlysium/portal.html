@@ -1,0 +1,45 @@
+<div class="purr-portal">
+  <div class="purr-scene" aria-hidden="true"></div>
+  <div class="purr-fx" aria-hidden="true">
+    <i class="purr-fx-falls"></i><i class="purr-fx-water"></i>
+    <i class="purr-torch t1"></i><i class="purr-torch t2"></i><i class="purr-torch t3"></i><i class="purr-torch t4"></i>
+    <i class="purr-spark s1"></i><i class="purr-spark s2"></i><i class="purr-spark s3"></i><i class="purr-spark s4"></i><i class="purr-spark s5"></i><i class="purr-spark s6"></i><i class="purr-spark s7"></i><i class="purr-spark s8"></i>
+  </div>
+  <div class="purr-scene-glow" aria-hidden="true"></div>
+  <i class="purr-spill" aria-hidden="true"></i>
+  <div class="purr-doorway">
+    <span class="purr-lintel" aria-hidden="true"><b class="l">Markets</b><b class="r">Launch</b></span>
+    <a class="purr-door l" href="#markets" data-purr-go="markets" aria-label="Enter the Markets">
+      <span class="purr-inside" aria-hidden="true"><i class="purr-motes"></i></span><span class="purr-leaf" aria-hidden="true"></span><span class="purr-edge" aria-hidden="true"></span>
+    </a>
+    <a class="purr-door r" href="#create" data-purr-go="create" aria-label="Enter Launch">
+      <span class="purr-inside" aria-hidden="true"><i class="purr-motes"></i></span><span class="purr-leaf" aria-hidden="true"></span><span class="purr-edge" aria-hidden="true"></span>
+    </a>
+  </div>
+  <i class="purr-flash" aria-hidden="true"></i>
+  <button class="purr-host-btn" type="button" aria-controls="purr-dialog" aria-label="Talk to Rektd, your host">
+    <img class="purr-host" src="/purrlysium/rektd-host.png" width="48" height="48" alt="">
+  </button>
+  <i class="purr-hearts" aria-hidden="true"></i>
+  <section class="purr-dialog" id="purr-dialog" role="dialog" aria-modal="false" aria-labelledby="purr-dialog-name" hidden>
+    <div class="purr-dialog-face" aria-hidden="true"><img src="/purrlysium/rektd-face.png" width="28" height="26" alt=""></div>
+    <div class="purr-dialog-main">
+      <p class="purr-dialog-name" id="purr-dialog-name">Rektd <small>your host</small></p>
+      <p class="purr-dialog-text" aria-live="polite"></p>
+      <div class="purr-dialog-choices"></div>
+      <span class="purr-dialog-next" aria-hidden="true">▼</span>
+    </div>
+    <button class="purr-dialog-close" type="button" aria-label="Close dialogue">×</button>
+  </section>
+  <nav class="purr-command" aria-label="Quick start">
+    <form class="purr-ca" action="/" method="get" role="search">
+      <label class="purr-sr" for="purr-ca-input">Paste a coin address</label>
+      <input id="purr-ca-input" name="token" inputmode="text" autocomplete="off" spellcheck="false" placeholder="Paste coin address 0x…" pattern="0x[0-9a-fA-F]{40}" required>
+      <button type="submit">Open</button>
+    </form>
+    <a class="purr-cmd gold" href="#create" data-purr-go="create">Launch now</a>
+    <a class="purr-cmd" href="#markets" data-purr-go="markets">Markets</a>
+    <a class="purr-cmd" href="#markets" data-purr-go="callouts">Callouts</a>
+    <a class="purr-cmd world" href="/world/">Enter the World</a>
+  </nav>
+</div>

@@ -1,0 +1,57 @@
+{
+  "product": "leveragepad",
+  "name": "Leveragepad",
+  "network": "solana-mainnet",
+  "freshProgramRequired": true,
+  "quoteAssets": [
+    {
+      "mint": "2zCo6bUowJMvr89ajxuWsPadAqJ2F9akCkxumNsSdgsL",
+      "symbol": "xBTC",
+      "name": "Hylo Leveraged BTC",
+      "kind": "leveraged",
+      "ecosystem": "bitcoin"
+    },
+    {
+      "mint": "cbbtcf3aa214zXHbiAZQwf4122FBYbraNdFqgw4iMij",
+      "symbol": "cbBTC",
+      "name": "Coinbase Wrapped BTC",
+      "kind": "spot",
+      "ecosystem": "bitcoin"
+    },
+    {
+      "mint": "3NZ9JMVBmGAqocybic2c7LQCJScmgsAZ6vQqTDzcqmJh",
+      "symbol": "WBTC",
+      "name": "Wrapped BTC (Portal)",
+      "kind": "spot",
+      "ecosystem": "bitcoin"
+    },
+    {
+      "mint": "7ga6rtE9qSb3wdEiDCpTu2kHqoGVfT52jD8ign1rYTvx",
+      "symbol": "xHYPE",
+      "name": "Hylo Leveraged HYPE",
+      "kind": "leveraged",
+      "ecosystem": "hyper"
+    },
+    {
+      "mint": "98sMhvDwXj1RQi5c5Mndm3vPe9cBqPrbLaufMXFNMh5g",
+      "symbol": "HYPE",
+      "name": "HYPE (Solana token)",
+      "kind": "spot",
+      "ecosystem": "hyper"
+    },
+    {
+      "mint": "4sWNB8zGWHkh6UnmwiEtzNxL4XrN7uK9tosbESbJFfVs",
+      "symbol": "xSOL",
+      "name": "Hylo Leveraged SOL",
+      "kind": "leveraged",
+      "ecosystem": "solana"
+    },
+    {
+      "mint": "So11111111111111111111111111111111111111112",
+      "symbol": "SOL",
+      "name": "Solana",
+      "kind": "spot",
+      "ecosystem": "solana"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "Hypeliysium",
+  "short_name": "Hypeliysium",
+  "description": "Launch and trade on Elysium. Coming with Elysium mainnet.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#04191d",
+  "theme_color": "#04191d",
+  "icons": [
+    { "src": "/purrlysium/mark.svg", "sizes": "any", "type": "image/svg+xml" },
+    { "src": "/purrlysium/brand-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

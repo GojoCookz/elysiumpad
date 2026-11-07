@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hypeliysium docs</title>
+<meta name="description" content="How Hypeliysium works: HYPE pad launches, Hypeliysium Swap pools, fees, the bridge and the risks.">
+<meta name="theme-color" content="#0b1d22">
+  <link rel="icon" type="image/png" sizes="32x32" href="/purrlysium/favicon-32.png">
+<link rel="stylesheet" href="/elysium/app.css">
+</head>
+<body>
+<header class="ely-top">
+  <a class="ely-brand" href="/"><img src="/purrlysium/mark.svg" alt="" width="32" height="32"><span><b>Hypeliysium</b> docs</span></a>
+</header>
+<main class="ely-main">
+  <section class="ely-card"><h1>Hypeliysium docs</h1>
+    <p class="ely-muted">Coming with Elysium mainnet. Not affiliated with Kinetiq or Hyperliquid. Unaudited: only use money you can lose.</p></section>
+  <section class="ely-card"><h2>1. Launching on the HYPE pad</h2>
+    <p>You pick a name, symbol, supply, opening market cap and fees, and make a required opening buy (at most 10% of the opening market cap). The contract seeds the whole supply into a Uniswap V4 pool on the official Elysium PoolManager, with the Hypeliysium fee hook. The liquidity position has no removal path in code, so it stays locked forever. For the first 120 seconds the buy fee starts high and falls to your rate; the extra goes to the platform, which makes sniping your own launch pointless.</p></section>
+  <section class="ely-card"><h2>2. Fees</h2>
+    <ul>
+      <li>Your buy and sell fee must be above 1%. The platform takes a fixed 1% of volume. It is a constant in the contract and nobody can raise it.</li>
+      <li>A 0.5% keeper bounty is paid from collected fees to whoever sweeps them, then the rest is split: platform first, then your creator share, then holders.</li>
+      <li>If someone referred you, they receive 30% of the platform cut from your launch; the treasury keeps the rest.</li>
+      <li>Holder rewards stream over 24 hours: 80% by holding size, 20% split equally between wallets that held at least 0.5% of supply for 24 hours. These are fee-share payouts and may be treated as dividends where you live.</li>
+    </ul></section>
+  <section class="ely-card"><h2>3. Hypeliysium Swap pools</h2>
+    <p>Unmodified Uniswap V3 core and periphery with 0.05%, 0.3% and 1% pools. LP fees go to liquidity providers; the protocol fee is off. Concentrated positions stop collecting fees outside their range and can be worth less than holding the two tokens. We show past numbers only and never project returns.</p></section>
+  <section class="ely-card"><h2>4. Bridge</h2>
+    <p>Deposits and withdrawals use Kinetiq's official bridge contracts from your own wallet. HYPE deposits arrive in minutes. Withdrawals back to HyperEVM wait for the rollup's challenge period (several days) and are then claimed on HyperEVM.</p></section>
+  <section class="ely-card"><h2>5. What we can and cannot do</h2>
+    <p>Launched pools have no admin, no pause and no upgrade. The pair registry owner (a multisig) can stop NEW launches for a pair currency; existing pools keep trading. The Hypeliysium Swap factory owner (the same multisig) can add fee tiers or switch on a protocol fee, but cannot move anyone's funds. Contract addresses and runtime hashes are on the app's Developers tab after launch.</p></section>
+</main>
+<footer class="ely-footer">Hosted by Rektd · Not affiliated with Kinetiq or Hyperliquid</footer>
+</body>
+</html>
