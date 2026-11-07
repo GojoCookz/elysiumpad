@@ -1,6 +1,28 @@
 # Build and deployment record
 
-## Aquatic and creator-wallet refinement — verified candidate, 2026-11-07
+## Aquatic and creator-wallet refinement — deployed, 2026-11-07
+
+Release commit: `b9ccf9e`. Dedicated Railway deployment:
+`989c7a8b-0e42-47a9-844d-b65a0ca2c1af`. Public URL:
+https://hypeliysium.fun . The public CSS, main application and Solana bundle
+matched the committed release bytes exactly. This record is a documentation-only
+follow-up; it does not change the deployed application.
+
+Post-deployment checks passed all 20 route/viewport combinations, live 3/6/9
+columns, reload persistence, keyboard selection, motion/pause/reduced-motion,
+creator validation/persistence, signing-wallet picker, mobile HLYS disclosure,
+Elysium density and table-to-card switching. Quote defaults and unsupported-quote
+preservation, optional game casting and aquarium interaction also passed at
+390/1440. The deployed Create form passed 94 automated accessibility rules with
+zero violations; this does not establish full WCAG conformance. Public
+capabilities advertise the supported recipient choices. Three invalid-recipient
+build requests returned HTTP 400 before admission/simulation.
+
+The first broad public regression timed out on HLYS trade rendering. A subsequent
+scanner request returned HLYS with HTTP 200 and partial:false; the diagnostic
+rerun then passed all 20 views without page errors. The transient timeout's root
+cause was not established; no backend fix is claimed for it. Five approved live
+screenshots were uploaded to the owner's thread.
 
 The owner rejected the prior visual approval below; it is historical, not approval
 for this revision. Two independent code reviews passed. The visual review failed
