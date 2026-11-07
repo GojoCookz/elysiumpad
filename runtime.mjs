@@ -96722,6 +96722,7 @@ ${portal}</section>`)) });
   return async function handle(req, res, url) {
     if (!hosts.has(requestHost(req))) return app2 ? app2(req, res, url) : false;
     const p2 = url.pathname;
+    if (p2 === '/healthz' && ['GET', 'HEAD'].includes(req.method)) return jsonOut(res, heavenOn && purrApp ? 200 : 503, { service: 'hypeliysium', ui: heavenOn ? 'standalone' : 'legacy', chainId: 99901 });
     if (WORLD_DIR && p2 === "/world/api/travel/issue") return jsonOut(res, 503, { error: "World travel is unavailable while destinations are verified. Stay in Atlantis." });
     if (purrApp && solana && p2.startsWith("/api/purrlysium/solana/")) return solana(req, res, url);
     if (purrApp && p2 === "/api/elysium/rpc") return purrApp(req, res, url);
@@ -96784,9 +96785,9 @@ async function createElysiumApp({ root: root2, env = process.env, fetcher = fetc
   const MAX_LAG = 150n;
   const post = async (url, method, params, id = 1) => {
     const r = await fetcher(url, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ jsonrpc: "2.0", id, method, params }), signal: AbortSignal.timeout(method === "eth_blockNumber" ? 5e3 : 25e3) });
-    if (!r.ok && r.status >= 500) throw new Error(`HTTP ${r.status}`);
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
     const out = await r.json();
-    if (out.error && out.error.code === -32e3 && /unavailable|timed out|timeout|overloaded|no backend/i.test(String(out.error.message))) throw new Error(out.error.message);
+    if (out.error && (out.error.code === -32005 || /rate limit|server busy|unavailable|timed out|timeout|overloaded|no backend/i.test(String(out.error.message)))) throw new Error(out.error.message);
     return out;
   };
   const probe = async (url) => {

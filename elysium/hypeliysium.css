@@ -13,3 +13,8 @@ html[data-host="hypurrheaven"] .ely-brand{font:700 23px/1.1 var(--sans);letter-s
 html[data-host="hypurrheaven"] .ely-brand img{width:34px;height:34px;image-rendering:auto;border-radius:0}
 html[data-host="hypurrheaven"] :is(h1,h2,h3,.purr-launch-title){font-family:var(--sans);letter-spacing:-.025em}
 html[data-host="hypurrheaven"] :is(.ely-card,.purr-panel,.purr-coinbar,.purr-board-totals,.purr-king){box-shadow:none}
+/* Release review: make costs and disclosure affordances explicit. */
+html[data-host="hypurrheaven"] .purr-launch-cost small{display:block;font-size:1rem;font-weight:700;color:var(--ink);padding:12px;border:1px solid var(--line);background:var(--raised)}
+html[data-host="hypurrheaven"] .market-data-note summary{display:list-item;list-style:disclosure-closed;cursor:pointer;padding:12px;border:1px solid var(--line);background:var(--panel)}
+html[data-host="hypurrheaven"] .market-data-note[open] summary{list-style:disclosure-open}
+@media(max-width:600px){html[data-host="hypurrheaven"] .purr-srcs{flex-wrap:wrap}html[data-host="hypurrheaven"] .purr-srcs>.purr-muted{flex-basis:100%;padding-top:8px}}
