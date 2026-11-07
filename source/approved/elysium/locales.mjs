@@ -1,6 +1,22 @@
 // English keys are readable fallbacks. Columns: es, pt-BR, zh-CN, ja, ko.
 // Generated translations; financial terminology requires native review before launch.
 export const COPY = `
+An idea.|Una idea.|Uma ideia.|一个想法。|アイデア。|하나의 아이디어.
+A new market.|Un nuevo mercado.|Um novo mercado.|一个新市场。|新しい市場へ。|새로운 시장.
+SOLANA LAUNCHPAD|LANZADOR EN SOLANA|LANÇAMENTOS NA SOLANA|SOLANA 代币发行平台|SOLANA ローンチパッド|SOLANA 토큰 출시 플랫폼
+THE ECOSYSTEM TOKEN|EL TOKEN DEL ECOSISTEMA|O TOKEN DO ECOSSISTEMA|生态代币|エコシステムトークン|생태계 토큰
+Launch your coin. Find your community. Explore the Solana ecosystem with Hypeliysium.|Lanza tu moneda. Encuentra tu comunidad. Explora el ecosistema Solana con Hypeliysium.|Lance sua moeda. Encontre sua comunidade. Explore o ecossistema Solana com Hypeliysium.|发行你的代币，找到你的社区。与 Hypeliysium 一起探索 Solana 生态。|コインを作り、コミュニティと出会う。HypeliysiumでSolanaエコシステムを探索。|토큰을 출시하고 커뮤니티를 만나세요. Hypeliysium과 함께 Solana 생태계를 탐색하세요.
+Launch a coin ↗|Lanzar moneda ↗|Lançar moeda ↗|发行代币 ↗|コインを作成 ↗|토큰 출시 ↗
+Explore markets ↓|Explorar mercados ↓|Explorar mercados ↓|探索市场 ↓|市場を見る ↓|시장 탐색 ↓
+Explore HLYS →|Explorar HLYS →|Explorar HLYS →|探索 HLYS →|HLYSを見る →|HLYS 탐색 →
+Explore markets|Explorar mercados|Explorar mercados|探索市场|市場を探す|시장 탐색
+Hypeliysium is a Solana launchpad. HLYS is its ecosystem token.|Hypeliysium es una plataforma de lanzamiento en Solana. HLYS es su token de ecosistema.|Hypeliysium é uma plataforma de lançamento na Solana. HLYS é seu token de ecossistema.|Hypeliysium 是 Solana 代币发行平台。HLYS 是其生态代币。|HypeliysiumはSolanaのローンチパッドです。HLYSはそのエコシステムトークンです。|Hypeliysium은 Solana 토큰 출시 플랫폼입니다. HLYS는 생태계 토큰입니다.
+Give your coin a face|Dale una imagen a tu moneda|Dê uma imagem à sua moeda|为代币添加形象|コインの画像を選ぶ|토큰에 이미지를 추가하세요
+Choose PNG, JPG or WebP · up to 8 MB|Elige PNG, JPG o WebP · hasta 8 MB|Escolha PNG, JPG ou WebP · até 8 MB|选择 PNG、JPG 或 WebP · 最大 8 MB|PNG、JPG、WebP · 最大8 MB|PNG, JPG 또는 WebP · 최대 8 MB
+Initial buy · not included|Compra inicial · no incluida|Compra inicial · não incluída|初始购买 · 不包含|初回購入 · なし|초기 구매 · 포함되지 않음
+No initial purchase. SOL covers network fees; the quote asset sets your market pair.|Sin compra inicial. SOL cubre las comisiones de red; el activo de cotización define el par.|Sem compra inicial. SOL cobre as taxas de rede; o ativo de cotação define o par.|无初始购买。SOL 用于支付网络费用；报价资产决定交易对。|初回購入はありません。ネットワーク手数料はSOLで支払い、取引ペアは建値資産で決まります。|초기 구매는 없습니다. SOL은 네트워크 수수료를 지불하며, 호가 자산이 거래쌍을 결정합니다.
+Make it yours. Add artwork, choose a name, then review every detail before your wallet opens.|Hazla tuya. Añade una imagen, elige un nombre y revisa cada detalle antes de abrir tu cartera.|Deixe com a sua cara. Adicione uma imagem, escolha um nome e revise os detalhes antes de abrir a carteira.|添加图片、选择名称，在打开钱包前核对每个细节。|画像と名前を選び、ウォレットを開く前にすべての詳細を確認しましょう。|이미지와 이름을 선택하고 지갑을 열기 전에 모든 세부 정보를 검토하세요.
+On this page|En esta página|Nesta página|本页内容|このページの内容|이 페이지의 내용
 Funding|Financiación|Financiamento|资金|資金|자금
 Updated|Actualizado|Atualizado|更新时间|更新|업데이트
 Transaction|Transacción|Transação|交易|取引|거래
