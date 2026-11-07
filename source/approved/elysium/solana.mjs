@@ -1,5 +1,6 @@
 import { mount as mountSwap } from '../backend/client.mjs';
 import { mountPumpCreator } from '../backend/pump-creator.mjs';
+import {creatorWalletControls} from '../backend/creator-wallet.mjs';
 import { combineMarkets, elysiumMarket, marketDirectory, marketHref, marketIntro, solanaMarket, tokenSummary } from './market-directory.mjs';
 import { locale, t } from './i18n.mjs';
 const apiBase = '/api/purrlysium/solana';
@@ -66,15 +67,18 @@ export async function mountSolana(target, { h, tab, account, getWallet, isCurren
      const advanced = h('details', { class: 'purr-form-details' }, h('summary', {}, 'Advanced settings'), h('label', { for: quote.id }, 'Quote asset'), quote);
     const initial = h('input', { id: 'sol-initial-buy', value: '0', readonly: true, 'aria-describedby': 'sol-initial-note' });
     form.append(h('label', { for: initial.id }, 'Initial buy · not included'), initial, h('small', { id: 'sol-initial-note' }, 'No initial purchase. SOL covers network fees; the quote asset sets your market pair.'));
+      let updateCreator = () => {};
+      const creatorWallet = creatorWalletControls(h, account, () => updateCreator());
       const review = h('div',{class:'hlys-launch-review'});
-      const workspace=h('div',{class:'hlys-create-form'},form,optional,advanced,review);
+      const workspace=h('div',{class:'hlys-create-form'},form,creatorWallet.panel,optional,advanced,review);
       panel.append(h('p',{class:'hlys-create-intro'},'Make it yours. Add artwork, choose a name, then review every detail before your wallet opens.'),h('div', { class: 'solana-create-layout' },workspace,preview));
     // Account-scoped pending records survive switches, but unsent drafts do not.
      const creator = mountPumpCreator({ target: review, product: status.product, apiBase,
       getQuoteMint: () => quote.value,
       onQuotes: quotes => { if (!explicitQuote) { const admitted = quotes.filter(q => q.admitted && q.admissionVerified && q.launchSupported); quote.value = (admitted.find(q => q.mint === products.deployment.preferredQuote) || admitted[0])?.mint || ''; updatePreview(); } },
       storageNamespace: `purrlysium.solana.${account || 'disconnected'}`, getWallet, isActive: isCurrent, compact: true, hasAccount: () => Boolean(account),
-      getDraft: () => fields.name.value.trim() && fields.symbol.value.trim() && artwork ? { name: fields.name.value.trim(), symbol: fields.symbol.value.trim(), description: fields.description.value.trim(), image: artwork, quoteMint: quote.value } : null });
+       getDraft: () => fields.name.value.trim() && fields.symbol.value.trim() && artwork && creatorWallet.valid() ? { name: fields.name.value.trim(), symbol: fields.symbol.value.trim(), description: fields.description.value.trim(), image: artwork, quoteMint: quote.value, ...creatorWallet.read() } : null });
+      updateCreator = () => creator.update();
      form.addEventListener('input', () => { updatePreview(); creator.update(); }); form.addEventListener('change', () => { updatePreview(); creator.update(); });
      optional.addEventListener('input', creator.update); advanced.addEventListener('change', () => { updatePreview(); creator.update(); });
      updatePreview();

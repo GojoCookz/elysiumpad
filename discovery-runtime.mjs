@@ -3219,7 +3219,7 @@ function recordPumpBuild({ directory, built, message }) {
     }
     const hash2 = messageHash(message);
     rows = rows.filter((row) => row.messageHash !== hash2);
-    rows.push({ mint: built.mint, wallet: built.wallet, quoteMint: built.quote.mint, messageHash: hash2, createdAt: (/* @__PURE__ */ new Date()).toISOString() });
+    rows.push({ mint: built.mint, wallet: built.wallet, creator: built.creator ?? built.wallet, quoteMint: built.quote.mint, messageHash: hash2, createdAt: (/* @__PURE__ */ new Date()).toISOString() });
     await writeFile(file + ".tmp", JSON.stringify(rows.slice(-500)));
     await rename(file + ".tmp", file);
   };
@@ -3229,7 +3229,7 @@ function recordPumpBuild({ directory, built, message }) {
   return pending;
 }
 function matchesPumpReceipt(candidate, transaction, message, curve) {
-  return transaction?.meta?.err === null && messageHash(message) === candidate.messageHash && curve?.creator === candidate.wallet && curve?.quoteMint === candidate.quoteMint && curve?.creatorFeeBps === 300 && !!curve?.curve;
+  return transaction?.meta?.err === null && messageHash(message) === candidate.messageHash && curve?.creator === (candidate.creator ?? candidate.wallet) && curve?.quoteMint === candidate.quoteMint && curve?.creatorFeeBps === 300 && !!curve?.curve;
 }
 
 // source/artwork.mjs

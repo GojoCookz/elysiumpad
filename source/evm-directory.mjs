@@ -1,5 +1,6 @@
 import {rank} from './discovery-core.mjs';
 import {locale} from './approved/elysium/i18n.mjs';
+import {marketLayoutControls} from './approved/elysium/market-layout.mjs';
 const short=s=>s?`${s.slice(0,8)}…${s.slice(-6)}`:'';
 const amount=(v,unit)=>Number.isFinite(v)?`${v.toLocaleString(locale(),{maximumSignificantDigits:6})} ${unit}`:'Not yet available';
 export function evmDirectory(target,{h,rows,checkedAt}){
@@ -7,7 +8,7 @@ export function evmDirectory(target,{h,rows,checkedAt}){
  const sort=h('select',{id:'ely-market-sort'},h('option',{value:'depth'},'Active depth'),h('option',{value:'price'},'Price'),h('option',{value:'fdv'},'FDV'));
  const pair=h('select',{id:'ely-market-quote'},h('option',{value:''},'All quotes'),...[...new Set(rows.map(r=>r.unit))].map(q=>h('option',{value:q},q)));
  const list=h('div',{class:'market-cards',role:'list','aria-label':'Elysium token markets'}),status=h('p',{role:'status',class:'ely-muted'});
- const controls=h('div',{class:'market-controls evm-market-controls'},h('label',{for:'ely-market-search'},'Search tokens',search),h('label',{for:'ely-market-sort'},'Sort by',sort),h('label',{for:'ely-market-quote'},'Quote asset',pair));
+ const controls=h('div',{class:'market-controls evm-market-controls'},h('label',{for:'ely-market-search'},'Search tokens',search),h('label',{for:'ely-market-sort'},'Sort by',sort),h('label',{for:'ely-market-quote'},'Quote asset',pair),marketLayoutControls(h,target));
  const draw=()=>{
   const q=search.value.toLowerCase();const shown=rows.filter(r=>(!pair.value||r.unit===pair.value)&&`${r.name} ${r.symbol} ${r.address}`.toLowerCase().includes(q)).sort((a,b)=>rank(a)-rank(b)||Number(b.price>0)-Number(a.price>0)||(b[sort.value==='depth'?'activeDepth':sort.value]||0)-(a[sort.value==='depth'?'activeDepth':sort.value]||0));
   status.textContent=`${shown.length} tokens · ${shown.filter(r=>r.price>0&&!r.stale).length} live pool prices${checkedAt?' · '+new Date(checkedAt).toLocaleTimeString():''}`;

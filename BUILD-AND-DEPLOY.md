@@ -1,5 +1,41 @@
 # Build and deployment record
 
+## Aquatic and creator-wallet refinement — verified candidate, 2026-11-07
+
+The owner rejected the prior visual approval below; it is historical, not approval
+for this revision. Two independent code reviews passed. The visual review failed
+twice, then passed after replacing the drawn water curves with refracted-light
+texture, tightening density layouts, squaring mobile navigation and compacting
+the hero/HLYS treatment. Deployment of this candidate is recorded separately.
+
+The refinement adds sharp geometry, shared header/content gutters, persisted
+3/6/9-column controls and pausable aquatic motion. Local browser checks exercised
+20 route/viewport combinations without page errors or horizontal overflow.
+Additional checks verified actual desktop column counts, persistence, keyboard
+selection, reduced-motion disabling, offscreen pausing, creator address validation,
+recipient persistence and the signing-wallet picker with no installed extension.
+At 1440x1000, the shared frame measured x=80px and width=1280px; the first token
+row began at approximately y=700px after review corrections (previously 909px).
+The market accessibility scan reported zero violations. Six localized mobile
+heroes had no horizontal overflow. An isolated clean install/build/test run
+passed all 48 tests and reproduced all four generated outputs byte-for-byte.
+Automated motion checks confirmed changing transforms across five seconds;
+independent still-image review cannot establish smooth animation playback.
+
+All 48 tests passed, including seven new creator-wallet tests. They execute the
+maintained production builder with synthetic RPC responses and real SDK encoding,
+curve decoding and client reconstruction. Global admission is mocked only for
+the browser simulation fixture. No funded simulation, signing or broadcast occurred.
+The runtime now accepts a validated custom creator recipient while preserving the
+connected signing payer, 300 bps and holderReward:false. Provenance records retain
+the separate creator and continue accepting historical same-wallet records.
+
+Monerochan's original `shared/builder.js:184-209` distinguishes self/custom-wallet
+recipients from non-enforced holder promises. Its creator-signed payout helper is
+not restored here. The installed Pump SDK `src/sdk.ts:1048-1085` separates `creator`
+instruction data from `user`; Elysium launch calldata has no equivalent separate
+recipient parameter. The interface states both limitations explicitly.
+
 ## Stockium-inspired product redesign — 2026-11-07
 
 The financial shell now uses an editorial hero with an original geometric HLYS

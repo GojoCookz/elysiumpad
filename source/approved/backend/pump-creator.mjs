@@ -8,11 +8,13 @@ import {simulate} from './framework/server/api-v1/guard.mjs';
 import {confirmByPolling} from './framework/third_party/sapling/confirm.js';
 import {signLaunchWalletFirst,persistLaunchPending,encodeLaunchArtwork} from './creator-client.mjs';
 import {MAINNET_GENESIS} from './config.mjs';
+import {creatorWalletAddress,resolveCreatorWallet} from './creator-wallet.mjs';
 const node=(tag,text)=>{const el=document.createElement(tag);if(text!=null)el.textContent=text;return el;};
 const equal=(a,b)=>a.length===b.length&&a.every((value,index)=>value===b[index]);
 export async function validatePumpEnvelope({built,request,product,programId,now=Date.now()}){
-  if(built?.product!==product||built.kind!=='direct-pump-launch'||built.provider!=='pump'||built.unsigned!==true||built.wallet!==request.wallet||built.mint!==request.mint||built.payee!==request.wallet||built.quote?.mint!==request.quoteMint||built.creatorFeeBps!==PUMP_CREATOR_FEE_BPS||built.launchFeeLamports!=='0'||built.maxSolCostLamports!==null||built.simulation?.ok!==true||!/^\d+$/.test(built.simulation?.solCostLamports??'')||built.signers?.length!==2||built.signers[0]!==request.wallet||built.signers[1]!==request.mint||!Number.isSafeInteger(built.expiresAt)||built.expiresAt<=now||built.expiresAt>now+60000||!Number.isSafeInteger(built.lastValidBlockHeight)||built.lastValidBlockHeight<0)throw new Error('Pump response identity, fees, signers or expiry mismatch. Nothing was signed.');
- const creator=new PublicKey(request.wallet),curve=bondingCurvePda(new PublicKey(request.mint));if(built.creator!==request.wallet||built.curve!==curve.toBase58())throw new Error('Pump creator or curve address mismatch.');
+  const payee=creatorWalletAddress(request.payee??request.wallet,request.mint);
+  if(built?.product!==product||built.kind!=='direct-pump-launch'||built.provider!=='pump'||built.unsigned!==true||built.wallet!==request.wallet||built.mint!==request.mint||built.payee!==payee||built.quote?.mint!==request.quoteMint||built.creatorFeeBps!==PUMP_CREATOR_FEE_BPS||built.launchFeeLamports!=='0'||built.maxSolCostLamports!==null||built.simulation?.ok!==true||!/^\d+$/.test(built.simulation?.solCostLamports??'')||built.signers?.length!==2||built.signers[0]!==request.wallet||built.signers[1]!==request.mint||!Number.isSafeInteger(built.expiresAt)||built.expiresAt<=now||built.expiresAt>now+60000||!Number.isSafeInteger(built.lastValidBlockHeight)||built.lastValidBlockHeight<0)throw new Error('Pump response identity, fees, signers or expiry mismatch. Nothing was signed.');
+ const creator=new PublicKey(payee),curve=bondingCurvePda(new PublicKey(request.mint));if(built.creator!==payee||built.curve!==curve.toBase58())throw new Error('Pump creator or curve address mismatch.');
  const create=await PUMP_SDK.createV2Instruction({mint:new PublicKey(request.mint),name:request.name,symbol:request.symbol,uri:request.uri,creator,user:new PublicKey(request.wallet),mayhemMode:false,cashback:false,holderReward:false,creatorFeeBps:PUMP_CREATOR_FEE_BPS,quoteMint:new PublicKey(request.quoteMint),quoteTokenProgram:TOKEN_PROGRAM_ID});
  const instructions=[ComputeBudgetProgram.setComputeUnitLimit({units:400000}),ComputeBudgetProgram.setComputeUnitPrice({microLamports:20000}),create];
  const tx=VersionedTransaction.deserialize(Buffer.from(built.transaction,'base64'));if(tx.version!==0||tx.signatures.length!==2||tx.signatures.some(s=>s.some(Boolean)))throw new Error('Pre-signed or unsupported Pump transaction refused.');
@@ -22,7 +24,7 @@ export async function verifyPumpSimulation({rpc,tx,request,programId}){
  const [globalInfo,quote]=await Promise.all([rpc.getAccountInfo(GLOBAL_PDA,'confirmed'),new OnlinePumpSdk(rpc).resolveQuoteMint(new PublicKey(request.quoteMint))]);
  if(!globalInfo?.owner.equals(PUMP_PROGRAM_ID)||quote.mint.toBase58()!==request.quoteMint||!quote.quoteTokenProgram.equals(TOKEN_PROGRAM_ID))throw new Error('Independent Pump fee-policy or quote-program verification failed.');
  const support=pumpCreatorFeeSupport(PUMP_SDK.decodeGlobal(globalInfo),quote);if(!support.ok)throw new Error(support.reason);
- const creator=new PublicKey(request.wallet),curve=bondingCurvePda(new PublicKey(request.mint));const sim=await simulate(rpc,tx,[request.wallet,request.mint,curve.toBase58()]);
+ const creator=new PublicKey(creatorWalletAddress(request.payee??request.wallet,request.mint)),curve=bondingCurvePda(new PublicKey(request.mint));const sim=await simulate(rpc,tx,[request.wallet,request.mint,curve.toBase58()]);
  const [,mint,curveInfo]=sim.after;const decoded=curveInfo?.owner===PUMP_PROGRAM_ID.toBase58()?PUMP_SDK.decodeBondingCurveNullable({owner:PUMP_PROGRAM_ID,data:curveInfo.data}):null;
   if(mint?.owner!==TOKEN_2022_PROGRAM_ID.toBase58()||!decoded?.creator.equals(creator)||decoded.quoteMint.toBase58()!==request.quoteMint||decoded.creatorFeeBps.toString()!==String(PUMP_CREATOR_FEE_BPS)||decoded.complete)throw new Error('Independent Pump simulation rejected mint, curve, quote or creator fees.');return pumpSimulatedSolCost(sim.before[0],sim.after[0]);
 }
@@ -68,7 +70,7 @@ export function mountPumpCreator({target,product,getDraft,getQuoteMint=()=>getDr
    const image=await encodeLaunchArtwork(draft.image);if(connectWallet)await connectWallet();
      wallet=getWallet?await getWallet():await (await import('./browser-wallet.mjs')).getBrowserWallet();
    if(!wallet.publicKey)await wallet.connect();await network();const address=wallet.publicKey?.toBase58();if(!address)throw new Error('Wallet connection was not completed.');
-   const mintKeypair=Keypair.generate(),request={wallet:address,mint:mintKeypair.publicKey.toBase58(),name:draft.name,symbol:draft.symbol,quoteMint:draft.quoteMint,payee:address};
+   const mintKeypair=Keypair.generate(),request={wallet:address,mint:mintKeypair.publicKey.toBase58(),name:draft.name,symbol:draft.symbol,quoteMint:draft.quoteMint,payee:resolveCreatorWallet(draft,address,mintKeypair.publicKey.toBase58())};
    if(intent!==generation||!current())throw new Error('Draft changed. Review again.');
    status.textContent='Publishing the metadata you approved…';const metadata=await json('/api/metadata',{name:draft.name,symbol:draft.symbol,description:draft.description,image});
    if(intent!==generation||!current())throw new Error('Draft changed. Nothing was signed; published metadata may remain public.');
@@ -78,7 +80,8 @@ export function mountPumpCreator({target,product,getDraft,getQuoteMint=()=>getDr
    summary.replaceChildren(...[
     `${request.name} (${request.symbol}) · ${request.mint}`,
     `Pump.fun on Solana. Quote mint: ${request.quoteMint}. No creator buy.`,
-    'Creator trading fee: 3% on each buy and 3% on each sell, paid directly to the connected creator. Pump protocol fees are additional. Ordinary wallet transfers are not taxed; automatic xHYPE rewards are not enabled.',
+    `Signing wallet / deployer: ${request.wallet}. Creator fee recipient: ${request.payee}.`,
+    'Creator trading fee: 3% on each buy and 3% on each sell, paid directly to the selected creator wallet. Pump protocol fees are additional. Ordinary wallet transfers are not taxed; automatic holder rewards are not enabled.',
      `Simulated payer cost: ${Number(built.simulation.solCostLamports)/1e9} SOL. No operator spend cap. This is an estimate, not a fixed charge; review your wallet before signing.`
    ].map(text=>node('p',text)));
    summary.hidden=false;approve.hidden=false;status.textContent='Review this Pump launch. Nothing has been signed or sent.';

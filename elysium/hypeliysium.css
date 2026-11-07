@@ -3,7 +3,7 @@
    OWN-WORLD: petrol #04191d, pearl #f5fafb, restrained teal, substantial sans type.
    STORY: choose the chain, create or trade, inspect before signing.
    FIRST VIEWPORT: compact geometric wordmark, existing navigation and direct primary task.
-   FORM: owner-pinned Elysium reference, no new hero or metric claims.
+   FORM: owner-pinned aquatic, sharp-edged financial workspace. Never invented market data.
    FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance. */
 html[data-host="hypurrheaven"]{--sans:Arial,'Segoe UI',sans-serif;--head:var(--sans);--bg:#f2f7f7;--panel:#fff;--raised:#e5efef;--line:#a5bcbc;--ink:#102e33;--muted:#466168;--accent:#155e63;--accent-ink:#fff}
 html[data-host="hypurrheaven"][data-theme="dark"]{--bg:#04191d;--panel:#0b2429;--raised:#143238;--line:#426269;--ink:#f5fafb;--muted:#b1c8cc;--accent:#b6e4df;--accent-ink:#09272b;--good:#8de2b6;--bad:#ffacb8;--warn:#f0cf8d}
@@ -113,3 +113,119 @@ html[data-host="hypurrheaven"] .market-eyebrow{font-size:11px;font-weight:750;le
  html[data-host="hypurrheaven"] .purr-more-panel{top:auto;bottom:calc(100% + 12px);right:0;left:auto}
  html[data-host="hypurrheaven"] .ely-dock{display:none}
 }
+
+/* Aquatic refinement: one alignment grid, sharp planes, quiet refracted light. */
+html[data-host="hypurrheaven"]{--sans:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--head:var(--sans);--water-ink:#148d87;--water-opacity:.14;--page-width:1280px;--page-gutter:24px}
+html[data-host="hypurrheaven"][data-theme="dark"]{--water-ink:#60d6cc;--water-opacity:.24}
+html[data-host="hypurrheaven"][data-theme="blossom"]{--water-ink:#ad6587;--water-opacity:.22}
+html[data-host="hypurrheaven"] body{font-family:var(--sans);line-height:1.5;font-optical-sizing:auto}
+html[data-host="hypurrheaven"][data-section] #ely-main,html[data-host="hypurrheaven"] header.ely-top:has(#ely-wallet){box-sizing:border-box;width:100%;max-width:var(--page-width);margin:0 auto;padding-left:var(--page-gutter);padding-right:var(--page-gutter)}
+html[data-host="hypurrheaven"][data-section] #ely-main{padding-top:16px}
+html[data-host="hypurrheaven"] :is(.ely-card,.ely-btn,.ely-tab,.ely-pill,.ely-badge,.ely-dialog,.ely-risk,.purr-panel,.purr-more-panel,.purr-form-details,.purr-drop,.purr-amount,.purr-quote,.purr-coinbar,.purr-stepper,.purr-seg,.purr-social,.purr-chip,.purr-quick,.purr-windows div,.market-card,.market-controls,.market-spotlight,.market-token-icon,.market-trade-panel,.market-token-summary,.market-history,.market-chain,.market-chain-switch,.market-chain-link,.market-pair-chip,.market-view-button,.hlys-feature,.hlys-network,.hlys-feature .purr-address,.hlys-create-form,.hlys-upload,.solana-live-preview,.purr-help,button,input,select,textarea,fieldset){border-radius:0}
+html[data-host="hypurrheaven"] :is(.ely-card,.market-card,.hlys-feature,.purr-panel){box-shadow:none}
+html[data-host="hypurrheaven"] :is(h1,h2,h3){text-wrap:balance}
+html[data-host="hypurrheaven"] :is(button,.ely-btn):active:not(:disabled){transform:translateY(1px)}
+html[data-host="hypurrheaven"] :is(button,a,input,select,textarea,summary):focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+html[data-host="hypurrheaven"] .hlys-hero{gap:48px;grid-template-columns:minmax(0,1.4fr) minmax(300px,1fr);padding:24px 0;min-height:0;margin:0 0 16px;border-bottom:1px solid var(--line)}
+.hlys-hero::before{content:none}
+html[data-host="hypurrheaven"] .hlys-hero h1{font-size:clamp(42px,4vw,56px);line-height:1.04;font-weight:700;letter-spacing:-.04em;margin:12px 0 16px}
+.hlys-hero-copy{position:relative;z-index:1}
+.hlys-hero-description{font-size:17px;line-height:1.6;max-width:470px;margin:0 0 18px}
+.hlys-identity{display:none}
+.hlys-feature{z-index:1;padding:20px 0 20px 28px;border:0;border-left:1px solid var(--line);transform:none;background:color-mix(in srgb,var(--bg) 92%,transparent)}
+.hlys-feature-heading{display:flex;gap:14px;align-items:center;margin:16px 0}
+.hlys-feature .hlys-emblem{width:48px;height:48px;margin:0}
+html[data-host="hypurrheaven"] .hlys-feature h2{font-size:28px;font-weight:700;margin:0 0 3px}
+.hlys-feature-heading p{font-size:13px;color:var(--muted);margin:0}
+.hlys-feature .purr-address{padding:10px;margin:12px 0}
+.hlys-feature .hlys-explore{margin-top:12px}
+.hlys-feature-links{border:0;padding:0;margin:0}
+.hlys-feature-links>summary{font-size:12px;min-height:44px;display:flex;align-items:center;cursor:pointer;list-style:inside}
+@media(min-width:721px){.hlys-feature-links[open]>summary{display:none}}
+@media(max-width:720px){.hlys-feature-top{display:none}.hlys-feature-links:not([open]){display:inline-block}.hlys-feature .hlys-explore{display:inline-flex;width:auto;margin:0 0 0 12px;padding:8px 12px}.hlys-feature-heading{margin:8px 0}}
+.hlys-feature-top{gap:10px}.hlys-network{padding:3px 8px}
+.hlys-motion-control{display:inline-flex;align-items:center;gap:12px;min-height:44px;padding:6px 0;border:0;background:transparent;color:var(--muted);font:500 12px var(--sans);cursor:pointer}
+.hlys-motion-state{border-bottom:1px solid var(--accent);color:var(--ink);min-width:28px}.hlys-motion-control:disabled{cursor:default;opacity:1}
+.hlys-water{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:linear-gradient(110deg,transparent 12%,color-mix(in srgb,var(--water-ink) 9%,transparent) 78%,transparent);mask-image:linear-gradient(90deg,transparent 12%,#000 55%,#000)}
+.hlys-water-light{position:absolute;inset:-14%;opacity:calc(var(--water-opacity)*2);background-color:var(--water-ink);mask-size:680px 460px;mask-repeat:repeat;mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='680' height='460'%3E%3Cfilter id='water' x='0' y='0' width='100%25' height='100%25' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012 .018' numOctaves='2' seed='17' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='table' tableValues='0 0 0 0 0 0 0 0 .02 .12 1 .12 .02 0 0 0 0 0 0 0 0'/%3E%3C/feComponentTransfer%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 1 0 0 0 0'/%3E%3CfeGaussianBlur stdDeviation='.7'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23water)'/%3E%3C/svg%3E");transform:rotate(-12deg) scale(1.1)}
+.hlys-water-far{opacity:calc(var(--water-opacity)*.65);mask-size:850px 575px;transform:rotate(15deg) scale(1.18)}
+@media(prefers-reduced-motion:no-preference){
+ .hlys-water-near{animation:hlys-tide-near 28s ease-in-out infinite alternate}
+ .hlys-water-far{animation:hlys-tide-far 39s ease-in-out infinite alternate}
+ .hlys-hero[data-water-state]:not([data-water-state="running"]) .hlys-water-light{animation-play-state:paused}
+ @keyframes hlys-tide-near{from{transform:translate(-18px,-9px) rotate(-12deg) scale(1.08)}to{transform:translate(22px,14px) rotate(-7deg) scale(1.14)}}
+ @keyframes hlys-tide-far{from{transform:translate(12px,18px) rotate(15deg) scale(1.18)}to{transform:translate(-24px,-12px) rotate(10deg) scale(1.12)}}
+}
+@media(prefers-reduced-motion:reduce){.hlys-water-light{animation:none}.hlys-hero-copy,.hlys-feature,.solana-live-preview.is-updating{animation:none;transition:none}}
+@media(prefers-reduced-transparency:reduce),(prefers-contrast:more){.hlys-feature{background:var(--bg)}.hlys-water{opacity:.4}}
+html[data-host="hypurrheaven"] .market-intro{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;padding:4px 0 8px;min-height:0;margin:0}
+html[data-host="hypurrheaven"] .market-intro-copy{flex:1;min-width:180px}
+html[data-host="hypurrheaven"] .market-intro h2{font-size:26px;line-height:1.2;margin:0}
+html[data-host="hypurrheaven"] .market-chain-switch{margin:0;align-self:center}
+.hlys-market-section>p:empty{display:none}
+html[data-host="hypurrheaven"] .hlys-market-section>.market-data-note{margin:0 0 8px}
+html[data-host="hypurrheaven"] .hlys-market-section .market-spotlight{display:none}
+html[data-host="hypurrheaven"] .market-pair-rail{display:none}
+html[data-host="hypurrheaven"] .market-intro>.market-data-note{margin:0;font-size:12px}
+html[data-host="hypurrheaven"] .market-intro>.market-data-note>summary{list-style-position:inside}
+html[data-host="hypurrheaven"] .market-intro>.market-data-note[open]{flex-basis:100%}
+html[data-host="hypurrheaven"] header.ely-top .purr-header-nav .ely-tab{border-radius:0}
+html[data-host="hypurrheaven"] .market-controls{display:flex;flex-wrap:wrap;align-items:end;gap:12px;padding:14px 0;border:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:transparent;margin:0}
+html[data-host="hypurrheaven"] .market-controls>label{flex:1 1 110px;min-width:90px;font-size:12px;font-weight:500;gap:6px}
+html[data-host="hypurrheaven"] .market-controls>label:first-child{flex:2 1 190px}
+html[data-host="hypurrheaven"] .market-controls :is(input,select){width:100%;min-height:44px;font-size:14px;padding:10px}
+html[data-host="hypurrheaven"] .market-controls>button{font-size:13px}
+html[data-host="hypurrheaven"] .market-density{margin:0;padding:0;border:0;min-width:144px;flex:0 0 auto}
+.market-density legend{font-size:12px;font-weight:500;padding:0 0 6px}.market-density-buttons{display:flex;gap:0}
+.market-density button{width:48px;min-height:44px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font:600 14px var(--sans);cursor:pointer}
+.market-density button+button{border-left:0}.market-density button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.market-density small{font-size:10px;display:block;color:var(--muted);margin-top:4px}
+html[data-host="hypurrheaven"] .market-cards{gap:12px}
+html[data-host="hypurrheaven"] .market-card{padding:16px;min-width:0;overflow-wrap:anywhere}
+html[data-host="hypurrheaven"] .market-card-metrics{margin:18px 0;gap:12px}
+html[data-host="hypurrheaven"] .market-layout[data-columns="6"] .market-cards{grid-template-columns:repeat(6,minmax(0,1fr))}
+html[data-host="hypurrheaven"] .market-layout[data-columns="9"] .market-cards{grid-template-columns:repeat(9,minmax(0,1fr));gap:8px}
+html[data-host="hypurrheaven"] .market-layout:not([data-columns="3"]) .market-card{padding:10px;gap:8px}
+html[data-host="hypurrheaven"] .market-layout:not([data-columns="3"]) .market-card-head{display:flex;flex-direction:column;align-items:start;gap:8px}
+html[data-host="hypurrheaven"] .market-layout:not([data-columns="3"]) .market-token-link{gap:8px;min-width:0;max-width:100%;width:100%}
+html[data-host="hypurrheaven"] .market-layout:not([data-columns="3"]) .market-token-link>span:not(.market-token-icon){min-width:0}
+html[data-host="hypurrheaven"] .market-layout:not([data-columns="3"]) .market-token-link :is(b,small){max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block}
+html[data-host="hypurrheaven"] .market-layout[data-columns="9"] .market-token-link{flex-direction:column;align-items:flex-start}
+html[data-host="hypurrheaven"] .market-layout[data-columns="9"] .market-token-link b{white-space:normal;overflow:visible;overflow-wrap:anywhere;text-overflow:clip}
+html[data-host="hypurrheaven"] .market-layout[data-columns="9"] .market-card-metrics{gap:6px;margin:8px 0}
+html[data-host="hypurrheaven"] .market-layout:not([data-columns="3"]) .market-token-icon{width:28px;height:28px;min-width:28px;font-size:11px}
+html[data-host="hypurrheaven"] .market-layout:not([data-columns="3"]) .market-token-link>.market-chain{display:none}
+html[data-host="hypurrheaven"] .market-layout:not([data-columns="3"]) .market-card-metrics{grid-template-columns:minmax(0,1fr);gap:6px;margin:0}
+html[data-host="hypurrheaven"] .market-layout:not([data-columns="3"]) .market-card-metrics dd{font-size:14px;line-height:1.5;white-space:normal;margin:0}
+html[data-host="hypurrheaven"] .market-layout:not([data-columns="3"]) .market-card-foot{display:flex;flex-direction:column;align-items:stretch;gap:4px;margin-top:0}
+html[data-host="hypurrheaven"] .market-layout:not([data-columns="3"]) .market-card-foot>.ely-muted{display:none}
+html[data-host="hypurrheaven"] .market-layout:not([data-columns="3"]) .market-card-foot .ely-btn{font-size:13px;padding:8px;min-height:44px}
+.creator-wallet-options{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:20px 0;margin:20px 0}
+html[data-host="hypurrheaven"] .creator-wallet-options h2{font-size:21px;margin:0 0 10px}
+.creator-wallet-options p{font-size:14px;line-height:1.6;max-width:65ch}.creator-wallet-options label{display:block;font-size:14px;margin:16px 0 6px}
+.creator-wallet-options :is(input,select){width:100%}.creator-wallet-options [hidden]{display:none}
+.creator-wallet-roles{font-size:13px;margin:16px 0}.creator-wallet-roles>div{padding:8px 0;border-bottom:1px solid var(--line)}.creator-wallet-roles dt{color:var(--muted)}.creator-wallet-roles dd{margin:4px 0 0;overflow-wrap:anywhere;font-family:var(--sans)}
+html[data-host="hypurrheaven"] .purr-solana{padding:12px 0}
+html[data-host="hypurrheaven"] .solana-create-layout{gap:32px}
+.hlys-create-intro{margin:12px 0 24px}.hlys-create-form{padding:24px}
+html[data-host="hypurrheaven"] .market-token-summary{padding:20px;margin-bottom:16px}
+html[data-host="hypurrheaven"] .market-history{padding:28px;min-height:320px}
+@media(min-width:1100px){
+ html[data-host="hypurrheaven"] header.ely-top:has(#ely-wallet):has(.purr-header-nav){display:flex;align-items:center;gap:12px;min-height:76px;padding-top:12px;padding-bottom:12px}
+ html[data-host="hypurrheaven"] header.ely-top .ely-brand{order:0;font-size:20px;gap:8px;flex:0 0 auto}
+ html[data-host="hypurrheaven"] header.ely-top .purr-header-nav{order:1;flex:1;gap:0;justify-content:flex-start}
+ html[data-host="hypurrheaven"] header.ely-top .purr-header-nav :is(.ely-tab,summary){font-size:13px;padding:10px;min-height:44px}
+ html[data-host="hypurrheaven"] header.ely-top #purr-chains{order:2;gap:0}
+ html[data-host="hypurrheaven"] header.ely-top #purr-chains button{font-size:12px;padding:10px}
+ html[data-host="hypurrheaven"] header.ely-top #ely-wallet{order:3;gap:4px}
+ html[data-host="hypurrheaven"] header.ely-top #ely-wallet button{font-size:12px;padding:10px}
+ html[data-host="hypurrheaven"] header.ely-top .pad-settings{order:4;flex:0 0 auto}
+ html[data-host="hypurrheaven"] header.ely-top .pad-settings>summary{min-height:44px;padding:10px 0;font-size:12px}
+ html[data-host="hypurrheaven"] header.ely-top .pad-settings .pad-preferences{left:auto;right:0}
+ html[data-host="hypurrheaven"] header.ely-top #ely-net{position:absolute;left:var(--page-gutter);bottom:0;font-size:9px;border:0;background:transparent;padding:0}
+ html[data-host="hypurrheaven"] header.ely-top{position:relative}
+}
+@media(max-width:1379px) and (min-width:1000px){html[data-host="hypurrheaven"] .market-layout[data-columns="9"] .market-cards{grid-template-columns:repeat(6,minmax(0,1fr))}}
+@media(max-width:1099px){html[data-host="hypurrheaven"] .hlys-hero{gap:24px}html[data-host="hypurrheaven"] .market-layout[data-columns] .market-cards{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:720px){html[data-host="hypurrheaven"]{--page-gutter:16px}html[data-host="hypurrheaven"] .hlys-hero{grid-template-columns:1fr;gap:20px;padding:20px 0;margin-bottom:16px}html[data-host="hypurrheaven"] .hlys-hero h1{font-size:42px;margin:12px 0}.hlys-hero-description{font-size:16px;margin-bottom:16px}.hlys-feature{padding:16px 0 0;border-left:0;border-top:1px solid var(--line);background:var(--bg)}.hlys-feature-heading{margin:12px 0}.hlys-feature .hlys-explore{margin-top:8px}.hlys-water{mask-image:linear-gradient(180deg,#000,transparent 75%);opacity:.7}html[data-host="hypurrheaven"] .hlys-feature h2{font-size:26px}html[data-host="hypurrheaven"] .market-layout[data-columns] .market-cards{grid-template-columns:repeat(2,minmax(0,1fr))}.hlys-create-form{padding:18px}html[data-host="hypurrheaven"] .market-controls{gap:12px}.market-density small{font-size:11px}}
+@media(max-width:520px){html[data-host="hypurrheaven"] .market-layout[data-columns] .market-cards{grid-template-columns:minmax(0,1fr)}html[data-host="hypurrheaven"] .market-layout[data-columns] .market-card-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}html[data-host="hypurrheaven"] .market-layout[data-columns] .market-card-head{flex-direction:row;align-items:center}html[data-host="hypurrheaven"] .market-layout[data-columns] .market-token-icon{width:40px;height:40px;min-width:40px}html[data-host="hypurrheaven"] .market-layout[data-columns] .market-card-metrics dd{font-size:16px}}

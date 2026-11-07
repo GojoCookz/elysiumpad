@@ -19,7 +19,7 @@ export function publicSolanaResponse(route,value,readiness){
  if(route!=='capabilities')return value;
  return {...value,feeBuildSwitch:false,revenueBuildSwitch:false,
   launchEnabled:Boolean(value.pumpCreationConfigured),launchReadinessEndpoint:prefix+'/pump/quotes',
-  pump:{...value.pump,quotesEndpoint:prefix+'/pump/quotes',buildEndpoint:prefix+'/pump/build'},
+  pump:{...value.pump,quotesEndpoint:prefix+'/pump/quotes',buildEndpoint:prefix+'/pump/build',feeRecipient:'selected-creator-wallet',creatorWalletOptions:['connected-wallet','custom-on-curve-wallet'],signingWallet:'connected-wallet',holderRewardsImplemented:false},
   routes:Object.fromEntries(Object.entries(mountedSolanaRoutes).map(([key,fields])=>{const [method,route]=key.split(' ');return [`${method} ${prefix}/${route}`,fields];})),
   limitations:['Pump quotes are checked individually. Every build requires fresh admission and successful simulation.','Metadata publishing requires explicit consent; signing occurs only in the connected wallet.','Swaps remain separately gated. No LaunchLab, custom-vault fee claim, or holder reward route is mounted here.','Discovery and wallet history are bounded. A configured builder is not a completed live launch.']};
 }

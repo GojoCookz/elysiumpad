@@ -9,11 +9,11 @@ export function recordPumpBuild({directory,built,message}) {
     try{rows=JSON.parse(await readFile(file,'utf8'));}catch(e){if(e.code!=='ENOENT')throw e;}
     const hash=messageHash(message);
     rows=rows.filter(row=>row.messageHash!==hash);
-    rows.push({mint:built.mint,wallet:built.wallet,quoteMint:built.quote.mint,messageHash:hash,createdAt:new Date().toISOString()});
+    rows.push({mint:built.mint,wallet:built.wallet,creator:built.creator??built.wallet,quoteMint:built.quote.mint,messageHash:hash,createdAt:new Date().toISOString()});
     await writeFile(file+'.tmp',JSON.stringify(rows.slice(-500)));await rename(file+'.tmp',file);
   };
   const pending=writes.then(write,write);writes=pending.catch(()=>{});return pending;
 }
 export function matchesPumpReceipt(candidate, transaction, message, curve) {
-  return transaction?.meta?.err === null && messageHash(message) === candidate.messageHash && curve?.creator === candidate.wallet && curve?.quoteMint === candidate.quoteMint && curve?.creatorFeeBps === 300 && !!curve?.curve;
+  return transaction?.meta?.err === null && messageHash(message) === candidate.messageHash && curve?.creator === (candidate.creator??candidate.wallet) && curve?.quoteMint === candidate.quoteMint && curve?.creatorFeeBps === 300 && !!curve?.curve;
 }

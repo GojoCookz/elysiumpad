@@ -1,5 +1,6 @@
 import { routeURL } from './routes.mjs';
 import { locale } from './i18n.mjs';
+import { marketLayoutControls } from './market-layout.mjs';
 
 export const metric = value => value !== null && value !== undefined && value !== '' && Number.isFinite(Number(value)) ? Number(value) : null;
 export const numberLabel = value => metric(value) === null ? 'Unavailable' : new Intl.NumberFormat(locale(), { maximumSignificantDigits: 5, notation: Math.abs(value) >= 100000 ? 'compact' : 'standard' }).format(value);
@@ -64,7 +65,8 @@ export function marketDirectory(target, { h, chain, rows, checkedAt, partial = f
   const submit = searchRemote ? h('button', { class: 'ely-btn', type: 'submit' }, 'Search network') : null;
   const view = h('div', { class: 'market-view-toggle', role: 'group', 'aria-label': 'Market display' });
   const chainFilter = h('select', { id: 'market-chain-filter', 'aria-label': 'Filter by chain' }, ...[['all', 'All chains'], ['solana', 'Solana'], ['elysium', 'Elysium']].map(([value, label]) => h('option', { value }, label)));
-  const form = h('form', { class: 'market-controls' }, h('label', {}, 'Search tokens', search), h('label', {}, 'Chain filter', chainFilter), h('label', {}, 'Sort by', sort), h('label', {}, 'Pair', pair), view, submit);
+  const density = marketLayoutControls(h, target, () => { state.view = 'cards'; draw(); });
+  const form = h('form', { class: 'market-controls' }, h('label', {}, 'Search tokens', search), h('label', {}, 'Chain filter', chainFilter), h('label', {}, 'Sort by', sort), h('label', {}, 'Pair', pair), view, density, submit);
   const status = h('p', { role: 'status', class: 'ely-muted' }), spotlight = h('section', { class: 'market-spotlight', 'aria-label': 'Featured observed market' }), pairRail = h('div', { class: 'market-pair-rail', role: 'group', 'aria-label': 'Observed quote pairs' }), list = h('div', { class: 'market-directory' });
   target.replaceChildren(spotlight, pairRail, form, status, list);
   function draw() {
