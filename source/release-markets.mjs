@@ -6,8 +6,8 @@ export async function releaseMarkets(target, { h, chain, current }) {
   const mint = 'CsMF3EMEVm9ow925mtFVwnAvTYUgckcQJrFUWEFMpump';
   const copied = h('span', {role:'status','aria-live':'polite'});
   const ecosystem = h('section', {class:'market-data-note','aria-label':'HLYS Solana ecosystem token'},
-    h('strong', {}, 'HLYS · Solana ecosystem token'),
-    h('p', {}, 'Ecosystem identity · not proof of a platform launch.'),
+    h('strong', {}, '$HLYS — Hypeliysium’s Solana ecosystem token'),
+    h('p', {}, 'Explore $HLYS and follow the Hypeliysium ecosystem.'),
     h('p', {class:'purr-address'}, h('code', {}, mint)),
     h('button', {class:'ely-btn',type:'button',onclick:async()=>{
       try { await navigator.clipboard.writeText(mint); copied.textContent=' Mint copied.'; }
@@ -21,11 +21,12 @@ export async function releaseMarkets(target, { h, chain, current }) {
     const snapshot = await response.json();
     const rows = snapshot.rows.filter(row => mode === 'all' || row.chain === mode);
     if (current()) {
-      status.textContent = 'Verified platform launches first, then ecosystem tokens and wider discovery. Coverage is partial.';
+      status.textContent = mode==='elysium' ? 'Explore Hypeliysium launches and Elysium markets.' : mode==='all' ? 'Explore Hypeliysium launches and markets across chains.' : 'Explore Hypeliysium launches and Solana markets.';
       coverage.replaceChildren(h('summary', {}, 'Discovery coverage and provenance'), ...Object.entries(snapshot.sources).map(([name, source]) => h('p',{}, `${name}: ${source.status}${source.count == null ? ' · count unknown' : ` · ${source.count} verified/returned`}${source.error ? ` · ${source.error}` : ''}${source.coverage ? ` · ${source.coverage}` : ''}${source.retainedStale ? ` · ${source.retainedStale} cached rows retained as stale` : ''}${source.warnings?.length ? ` · ${source.warnings.join(' ')}` : ''}`)));
+      coverage.append(h('p', {}, 'Platform launch provenance is verified separately from ecosystem identity. HLYS is an ecosystem token, not a verified platform launch. Wider Elysium results are bounded pool-initialization records, not a complete market index. Missing metrics and artwork remain unavailable.'));
       if (!rows.length) status.textContent = snapshot.refreshing ? 'Discovery is still scanning. No verified rows available yet; this is not a confirmed zero.' : 'No rows available for this chain. Check source coverage before interpreting this as zero launches.';
     }
-    return { rows, checkedAt:snapshot.checkedAt, partial:true, coverageNote:'Platform-first ordering · bounded sources; see Discovery coverage and provenance' };
+    return { rows, checkedAt:snapshot.checkedAt, partial:true, coverageNote:mode==='elysium'?'Pool records · see discovery coverage':'See discovery coverage' };
   };
   async function draw() {
     try { const data = await load(); if(current())marketDirectory(results,{h,chain:mode,...data,current,searchRemote:load,open:row=>{location.href=marketHref(row.chain,'trade',row.address);}}); }

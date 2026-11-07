@@ -34,11 +34,15 @@ await build({
     build.onLoad({filter:/[/\\]elysium[/\\]market-directory\.mjs$/},async({path:file})=>{
       let contents=await readFile(file,'utf8');
       contents=`import {rank} from ${JSON.stringify(path.join(root,'source/discovery-core.mjs'))};\n`+contents;
+      contents=contents.replaceAll("h('small', {}, row.name)","h('small', {}, row.name), h('small', {class:'market-route',title:row.address}, `${row.address.slice(0,8)}…${row.address.slice(-6)}`), row.chain === 'elysium' ? h('small', {class:'market-route',title:row.poolId||''}, `Pool ${(row.poolId||'').slice(0,10)}…${(row.poolId||'').slice(-6)} · ${row.price == null ? 'Unpriced pool record' : 'Observed price'}`) : null");
+      contents=contents.replace("h('h2', {}, `${featured.symbol} · ${featured.name}`)","h('h2', {}, `${featured.symbol} · ${featured.name}`), h('p', {class:'purr-address',title:featured.address}, `Contract ${featured.address.slice(0,8)}…${featured.address.slice(-6)}${featured.chain==='elysium'&&featured.price==null?' · Unpriced pool record':''}`)");
       contents=contents.replace('    const x = metric(a[key]), y = metric(b[key]);','    if(rank(a)!==rank(b))return rank(a)-rank(b);\n    const x = metric(a[key]), y = metric(b[key]);');
       contents=contents.replace('`${chainName} adapter`',"row.provenance?.kind === 'platform' && row.provenance?.verified ? 'Verified platform launch' : row.provenance?.kind === 'ecosystem' ? 'Ecosystem · not proven platform-launched' : 'Wider market · no platform provenance'");
       contents=contents.replace("'Observed market'), h('h2'", "featured.provenance?.kind === 'ecosystem' ? 'Ecosystem · not proven platform-launched' : featured.provenance?.kind === 'platform' && featured.provenance?.verified ? 'Verified platform launch' : 'Observed market'), h('h2'");
       contents=contents.replace("h('small', { class: 'market-route' }, `${rowChain === 'solana' ? 'Solana' : 'Elysium'} adapter route`)","h('small', { class: 'market-route' }, row.provenance?.kind === 'ecosystem' ? 'Ecosystem · not proven platform-launched' : row.provenance?.kind === 'platform' && row.provenance?.verified ? 'Verified platform launch' : 'Wider market · no platform provenance')");
       contents=contents.replace("h('small', { class: 'market-route' }, `${chainName} adapter route`)","h('small', { class: 'market-route' }, row.stale ? 'Cached market · stale source' : `${chainName} adapter route`)");
+      contents=contents.replaceAll('Ecosystem · not proven platform-launched','Ecosystem token').replaceAll('Wider market · no platform provenance','Wider market');
+      contents=contents.replace("`${chain === 'solana' ? 'Solana' : 'Elysium'} markets, sourced from their active adapter. Review before signing.`","`Discover tokens and explore the ${chain === 'solana' ? 'Solana' : 'Elysium'} ecosystem.`");
       return{contents,loader:'js',resolveDir:path.dirname(file)};
     });
     build.onLoad({filter:/[/\\]elysium[/\\]routes\.mjs$/},async({path:file})=>({contents:routePolicy,loader:'js',resolveDir:path.dirname(file)}));
