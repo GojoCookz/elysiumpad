@@ -16,7 +16,18 @@ Provider limitations remain visible. Two local chain runs took 667,939 ms and 72
 
 Measured example at Elysium block 2,003,770: KNTQ/HYPE price `0.006193709001840695 HYPE × 77.65 USD/HYPE = 0.48094150399292995 USD`; USD FDV `789993.8986622035`. That historical sample was correctly cached. No authenticated, liquid WHYPE conversion venue was returned in these runs, so WHYPE USD remains unavailable rather than assuming parity. Virtual active depth is not TVL.
 
-Deployment and public verification are recorded below after release.
+Deployed application commit: `c23cfee` (`main`, pushed to `GojoCookz/elysiumpad`). Railway deployment: `707daa5b-28e8-4e90-af32-7e89f5c29ab6`, dedicated service `dd6f939f-79ea-44d8-ab2f-a7a72e955d45`, project `a822f6ee-e4da-4e36-a1c6-0239d03d0cd1`, production. CLI reported `Deploy complete`.
+
+Public verification at `2026-11-07T15:46:57.434Z`:
+- `https://hypeliysium.fun` app, Solana bundle and identity stylesheet matched local SHA-256 hashes byte for byte.
+- KNTQ/HYPE, Elysium 99901, confirmed block `2015094`: `0.006173036507411998 HYPE × 77.47 USD/HYPE = 0.4782251382292074 USD`; FDV `785531.9997367425 USD`, status **fresh**.
+- Independently re-read the pinned manager runtime, pool `extsload` state and token total supply at that same block. Recomputed native price, FDV, USD arithmetic and pool ID all matched the public API.
+- Manager `0xe2e105d3f7209a9da11f83ccf3e7398a753823f1`; pool ID `0xc96bfd21d36f8e7252f0d80fcb5f3bcacdf47c8b927b20711104713ebeb383ac`; native HYPE quote `0x0000000000000000000000000000000000000000`.
+- Public discovery returned 58 priced token rows, 60 liquid pools examined, zero failed pool reads, complete selected-window history and no source warnings. This production refresh completed within freshness limits; local slow-run measurements above are not a production latency claim.
+- Repeated all 36 spacing combinations and 12 USD/layout/locale checks against the public site: passed, no browser exceptions. Public screenshots use the external `spacing-public-*` and `usd-public-*` prefixes.
+- A fresh independent review of four deployed screenshots against the owner's reference returned PASS: aligned toolbar, compact cards, aligned badge/metric baselines, readable USD and explicit pairs; no visible blockers.
+
+Rollback remains the preceding application `b9ccf9e` (documentation-only follow-up `8fcf106`). No funded transactions, financial configuration, DNS or marketing changes were made.
 
 ## Aquatic and creator-wallet refinement — deployed, 2026-11-07
 
