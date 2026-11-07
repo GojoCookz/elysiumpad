@@ -45,3 +45,8 @@ test('conflicting pool cannot supply absent routing fields to platform record',(
  const external={...row('0xabc','market',true,999,'elysium'),poolId:'external-pool',manager:'external',key:{hooks:'external'}};
  for(const groups of [[platform,external],[external,platform]]){const result=mergeMarkets(groups)[0];assert.equal(result.manager,undefined);assert.equal(result.key,undefined);}
 });
+test('identical pool keys across different managers never share price or provenance',()=>{
+ const platform={...row('0xabc','platform',true,2,'elysium'),poolId:'same-key',manager:'0x111',price:1};
+ const external={...row('0xabc','market',true,999,'elysium'),poolId:'same-key',manager:'0x222',price:99};
+ for(const groups of [[platform,external],[external,platform]]){const r=mergeMarkets(groups)[0];assert.equal(r.price,1);assert.equal(r.manager,'0x111');}
+});

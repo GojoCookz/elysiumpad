@@ -11,7 +11,7 @@ export function mergeMarkets(...groups) {
       const other = preferred === row ? old : row;
       const poolA = preferred.poolId || preferred.original?.pairAddress;
       const poolB = other.poolId || other.original?.pairAddress;
-      const conflict = poolA && poolB && poolA !== poolB;
+      const conflict = poolA && poolB && (preferred.chain==='elysium' ? poolA.toLowerCase() !== poolB.toLowerCase() || (preferred.manager||'').toLowerCase()!==(other.manager||'').toLowerCase() : poolA !== poolB);
       const merged = conflict ? { ...preferred } : { ...other, ...preferred };
       // Never move a platform badge onto another venue's pool/key. Enrich only
       // compatible market observations; launch evidence and routing stay together.
@@ -19,7 +19,7 @@ export function mergeMarkets(...groups) {
       rows.set(key, merged);
     }
   }
-  return [...rows.values()].sort((a, b) => rank(a) - rank(b) || (b.volume ?? -1) - (a.volume ?? -1) || a.address.localeCompare(b.address));
+  return [...rows.values()].sort((a, b) => rank(a) - rank(b) || (a.chain==='elysium'&&b.chain==='elysium' ? Number(b.price>0)-Number(a.price>0)||(b.activeDepth||0)-(a.activeDepth||0) : 0) || (b.volume ?? -1) - (a.volume ?? -1) || a.address.localeCompare(b.address));
 }
 export function retainPartialRows(previous, incoming, warnings = [], limit = 100) {
   const failed = warnings.some(w => /(?:source|Name search).*is unavailable/i.test(w));

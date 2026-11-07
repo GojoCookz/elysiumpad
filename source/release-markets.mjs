@@ -1,4 +1,5 @@
 import { marketDirectory, marketIntro, marketHref } from '../../getrektdonhype/source/elysium/market-directory.mjs';
+import {evmDirectory} from './evm-directory.mjs';
 export async function releaseMarkets(target, { h, chain, current }) {
   const mode = new URLSearchParams(location.search).get('market') === 'all' ? 'all' : chain;
   const results = h('div'), coverage = h('details', { class: 'market-data-note' });
@@ -23,13 +24,13 @@ export async function releaseMarkets(target, { h, chain, current }) {
     if (current()) {
       status.textContent = mode==='elysium' ? 'Explore Hypeliysium launches and Elysium markets.' : mode==='all' ? 'Explore Hypeliysium launches and markets across chains.' : 'Explore Hypeliysium launches and Solana markets.';
       coverage.replaceChildren(h('summary', {}, 'Discovery coverage and provenance'), ...Object.entries(snapshot.sources).map(([name, source]) => h('p',{}, `${name}: ${source.status}${source.count == null ? ' · count unknown' : ` · ${source.count} verified/returned`}${source.error ? ` · ${source.error}` : ''}${source.coverage ? ` · ${source.coverage}` : ''}${source.retainedStale ? ` · ${source.retainedStale} cached rows retained as stale` : ''}${source.warnings?.length ? ` · ${source.warnings.join(' ')}` : ''}`)));
-      coverage.append(h('p', {}, 'Platform launch provenance is verified separately from ecosystem identity. HLYS is an ecosystem token, not a verified platform launch. Wider Elysium results are bounded pool-initialization records, not a complete market index. Missing metrics and artwork remain unavailable.'));
+      coverage.append(h('p', {}, 'Platform launch provenance is verified separately from ecosystem identity. HLYS is an ecosystem token, not a verified platform launch. Elysium prices use confirmed pool state; FDV uses total supply, not circulating supply. Discovery and history coverage are bounded. Missing artwork is not fabricated.'));
       if (!rows.length) status.textContent = snapshot.refreshing ? 'Discovery is still scanning. No verified rows available yet; this is not a confirmed zero.' : 'No rows available for this chain. Check source coverage before interpreting this as zero launches.';
     }
     return { rows, checkedAt:snapshot.checkedAt, partial:true, coverageNote:mode==='elysium'?'Pool records · see discovery coverage':'See discovery coverage' };
   };
   async function draw() {
-    try { const data = await load(); if(current())marketDirectory(results,{h,chain:mode,...data,current,searchRemote:load,open:row=>{location.href=marketHref(row.chain,'trade',row.address);}}); }
+    try { const data = await load(); if(current()){if(mode==='elysium')evmDirectory(results,{h,...data});else marketDirectory(results,{h,chain:mode,...data,current,searchRemote:load,open:row=>{location.href=marketHref(row.chain,'trade',row.address);}});} }
     catch(e){if(current())status.replaceChildren(e.message,h('button',{class:'ely-btn',onclick:draw},'Retry discovery'));}
   }
   await draw();

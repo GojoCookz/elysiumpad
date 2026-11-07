@@ -96723,6 +96723,8 @@ ${portal}</section>`)) });
   return async function handle(req, res, url) {
     if (!hosts.has(requestHost(req))) return app2 ? app2(req, res, url) : false;
     const p2 = url.pathname;
+    const evmArtRoute=/^\/api\/discovery\/art\/elysium\/(0x[0-9a-f]{40})$/.exec(p2);
+    if(evmArtRoute && req.method==='GET' && discovery){const asset=await discovery.evmArtwork.get(evmArtRoute[1]);return asset?serve(req,res,200,{...asset,cache:'public, max-age=21600'}):jsonOut(res,404,{error:'Verified token artwork unavailable'});}
     const artworkRoute=/^\/api\/discovery\/art\/solana\/([1-9A-HJ-NP-Za-km-z]{32,44})$/.exec(p2);
     if(artworkRoute && req.method==='GET' && discovery){const asset=await discovery.artwork.get(artworkRoute[1]);return asset?serve(req,res,200,{...asset,cache:'public, max-age=21600'}):jsonOut(res,404,{error:'Verified mint artwork unavailable'});}
     if (p2 === '/api/discovery' && req.method === 'GET' && discovery) return jsonOut(res, 200, discovery.snapshot());

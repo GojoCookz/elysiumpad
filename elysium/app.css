@@ -258,6 +258,9 @@ html[data-host][data-section="markets"] #ely-main,html[data-host][data-section="
 .market-intro .market-actions{margin-left:auto}
 .market-controls{display:grid;grid-template-columns:minmax(220px,2fr) repeat(3,minmax(120px,1fr)) auto;gap:12px;align-items:end}
 .market-controls label{display:grid;gap:4px;font-size:13px;color:var(--muted)}
+.market-controls.evm-market-controls{grid-template-columns:minmax(0,2fr) repeat(2,minmax(0,1fr));margin-top:12px}
+.market-controls.evm-market-controls>label,.market-controls.evm-market-controls>label:nth-child(2){display:grid}
+@media(max-width:600px){.market-controls.evm-market-controls{grid-template-columns:1fr 1fr}}
 .market-controls input,.market-controls select{min-width:0}
 .market-directory{width:100%;margin-top:16px}
 .market-table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}

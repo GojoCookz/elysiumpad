@@ -1227,14 +1227,14 @@ function pad(hexOrBytes, { dir, size: size2 = 32 } = {}) {
 function padHex(hex_, { dir, size: size2 = 32 } = {}) {
   if (size2 === null)
     return hex_;
-  const hex = hex_.replace("0x", "");
-  if (hex.length > size2 * 2)
+  const hex2 = hex_.replace("0x", "");
+  if (hex2.length > size2 * 2)
     throw new SizeExceedsPaddingSizeError({
-      size: Math.ceil(hex.length / 2),
+      size: Math.ceil(hex2.length / 2),
       targetSize: size2,
       type: "hex"
     });
-  return `0x${hex[dir === "right" ? "padEnd" : "padStart"](size2 * 2, "0")}`;
+  return `0x${hex2[dir === "right" ? "padEnd" : "padStart"](size2 * 2, "0")}`;
 }
 function padBytes(bytes, { dir, size: size2 = 32 } = {}) {
   if (size2 === null)
@@ -1314,21 +1314,21 @@ function assertSize(hexOrBytes, { size: size2 }) {
       maxSize: size2
     });
 }
-function hexToBigInt(hex, opts = {}) {
+function hexToBigInt(hex2, opts = {}) {
   const { signed } = opts;
   if (opts.size)
-    assertSize(hex, { size: opts.size });
-  const value = BigInt(hex);
+    assertSize(hex2, { size: opts.size });
+  const value = BigInt(hex2);
   if (!signed)
     return value;
-  const size2 = (hex.length - 2) / 2;
+  const size2 = (hex2.length - 2) / 2;
   const max = (1n << BigInt(size2) * 8n - 1n) - 1n;
   if (value <= max)
     return value;
   return value - BigInt(`0x${"f".padStart(size2 * 2, "f")}`) - 1n;
 }
-function hexToNumber(hex, opts = {}) {
-  const value = hexToBigInt(hex, opts);
+function hexToNumber(hex2, opts = {}) {
+  const value = hexToBigInt(hex2, opts);
   const number = Number(value);
   if (!Number.isSafeInteger(number))
     throw new IntegerOutOfRangeError({
@@ -1359,24 +1359,24 @@ function toHex(value, opts = {}) {
   return bytesToHex(value, opts);
 }
 function boolToHex(value, opts = {}) {
-  const hex = `0x${Number(value)}`;
+  const hex2 = `0x${Number(value)}`;
   if (typeof opts.size === "number") {
-    assertSize(hex, { size: opts.size });
-    return pad(hex, { size: opts.size });
+    assertSize(hex2, { size: opts.size });
+    return pad(hex2, { size: opts.size });
   }
-  return hex;
+  return hex2;
 }
 function bytesToHex(value, opts = {}) {
   let string = "";
   for (let i = 0; i < value.length; i++) {
     string += hexes[value[i]];
   }
-  const hex = `0x${string}`;
+  const hex2 = `0x${string}`;
   if (typeof opts.size === "number") {
-    assertSize(hex, { size: opts.size });
-    return pad(hex, { dir: "right", size: opts.size });
+    assertSize(hex2, { size: opts.size });
+    return pad(hex2, { dir: "right", size: opts.size });
   }
-  return hex;
+  return hex2;
 }
 function numberToHex(value_, opts = {}) {
   const { signed, size: size2 } = opts;
@@ -1401,10 +1401,10 @@ function numberToHex(value_, opts = {}) {
       value: `${value_}${suffix}`
     });
   }
-  const hex = `0x${(signed && value < 0 ? (1n << BigInt(size2 * 8)) + BigInt(value) : value).toString(16)}`;
+  const hex2 = `0x${(signed && value < 0 ? (1n << BigInt(size2 * 8)) + BigInt(value) : value).toString(16)}`;
   if (size2)
-    return pad(hex, { size: size2 });
-  return hex;
+    return pad(hex2, { size: size2 });
+  return hex2;
 }
 function stringToHex(value_, opts = {}) {
   const value = encoder.encode(value_);
@@ -1450,12 +1450,12 @@ function charCodeToBase16(char) {
   return void 0;
 }
 function hexToBytes(hex_, opts = {}) {
-  let hex = hex_;
+  let hex2 = hex_;
   if (opts.size) {
-    assertSize(hex, { size: opts.size });
-    hex = pad(hex, { dir: "right", size: opts.size });
+    assertSize(hex2, { size: opts.size });
+    hex2 = pad(hex2, { dir: "right", size: opts.size });
   }
-  let hexString = hex.slice(2);
+  let hexString = hex2.slice(2);
   if (hexString.length % 2)
     hexString = `0${hexString}`;
   const length = hexString.length / 2;
@@ -1471,8 +1471,8 @@ function hexToBytes(hex_, opts = {}) {
   return bytes;
 }
 function numberToBytes(value, opts) {
-  const hex = numberToHex(value, opts);
-  return hexToBytes(hex);
+  const hex2 = numberToHex(value, opts);
+  return hexToBytes(hex2);
 }
 function stringToBytes(value, opts = {}) {
   const bytes = encoder2.encode(value);
@@ -2719,8 +2719,8 @@ var init_cursor2 = __esm({
 function bytesToBigInt(bytes, opts = {}) {
   if (typeof opts.size !== "undefined")
     assertSize(bytes, { size: opts.size });
-  const hex = bytesToHex(bytes);
-  return hexToBigInt(hex, opts);
+  const hex2 = bytesToHex(bytes);
+  return hexToBigInt(hex2, opts);
 }
 function bytesToBool(bytes_, opts = {}) {
   let bytes = bytes_;
@@ -2735,8 +2735,8 @@ function bytesToBool(bytes_, opts = {}) {
 function bytesToNumber(bytes, opts = {}) {
   if (typeof opts.size !== "undefined")
     assertSize(bytes, { size: opts.size });
-  const hex = bytesToHex(bytes);
-  return hexToNumber(hex, opts);
+  const hex2 = bytesToHex(bytes);
+  return hexToNumber(hex2, opts);
 }
 function bytesToString(bytes_, opts = {}) {
   let bytes = bytes_;
@@ -3174,7 +3174,7 @@ function mergeMarkets(...groups) {
       const other = preferred === row ? old : row;
       const poolA = preferred.poolId || preferred.original?.pairAddress;
       const poolB = other.poolId || other.original?.pairAddress;
-      const conflict = poolA && poolB && poolA !== poolB;
+      const conflict = poolA && poolB && (preferred.chain === "elysium" ? poolA.toLowerCase() !== poolB.toLowerCase() || (preferred.manager || "").toLowerCase() !== (other.manager || "").toLowerCase() : poolA !== poolB);
       const merged = conflict ? { ...preferred } : { ...other, ...preferred };
       if (!conflict) {
         for (const field of ["price", "volume", "cap", "change", "image"]) if (row[field] !== null && row[field] !== void 0) merged[field] = row[field];
@@ -3182,7 +3182,7 @@ function mergeMarkets(...groups) {
       rows.set(key, merged);
     }
   }
-  return [...rows.values()].sort((a, b) => rank(a) - rank(b) || (b.volume ?? -1) - (a.volume ?? -1) || a.address.localeCompare(b.address));
+  return [...rows.values()].sort((a, b) => rank(a) - rank(b) || (a.chain === "elysium" && b.chain === "elysium" ? Number(b.price > 0) - Number(a.price > 0) || (b.activeDepth || 0) - (a.activeDepth || 0) : 0) || (b.volume ?? -1) - (a.volume ?? -1) || a.address.localeCompare(b.address));
 }
 function retainPartialRows(previous, incoming, warnings = [], limit = 100) {
   const failed = warnings.some((w) => /(?:source|Name search).*is unavailable/i.test(w));
@@ -3510,8 +3510,8 @@ function imageType(bytes) {
   if (bytes.subarray(0, 4).toString() === "RIFF" && bytes.subarray(8, 12).toString() === "WEBP") return "image/webp";
   return null;
 }
-var imageRoute = (row) => row.chain === "solana" ? `/api/discovery/art/solana/${row.address}` : row.image || "";
-function createArtwork({ env, directory, getRows, getCachedArtwork = () => null, getAccounts, metadataAddress, fetcher = fetch, resolveHost }) {
+var imageRoute = (row) => row.chain === "solana" ? `/api/discovery/art/solana/${row.address}` : row.image?.startsWith("/purrlysium/img/") ? row.image : row.metadataUri || row.imageCandidates?.length ? `/api/discovery/art/elysium/${row.address.toLowerCase()}` : "";
+function createArtwork({ env, directory, getRows, getCachedArtwork = () => null, getAccounts, metadataAddress, fetcher = fetch, resolveHost, chain = "solana" }) {
   const extraHosts = /* @__PURE__ */ new Set();
   for (const row of getRows()) for (const url of getCachedArtwork(row.address)?.urls || []) try {
     extraHosts.add(new URL(url).hostname);
@@ -3560,7 +3560,7 @@ function createArtwork({ env, directory, getRows, getCachedArtwork = () => null,
     throw Error("Too many artwork redirects");
   }
   async function load(mint) {
-    const row = getRows().find((r) => r.chain === "solana" && r.address === mint);
+    const row = getRows().find((r) => r.chain === chain && (chain === "elysium" ? r.address.toLowerCase() === mint : r.address === mint));
     if (!row) return null;
     const file = path2.join(directory, mint + ".img");
     try {
@@ -3577,7 +3577,31 @@ function createArtwork({ env, directory, getRows, getCachedArtwork = () => null,
       return out;
     } catch {
     }
-    const resolved = (await metadataBatch(mint)).get(mint);
+    let resolved;
+    if (chain === "solana") resolved = (await metadataBatch(mint)).get(mint);
+    else if (row.metadataUri) {
+      for (const url of artworkCandidates(row.metadataUri).filter(allowed).slice(0, 2)) try {
+        if (!await isPublicHttps(url, resolveHost)) continue;
+        const response = await fetcher(url, { redirect: "error", signal: AbortSignal.timeout(5e3) });
+        if (!response.ok) continue;
+        const reader = response.body.getReader(), chunks = [];
+        let size2 = 0;
+        for (; ; ) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          size2 += value.length;
+          if (size2 > 64e3) {
+            await reader.cancel();
+            throw Error("Metadata too large");
+          }
+          chunks.push(value);
+        }
+        const json = JSON.parse(Buffer.concat(chunks).toString("utf8"));
+        resolved = { images: artworkCandidates(json.image || json.image_url || "") };
+        break;
+      } catch {
+      }
+    }
     candidates = [...new Set(resolved?.images || [])].filter(allowed).slice(0, 4);
     for (const url of candidates) try {
       const out = await download(url);
@@ -3589,7 +3613,7 @@ function createArtwork({ env, directory, getRows, getCachedArtwork = () => null,
     return null;
   }
   async function get(mint) {
-    if (!/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(mint) || !getRows().some((r) => r.chain === "solana" && r.address === mint)) return null;
+    if (!(chain === "solana" ? /^[1-9A-HJ-NP-Za-km-z]{32,44}$/ : /^0x[0-9a-f]{40}$/).test(mint) || !getRows().some((r) => r.chain === chain && (chain === "elysium" ? r.address.toLowerCase() === mint : r.address === mint))) return null;
     const prior = cache.get(mint);
     if (prior && Date.now() < prior.until) return prior.asset;
     if (pending.has(mint)) return pending.get(mint);
@@ -3611,6 +3635,206 @@ function createArtwork({ env, directory, getRows, getCachedArtwork = () => null,
   return { get, status: () => ({ cached: cache.size, loaded: [...cache.values()].filter((x) => x.asset).length, ...metadata.status() }) };
 }
 
+// source/evm-market-math.mjs
+var Q96 = 2 ** 96;
+var validDecimals = (d) => Number.isInteger(d) && d >= 0 && d <= 255;
+var positive = (n) => Number.isFinite(n) && n > 0 ? n : null;
+function poolMetrics({ sqrtPriceX96, liquidity, tokenIs0, tokenDecimals, quoteDecimals, supply }) {
+  if (!validDecimals(tokenDecimals) || !validDecimals(quoteDecimals)) throw Error("Unverified decimals");
+  const sqrt = BigInt(sqrtPriceX96), L = BigInt(liquidity);
+  if (sqrt <= 4295128739n || sqrt >= 1461446703485210103287273052203988822378723970342n || L <= 0n) return { price: null, fdv: null, activeDepth: null };
+  const ratio = (Number(sqrt) / Q96) ** 2;
+  const price = positive((tokenIs0 ? ratio : 1 / ratio) * 10 ** (tokenDecimals - quoteDecimals));
+  const activeDepth = positive((tokenIs0 ? Number(L) * Number(sqrt) / Q96 : Number(L) * Q96 / Number(sqrt)) / 10 ** quoteDecimals);
+  const total = supply == null ? null : positive(Number(BigInt(supply)) / 10 ** tokenDecimals);
+  return { price, fdv: price && total ? positive(price * total) : null, activeDepth };
+}
+var poolIdentity = (p) => `${p.manager.toLowerCase()}:${p.poolId.toLowerCase()}`;
+function groupPools(pools) {
+  const groups = /* @__PURE__ */ new Map(), seen = /* @__PURE__ */ new Set();
+  for (const p of pools) {
+    const id = poolIdentity(p);
+    if (seen.has(id)) continue;
+    seen.add(id);
+    const key = p.address.toLowerCase();
+    groups.set(key, [...groups.get(key) || [], p]);
+  }
+  return [...groups.values()].map((list) => {
+    const platform = (p) => p.provenance?.kind === "platform" && p.provenance?.verified === true;
+    list.sort((a, b) => Number(platform(b)) - Number(platform(a)) || Number(b.price > 0) - Number(a.price > 0) || (b.activeDepth || 0) - (a.activeDepth || 0));
+    const best = list[0];
+    return { ...best, pools: list.map(({ pools: pools2, ...p }) => p), poolCount: list.length };
+  }).sort((a, b) => Number(b.price > 0) - Number(a.price > 0) || (b.activeDepth || 0) - (a.activeDepth || 0));
+}
+
+// source/evm-managers.mjs
+var MANAGERS = Object.freeze({
+  "0x06c63714fbf1f5753017123e2fcfdede4540b2c4": "0x7d6d330e9684ed9645780f0909ef4b9f0fbfcca00dd8bc0b8c8b9cadb834b59f",
+  "0xe2e105d3f7209a9da11f83ccf3e7398a753823f1": "0xbb5fb2091cfd38e71f56d14a2b6b5e71a22ac2b8e5881faa422ccf92b40df7a1",
+  "0x5fb015a49f5b35073f9ce01c2adb287a75f89600": "0xaac49acb10c57097b4926825b0cdf465f3c4037f9b20fe321924d19f89ac5a0c",
+  "0xb308b5df891c300a5f5a5b8fdbc30108ba842490": "0x3779ef18b25dc9becd6ccebb4f7363af0308349a73bc250e0e32bacccf95e774"
+});
+function matchesManager(address, code) {
+  return !!MANAGERS[address.toLowerCase()] && /^0x[0-9a-f]+$/i.test(code) && keccak256(code) === MANAGERS[address.toLowerCase()];
+}
+
+// source/evm-markets.mjs
+var INIT = parseAbi(["event Initialize(bytes32 indexed id,address indexed currency0,address indexed currency1,uint24 fee,int24 tickSpacing,address hooks,uint160 sqrtPriceX96,int24 tick)"]);
+var SWAP = parseAbi(["event Swap(bytes32 indexed id,address indexed sender,int128 amount0,int128 amount1,uint160 sqrtPriceX96,uint128 liquidity,int24 tick,uint24 fee)"]);
+var ABI = parseAbi(["function extsload(bytes32 startSlot,uint256 nSlots) view returns (bytes32[])", "function name() view returns (string)", "function symbol() view returns (string)", "function decimals() view returns (uint8)", "function totalSupply() view returns (uint256)", "function tokenURI() view returns (string)", "function metadataURI() view returns (string)"]);
+var zero = "0x0000000000000000000000000000000000000000";
+var hex = (n) => "0x" + n.toString(16);
+var clean2 = (s) => String(s).replace(/[\u0000-\u001f\u007f\u202a-\u202e]/g, "").slice(0, 80);
+async function priceEvmMarkets({ rpc, manifest, pools, previous, block, managerVerifier = matchesManager }) {
+  const at = hex(block), from = Math.max(0, block - 5e4), warnings = [];
+  const supported = [];
+  for (const manager of Object.keys(MANAGERS)) try {
+    if (managerVerifier(manager, await rpc("eth_getCode", [manager, at]))) supported.push(manager);
+    else warnings.push("A supported manager runtime did not match its pinned deployment.");
+  } catch {
+    warnings.push("A supported manager bytecode check was unavailable.");
+  }
+  if (!supported.length) throw Error("No authenticated pool managers available");
+  const admitted = (p) => supported.includes(p.manager.toLowerCase());
+  const excludedPools = pools.filter((p) => !admitted(p)).length;
+  pools = pools.filter(admitted);
+  previous = previous.filter((p) => p.manager && admitted(p));
+  let calls = 0;
+  const read = async (to, functionName, args = [], tag = at) => {
+    if (++calls > 440) throw Error("Read budget reached");
+    const data = await rpc("eth_call", [{ to, data: encodeFunctionData({ abi: ABI, functionName, args }) }, tag]);
+    return decodeFunctionResult({ abi: ABI, functionName, data });
+  };
+  const [start, end] = await Promise.all([rpc("eth_getBlockByNumber", [hex(from), false]), rpc("eth_getBlockByNumber", [at, false])]);
+  const window = { fromBlock: from, throughBlock: block, fromTime: Number(BigInt(start.timestamp)), throughTime: Number(BigInt(end.timestamp)), complete: false };
+  const activity = /* @__PURE__ */ new Map(), seen = /* @__PURE__ */ new Set();
+  try {
+    for (let n = from; n <= block; n += 1e4) {
+      const logs = await rpc("eth_getLogs", [{ address: supported, topics: encodeEventTopics({ abi: SWAP, eventName: "Swap" }), fromBlock: hex(n), toBlock: hex(Math.min(block, n + 9999)) }]);
+      for (const log of logs) {
+        if (log.removed || !supported.includes(log.address.toLowerCase())) continue;
+        const unique = log.transactionHash + ":" + log.logIndex;
+        if (seen.has(unique)) continue;
+        seen.add(unique);
+        try {
+          const { args: a } = decodeEventLog({ abi: SWAP, data: log.data, topics: log.topics });
+          const key = poolIdentity({ manager: log.address, poolId: a.id });
+          const old = activity.get(key) || { manager: log.address, poolId: a.id, trades: 0, amount0: 0n, amount1: 0n };
+          old.trades++;
+          old.amount0 += a.amount0 < 0n ? -a.amount0 : a.amount0;
+          old.amount1 += a.amount1 < 0n ? -a.amount1 : a.amount1;
+          activity.set(key, old);
+        } catch {
+        }
+      }
+    }
+    window.complete = true;
+  } catch {
+    warnings.push("Recent swap history is incomplete; window volumes are withheld.");
+  }
+  const known = new Map(pools.map((p) => [poolIdentity(p), p]));
+  const missing = [...activity.values()].filter((p) => !known.has(poolIdentity(p))).sort((a, b) => b.trades - a.trades).slice(0, 40);
+  const byManager = /* @__PURE__ */ new Map();
+  for (const p of missing) byManager.set(p.manager, [...byManager.get(p.manager) || [], p.poolId]);
+  for (const [manager, ids] of byManager) try {
+    const logs = await rpc("eth_getLogs", [{ address: manager, topics: [encodeEventTopics({ abi: INIT, eventName: "Initialize" })[0], ids], fromBlock: "0x0", toBlock: at }]);
+    for (const log of logs) {
+      if (log.removed) continue;
+      const { args: a } = decodeEventLog({ abi: INIT, data: log.data, topics: log.topics });
+      const native = [zero, manifest.whype.toLowerCase()];
+      const address = native.includes(a.currency0.toLowerCase()) ? a.currency1 : native.includes(a.currency1.toLowerCase()) ? a.currency0 : null;
+      if (address && !native.includes(address.toLowerCase())) {
+        const p = { address, poolId: a.id, manager: log.address, block: Number(BigInt(log.blockNumber)), transactionHash: log.transactionHash, key: { currency0: a.currency0, currency1: a.currency1, fee: a.fee, tickSpacing: a.tickSpacing, hooks: a.hooks } };
+        known.set(poolIdentity(p), p);
+      }
+    }
+  } catch {
+    warnings.push("Some older active pool keys could not be recovered.");
+  }
+  const priority = (p) => activity.get(poolIdentity(p))?.trades || 0;
+  const ordered = [...known.values()].sort((a, b) => priority(b) - priority(a) || b.block - a.block);
+  const chosen = /* @__PURE__ */ new Map();
+  for (const p of previous.filter((p2) => p2.provenance?.kind === "platform")) {
+    if (p.manager && p.key) chosen.set(poolIdentity(p), p);
+  }
+  for (const p of ordered.filter((p2) => priority(p2) > 0).slice(0, 40)) if (!chosen.has(poolIdentity(p))) chosen.set(poolIdentity(p), p);
+  for (const p of previous.filter((p2) => p2.price > 0).slice(0, 10)) {
+    if (p.manager && p.key) chosen.set(poolIdentity(p), p);
+  }
+  for (const p of ordered) {
+    if (chosen.size >= 60) break;
+    if (!chosen.has(poolIdentity(p))) chosen.set(poolIdentity(p), p);
+  }
+  const tokens = /* @__PURE__ */ new Map(), result = [], failedIdentities = /* @__PURE__ */ new Set();
+  let empty = 0, failed = 0;
+  const meta = async (address) => {
+    const id = address.toLowerCase();
+    if (tokens.has(id)) return tokens.get(id);
+    const old = previous.find((p) => p.address.toLowerCase() === id && p.metadataVerified);
+    const name = old?.name || await read(address, "name"), symbol = old?.symbol || await read(address, "symbol"), decimals = Number(await read(address, "decimals"));
+    let supply = null;
+    try {
+      supply = (await read(address, "totalSupply")).toString();
+    } catch {
+    }
+    const value = { name: clean2(name), symbol: clean2(symbol).slice(0, 24), decimals, totalSupply: supply, metadataVerified: true };
+    tokens.set(id, value);
+    return value;
+  };
+  for (const p of chosen.values()) {
+    try {
+      const expected = keccak256(encodeAbiParameters([{ type: "address" }, { type: "address" }, { type: "uint24" }, { type: "int24" }, { type: "address" }], [p.key.currency0, p.key.currency1, p.key.fee, p.key.tickSpacing, p.key.hooks]));
+      if (expected.toLowerCase() !== p.poolId.toLowerCase()) throw Error("Pool key mismatch");
+      const slot = keccak256(encodeAbiParameters([{ type: "bytes32" }, { type: "uint256" }], [p.poolId, 6n]));
+      const words = await read(p.manager, "extsload", [slot, 4n]);
+      const sqrtPriceX96 = BigInt(words[0]) & (1n << 160n) - 1n, liquidity = BigInt(words[3]) & (1n << 128n) - 1n;
+      if (!liquidity) {
+        empty++;
+        if (p.provenance?.kind === "platform") result.push({ ...p, stale: false, price: null, fdv: null, activeDepth: null, activeLiquidity: "0", observedVolume: null, volume: null, cap: null, change: null, series: [], stateBlock: block, checkedAt: (/* @__PURE__ */ new Date()).toISOString() });
+        continue;
+      }
+      const m = await meta(p.address), tokenIs0 = p.address.toLowerCase() === p.key.currency0.toLowerCase(), quote = tokenIs0 ? p.key.currency1 : p.key.currency0;
+      const quoteDecimals = quote.toLowerCase() === zero ? 18 : Number(await read(quote, "decimals"));
+      const quoteSymbol = quote.toLowerCase() === zero ? "HYPE" : quote.toLowerCase() === manifest.whype.toLowerCase() ? "WHYPE" : clean2(await read(quote, "symbol"));
+      const metrics = poolMetrics({ sqrtPriceX96, liquidity, tokenIs0, tokenDecimals: m.decimals, quoteDecimals, supply: m.totalSupply });
+      if (!metrics.price) throw Error("Invalid live state");
+      const a = activity.get(poolIdentity(p));
+      const observedVolume = window.complete ? Number(a ? tokenIs0 ? a.amount1 : a.amount0 : 0n) / 10 ** quoteDecimals : null;
+      const old = previous.find((r) => r.address.toLowerCase() === p.address.toLowerCase());
+      result.push({ ...p, ...m, ...metrics, stale: false, chain: "elysium", unit: quoteSymbol, pair: `${m.symbol} / ${quoteSymbol}`, quoteAddress: quote, quoteDecimals, cap: null, volume: null, change: null, holders: null, series: [], observedVolume, volumeWindow: window, activeLiquidity: liquidity.toString(), sqrtPriceX96: sqrtPriceX96.toString(), stateBlock: block, checkedAt: (/* @__PURE__ */ new Date()).toISOString(), image: old?.image || "", imageCandidates: old?.imageCandidates || [], provenance: p.provenance?.kind === "platform" ? p.provenance : { kind: "market", verified: true, source: "Pinned canonical manager runtime; pool key matched to Initialize; current extsload state at confirmed block", transactionHash: p.transactionHash, block: p.block } });
+    } catch {
+      failed++;
+      failedIdentities.add(p.address.toLowerCase());
+    }
+    await new Promise((r) => setTimeout(r, 100));
+  }
+  let metadataProbes = 0;
+  for (const row of result) {
+    const old = previous.find((r) => r.address.toLowerCase() === row.address.toLowerCase());
+    if (old?.metadataCheckedAt && Date.now() - Date.parse(old.metadataCheckedAt) < 216e5) {
+      row.metadataUri = old.metadataUri;
+      row.metadataCheckedAt = old.metadataCheckedAt;
+      continue;
+    }
+    if (row.imageCandidates?.length || row.price == null) continue;
+    if (metadataProbes >= 24 || calls > 436) break;
+    metadataProbes++;
+    for (const getter of ["tokenURI", "metadataURI"]) try {
+      const uri = await read(row.address, getter);
+      if (/^https:\/\//.test(uri) || uri.startsWith("ipfs://")) {
+        row.metadataUri = uri;
+        break;
+      }
+    } catch {
+    }
+    row.metadataCheckedAt = (/* @__PURE__ */ new Date()).toISOString();
+  }
+  if (failed) warnings.push(`${failed} candidate pool reads failed or had unsupported state; prior priced records retained as stale.`);
+  const grouped = groupPools(result);
+  if (failed) for (const old of previous.filter((r) => r.price > 0 && failedIdentities.has(r.address.toLowerCase()) && !grouped.some((x) => x.address.toLowerCase() === r.address.toLowerCase()))) grouped.push({ ...old, stale: true });
+  return { rows: grouped, source: { status: warnings.length ? "partial-error" : "partial", complete: false, count: grouped.length, priced: grouped.filter((r) => r.price > 0).length, authenticatedManagers: supported.length, excludedPools, observedCandidates: known.size, examinedPools: chosen.size, liquidPools: result.filter((r) => r.price > 0).length, emptyPools: empty, failedPools: failed, readCalls: calls, limit: 60, checkedAt: (/* @__PURE__ */ new Date()).toISOString(), history: window, warnings, coverage: "Up to 60 active/recent pools from four runtime-authenticated managers, ranked by observed trading activity; one token row with the deepest observed active pool selected. Price and FDV use confirmed pool state and token supply. Active depth is virtual quote liquidity, not TVL. Window volume is selected-pool volume only; no 24h change claimed." } };
+}
+
 // source/discovery.mjs
 var launchAbi = parseAbi(["event Launched(address indexed token,address indexed creator,address indexed pair,bytes32 poolId,uint256 supply,uint256 openingMarketCap,uint16 feeBps)"]);
 var initAbi = parseAbi(["event Initialize(bytes32 indexed id,address indexed currency0,address indexed currency1,uint24 fee,int24 tickSpacing,address hooks,uint160 sqrtPriceX96,int24 tick)"]);
@@ -3620,7 +3844,7 @@ var initTopic = encodeEventTopics({ abi: initAbi, eventName: "Initialize" })[0];
 var ZERO = "0x0000000000000000000000000000000000000000";
 var ECOSYSTEM = "CsMF3EMEVm9ow925mtFVwnAvTYUgckcQJrFUWEFMpump";
 var sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-var clean2 = (s, n = 80) => String(s || "").replace(/[\u0000-\u001f\u007f\u202a-\u202e]/g, "").slice(0, n);
+var clean3 = (s, n = 80) => String(s || "").replace(/[\u0000-\u001f\u007f\u202a-\u202e]/g, "").slice(0, n);
 var emptyRow = (chain, address) => ({ chain, address, name: address, symbol: address.slice(0, 8), price: null, volume: null, cap: null, change: null, holders: null, series: [], unit: chain === "solana" ? "USD" : "HYPE", pair: "" });
 async function createMarketDiscovery({ env = process.env, manifest, fetcher = fetch, apiBase = `http://127.0.0.1:${env.PORT || 3e3}`, seedPath = new URL("./discovery-seed.json", import.meta.url), autoStart = true, decodeMessage, getCachedArtwork, metadataAddress }) {
   const dir = path3.join(env.PAD_DATA_DIR || "./data", "discovery"), file = path3.join(dir, "verified-markets.json");
@@ -3650,6 +3874,7 @@ async function createMarketDiscovery({ env = process.env, manifest, fetcher = fe
         if (out.result === void 0) throw Error("RPC result missing");
         return out.result;
       } catch (e) {
+        if (/execution reverted|revert/i.test(e.message)) throw e;
         error = e;
         provider++;
         await sleep(Math.min(250 * 2 ** i, 2e3));
@@ -3670,7 +3895,7 @@ async function createMarketDiscovery({ env = process.env, manifest, fetcher = fe
       const result = await rpc("eth_call", [{ to: address, data: encodeFunctionData({ abi: tokenAbi, functionName: name }) }, "latest"]);
       values[name] = decodeFunctionResult({ abi: tokenAbi, functionName: name, data: result });
     }
-    return { name: clean2(values.name), symbol: clean2(values.symbol, 24), decimals: Number(values.decimals), metadataVerified: true };
+    return { name: clean3(values.name), symbol: clean3(values.symbol, 24), decimals: Number(values.decimals), metadataVerified: true };
   }
   async function evm() {
     const chain = Number(BigInt(await rpc("eth_chainId", [])));
@@ -3701,7 +3926,7 @@ async function createMarketDiscovery({ env = process.env, manifest, fetcher = fe
           meta = await metadata(a.token);
         } catch {
         }
-        launchRows.push({ ...emptyRow("elysium", a.token), ...meta, pair: a.pair, poolId: a.poolId, provenance: { kind: "platform", verified: true, source: "Authorized HypurrLabs launcher event", launcher: manifest.carbon.launcher, transactionHash: log.transactionHash, block: item.block } });
+        launchRows.push({ ...emptyRow("elysium", a.token), ...meta, pair: a.pair, poolId: a.poolId, manager: manifest.carbon.poolManager, key, provenance: { kind: "platform", verified: true, source: "Authorized HypurrLabs launcher event", launcher: manifest.carbon.launcher, transactionHash: log.transactionHash, block: item.block } });
       }
       state.cursor = end;
       state.rows = mergeMarkets(state.rows, launchRows);
@@ -3709,7 +3934,7 @@ async function createMarketDiscovery({ env = process.env, manifest, fetcher = fe
       await sleep(150);
     }
     state.sources.platformEvm = { status: "complete", complete: true, count: state.launches.length, fromBlock: manifest.carbon.deployBlock, throughBlock: to, head, confirmations: 64, checkedAt: (/* @__PURE__ */ new Date()).toISOString() };
-    if (state.sources.evmMarkets?.checkedAt && Date.now() - Date.parse(state.sources.evmMarkets.checkedAt) < 3e5) return;
+    if (state.sources.evmMarkets?.authenticatedManagers > 0 && state.sources.evmMarkets?.checkedAt && Date.now() - Date.parse(state.sources.evmMarkets.checkedAt) < 3e5) return;
     const marketFrom = Math.max(0, to - 2e5), pools = /* @__PURE__ */ new Map();
     try {
       for (let block = marketFrom; block <= to; block += 5e4) {
@@ -3719,31 +3944,28 @@ async function createMarketDiscovery({ env = process.env, manifest, fetcher = fe
           const { args: a } = decodeEventLog({ abi: initAbi, data: log.data, topics: log.topics });
           const native = [ZERO, manifest.whype.toLowerCase()];
           const address = native.includes(a.currency0.toLowerCase()) ? a.currency1 : native.includes(a.currency1.toLowerCase()) ? a.currency0 : null;
-          if (address && !native.includes(address.toLowerCase())) pools.set(address.toLowerCase(), { address, poolId: a.id, manager: log.address, block: Number(BigInt(log.blockNumber)), transactionHash: log.transactionHash, key: { currency0: a.currency0, currency1: a.currency1, fee: a.fee, tickSpacing: a.tickSpacing, hooks: a.hooks } });
+          if (address && !native.includes(address.toLowerCase())) pools.set(log.address.toLowerCase() + ":" + a.id, { address, poolId: a.id, manager: log.address, block: Number(BigInt(log.blockNumber)), transactionHash: log.transactionHash, key: { currency0: a.currency0, currency1: a.currency1, fee: a.fee, tickSpacing: a.tickSpacing, hooks: a.hooks } });
         }
         await sleep(150);
       }
-      const candidates = [...pools.values()].sort((a, b) => b.block - a.block).slice(0, 30), rows = [];
-      let missingMetadata = 0;
-      for (const pool of candidates) {
-        let meta = {};
-        try {
-          meta = await metadata(pool.address);
-        } catch {
-          missingMetadata++;
-        }
-        rows.push({ ...emptyRow("elysium", pool.address), ...meta, pair: "HYPE / WHYPE", poolId: pool.poolId, manager: pool.manager, key: pool.key, provenance: { kind: "market", verified: true, source: "V4 pool initialization event (not platform launch)", transactionHash: pool.transactionHash, block: pool.block } });
+      const enriched = await priceEvmMarkets({ rpc, manifest, pools: [...pools.values()], previous: state.rows.filter((r) => r.chain === "elysium"), block: to, fetcher });
+      const rows = enriched.rows;
+      try {
+        const coins = await json(apiBase + "/api/purrlysium/coins");
+        for (const row of rows) if (coins.coins?.[row.address.toLowerCase()]?.image) row.image = "/purrlysium/img/" + row.address.toLowerCase();
+      } catch {
       }
       state.rows = mergeMarkets(state.rows.filter((r) => r.chain !== "elysium" || r.provenance?.kind === "platform"), rows);
-      state.sources.evmMarkets = { status: "partial", complete: false, count: rows.length, observedCandidates: pools.size, limit: 30, fromBlock: marketFrom, throughBlock: to, missingMetadata, checkedAt: (/* @__PURE__ */ new Date()).toISOString(), coverage: "Latest 30 native/WHYPE V4 pools initialized in the last 200,000 confirmed blocks; metrics unavailable until indexed." };
+      state.sources.evmMarkets = { ...enriched.source, fromBlock: marketFrom, throughBlock: to };
     } catch (e) {
       state.sources.evmMarkets = sourceFailure(state.sources.evmMarkets, "Elysium wider discovery provider unavailable");
+      state.rows = state.rows.map((r) => r.chain === "elysium" ? { ...r, stale: true } : r);
     }
   }
   function dexRow(pair, mint, provenance) {
     const token = pair.baseToken;
     if (pair.chainId !== "solana" || token?.address !== mint) return null;
-    return { ...emptyRow("solana", mint), name: clean2(token.name), symbol: clean2(token.symbol, 24), image: pair.info?.imageUrl || "", pair: pair.quoteToken?.symbol || "", price: pair.priceUsd == null ? null : Number(pair.priceUsd), volume: pair.volume?.h24 ?? null, cap: pair.marketCap ?? null, change: pair.priceChange?.h24 ?? null, original: { mint, name: clean2(token.name), symbol: clean2(token.symbol), quoteSymbol: pair.quoteToken?.symbol, priceUsd: pair.priceUsd, marketCapUsd: pair.marketCap, volume24hUsd: pair.volume?.h24, change24h: pair.priceChange?.h24, pairAddress: pair.pairAddress }, provenance };
+    return { ...emptyRow("solana", mint), name: clean3(token.name), symbol: clean3(token.symbol, 24), image: pair.info?.imageUrl || "", pair: pair.quoteToken?.symbol || "", price: pair.priceUsd == null ? null : Number(pair.priceUsd), volume: pair.volume?.h24 ?? null, cap: pair.marketCap ?? null, change: pair.priceChange?.h24 ?? null, original: { mint, name: clean3(token.name), symbol: clean3(token.symbol), quoteSymbol: pair.quoteToken?.symbol, priceUsd: pair.priceUsd, marketCapUsd: pair.marketCap, volume24hUsd: pair.volume?.h24, change24h: pair.priceChange?.h24, pairAddress: pair.pairAddress }, provenance };
   }
   async function mintMarket(mint, provenance) {
     let pairs;
@@ -3845,9 +4067,10 @@ async function createMarketDiscovery({ env = process.env, manifest, fetcher = fe
     const data = await json(env.PURRLYSIUM_SOLANA_RPC_URL || "https://api.mainnet-beta.solana.com", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "getMultipleAccounts", params: [addresses, { encoding, commitment: "confirmed" }] }) });
     return data.result.value;
   } });
+  const evmArtwork = createArtwork({ env, chain: "elysium", directory: path3.join(dir, "evm-artwork"), getRows: () => state.rows, fetcher });
   const snapshot = () => {
     const sources = Object.fromEntries(Object.entries(state.sources).map(([name, s]) => [name, s.checkedAt && Date.now() - Date.parse(s.checkedAt) > 6e5 ? { ...s, status: "stale", complete: false } : s]));
-    return { version: 1, rows: mergeMarkets(state.rows).map((row) => ({ ...row, image: imageRoute(row) })), artwork: artwork.status(), sources, launches: state.launches, checkedAt: state.checkedAt || null, partial: true, complete: false, refreshing: busy, coverageNote: "Platform provenance first, then ecosystem and bounded wider markets. " + sourceNote(sources) };
+    return { version: 1, rows: mergeMarkets(state.rows).map((row) => ({ ...row, stale: row.stale || row.chain === "elysium" && row.checkedAt && Date.now() - Date.parse(row.checkedAt) > 6e5, image: imageRoute(row) })), artwork: artwork.status(), evmArtwork: evmArtwork.status(), sources, launches: state.launches, checkedAt: state.checkedAt || null, partial: true, complete: false, refreshing: busy, coverageNote: "Platform provenance first, then ecosystem and bounded wider markets. " + sourceNote(sources) };
   };
   let timer;
   if (autoStart) {
@@ -3861,10 +4084,12 @@ async function createMarketDiscovery({ env = process.env, manifest, fetcher = fe
     }, 2e3);
     timer.unref?.();
   }
-  return { snapshot, refresh, exportState: () => state, artwork, close: () => clearInterval(timer) };
+  return { snapshot, refresh, exportState: () => state, artwork, evmArtwork, close: () => clearInterval(timer) };
 }
 export {
   createMarketDiscovery,
+  matchesManager,
+  priceEvmMarkets,
   recordPumpBuild
 };
 /*! Bundled license information:

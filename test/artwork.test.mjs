@@ -37,3 +37,10 @@ test('on-chain Token-2022 image fallback works with Jupiter and Pump unavailable
  const result=(await service.resolve([{mint,image:null}])).get(mint);
  assert.equal(result.source,'on-chain metadata');assert.ok(result.images[0].startsWith('https://ipfs.filebase.io/ipfs/'));assert.equal(service.status().jupiterKeyConfigured,false);
 });
+test('Elysium artwork resolves only discovered on-chain metadata URI and caches raster bytes',async()=>{
+ const address='0x'+'1'.repeat(40),directory=await mkdtemp(path.join(tmpdir(),'evm-art-'));
+ const cid='bafkreiaiz3zrcb5izi4vhva2bgdzztwt64bxkfjt6gdwnkgvtq7bjqdcge';
+ const row={chain:'elysium',address,metadataUri:'ipfs://'+cid};const seen=[];
+ const service=createArtwork({env:{},chain:'elysium',directory,getRows:()=>[row],resolveHost,fetcher:async u=>{seen.push(u);return u.includes('/ipfs/')?new Response(JSON.stringify({image:'https://cdn.dexscreener.com/token.png'})):new Response(png);}});
+ try{assert.equal(imageRoute(row),'/api/discovery/art/elysium/'+address);assert.equal((await service.get(address)).type,'image/png');assert.equal(await service.get('0x'+'2'.repeat(40)),null);assert.equal(seen.length,2);}finally{await rm(directory,{recursive:true,force:true});}
+});

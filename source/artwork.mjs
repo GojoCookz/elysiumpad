@@ -12,8 +12,8 @@ export function imageType(bytes){
  if(bytes.subarray(0,4).toString()==='RIFF'&&bytes.subarray(8,12).toString()==='WEBP')return 'image/webp';
  return null;
 }
-export const imageRoute=row=>row.chain==='solana'?`/api/discovery/art/solana/${row.address}`:row.image||'';
-export function createArtwork({env,directory,getRows,getCachedArtwork=()=>null,getAccounts,metadataAddress,fetcher=fetch,resolveHost}){
+export const imageRoute=row=>row.chain==='solana'?`/api/discovery/art/solana/${row.address}`:row.image?.startsWith('/purrlysium/img/')?row.image:row.metadataUri||row.imageCandidates?.length?`/api/discovery/art/elysium/${row.address.toLowerCase()}`:'';
+export function createArtwork({env,directory,getRows,getCachedArtwork=()=>null,getAccounts,metadataAddress,fetcher=fetch,resolveHost,chain='solana'}){
  const extraHosts=new Set();
  for(const row of getRows())for(const url of getCachedArtwork(row.address)?.urls||[])try{extraHosts.add(new URL(url).hostname);}catch{}
  const allowed=u=>allowedArtworkURL(u,extraHosts);
@@ -36,19 +36,29 @@ export function createArtwork({env,directory,getRows,getCachedArtwork=()=>null,g
   }throw Error('Too many artwork redirects');
  }
  async function load(mint){
-  const row=getRows().find(r=>r.chain==='solana'&&r.address===mint);if(!row)return null;
+  const row=getRows().find(r=>r.chain===chain&&(chain==='elysium'?r.address.toLowerCase()===mint:r.address===mint));if(!row)return null;
   const file=path.join(directory,mint+'.img');
   try{const body=await readFile(file),type=imageType(body);if(type&&body.length<=2000000)return{body,type};}catch{}
   const direct=[row.image,...row.imageCandidates||[],...getCachedArtwork(mint)?.urls||[]].filter(u=>typeof u==='string'&&u.startsWith('https:'));
   let candidates=[...new Set(direct.flatMap(u=>artworkCandidates(u)))].filter(allowed).slice(0,4);
   for(const url of candidates)try{const out=await download(url);await mkdir(directory,{recursive:true});await writeFile(file,out.body);return out;}catch{}
-  const resolved=(await metadataBatch(mint)).get(mint);
+  let resolved;
+  if(chain==='solana')resolved=(await metadataBatch(mint)).get(mint);
+  else if(row.metadataUri){
+   for(const url of artworkCandidates(row.metadataUri).filter(allowed).slice(0,2))try{
+    if(!await isPublicHttps(url,resolveHost))continue;
+    const response=await fetcher(url,{redirect:'error',signal:AbortSignal.timeout(5000)});if(!response.ok)continue;
+    const reader=response.body.getReader(),chunks=[];let size=0;
+    for(;;){const{done,value}=await reader.read();if(done)break;size+=value.length;if(size>64000){await reader.cancel();throw Error('Metadata too large');}chunks.push(value);}
+    const json=JSON.parse(Buffer.concat(chunks).toString('utf8'));resolved={images:artworkCandidates(json.image||json.image_url||'')};break;
+   }catch{}
+  }
   candidates=[...new Set(resolved?.images||[])].filter(allowed).slice(0,4);
   for(const url of candidates)try{const out=await download(url);await mkdir(directory,{recursive:true});await writeFile(file,out.body);return out;}catch{}
   return null;
  }
  async function get(mint){
-  if(!/^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(mint)||!getRows().some(r=>r.chain==='solana'&&r.address===mint))return null;
+  if(!(chain==='solana'?/^[1-9A-HJ-NP-Za-km-z]{32,44}$/:/^0x[0-9a-f]{40}$/).test(mint)||!getRows().some(r=>r.chain===chain&&(chain==='elysium'?r.address.toLowerCase()===mint:r.address===mint)))return null;
   const prior=cache.get(mint);if(prior&&Date.now()<prior.until)return prior.asset;
   if(pending.has(mint))return pending.get(mint);
   const promise=(async()=>{await acquire();try{const asset=await load(mint);cache.set(mint,{asset,until:Date.now()+(asset?21600000:120000)});if(cache.size>100)cache.delete(cache.keys().next().value);return asset;}finally{release();pending.delete(mint);}})();pending.set(mint,promise);return promise;
